@@ -1,12 +1,12 @@
 CFLAGS = -Wall
 
-all: hw
+all: hw0wc
 	
-hw.o: hw.c
-	gcc -c hw.c
+hw0wc.o: hw0wc.c
+	gcc -c hw0wc.c
 
-hw: hw.o
-	gcc -o hw hw.o
+hw0wc: hw0wc.o
+	gcc -o hw0wc hw0wc.o
 
 clean:
-	rm -f *.o hw
+	rm -f *.o hw0wc

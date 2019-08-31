@@ -1,7 +1,6 @@
 /*
  * Joseph Camacho-Terrazas
  * Lab 1
- * hw0wc.c
  * CS 370
  */
 
@@ -72,10 +71,7 @@ int processLine(FILE *file) {
 		fgets(line, sizeof(line), file);
 		//increment lineCount
 		lineCount++;
-		if (ch == '\n') {
-			lineCount++;
-		}
-		//delimiters used to count words
+		if (ch == '\n') { lineCount++;}		//delimiters used to count words
 	    word = strtok(line, " \t\n\r");
 	    //loop through the array and count the tokens
 	    while (word != NULL) {
