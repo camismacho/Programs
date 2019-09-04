@@ -38,11 +38,11 @@ void nontermS() {
 
 void nontermBNum() {
 	switch(lookahead) {
-	case '0':
+	case 0:
 		match(0);
 		nontermBNum();
 		break;
-	case '1':
+	case 1:
 		match(1);
 		nontermBNum();
 		break;

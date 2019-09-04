@@ -23,7 +23,7 @@ int main (int argc, char **argv) {
 
 void match(char terminal) {
 	if (lookahead == terminal) {
-		lookahead == getchar();
+		lookahead = getchar();
 	}
 	else {
 		printf ("Syntax error! (%c)\n", lookahead);
