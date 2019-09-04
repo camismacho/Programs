@@ -7,11 +7,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char lookahead;
-void match(char terminal);
+int lookahead;
+void match(int terminal);
 void nontermS();
-void nontermA();
-void nontermB();
+void nontermBNum();
 
 int main (int argc, char **argv) {
 	lookahead = getchar();
@@ -21,43 +20,35 @@ int main (int argc, char **argv) {
 	} while (lookahead != EOF);
 }
 
-void match(char terminal) {
+void match(int terminal) {
 	if (lookahead == terminal) {
-		lookahead == getchar();
+		lookahead = getchar();
 	}
 	else {
-		printf ("Syntax error! (%c)\n", lookahead);
+		printf("Syntax Error! (%c)\n", lookahead);
 		exit(0);
 	}
 }
 
 void nontermS() {
-	nontermA();
-	nontermB();
+	nontermBNum();
 	match('\n');
 	printf("Matched!\n");
 }
 
-void nontermA() {
+void nontermBNum() {
 	switch(lookahead) {
-	case 'a':
-		match('a');
-		nontermA();
-		nontermB();
+	case '0':
+		match(0);
+		nontermBNum();
+		break;
+	case '1':
+		match(1);
+		nontermBNum();
 		break;
 	default:
 		break;
 	}
 }
 
-void nontermB() {
-	switch(lookahead) {
-	case 'b':
-		match('b');
-		nontermA();
-		nontermB();
-		break;
-	default:
-		break;
-	}
-}
+
