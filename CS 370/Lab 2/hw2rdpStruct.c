@@ -52,11 +52,9 @@ void nontermS() {
 	//begin searching for grammar
 	count = nontermA(count);
 	count = nontermB(count);
-	//print out message upon successful match
-	//placed before match('\n') for neater output
-	printf("Matched! # of A's: %d  # of B's: %d \n", count.countA, count.countB);
 	match('\n', count);
-
+	//print out message upon successful match
+	printf("Matched! # of A's: %d  # of B's: %d \n", count.countA, count.countB);
 	//reset A and B counters for next line
 	count.countA = 0;
 	count.countB = 0;
