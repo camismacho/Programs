@@ -9,7 +9,7 @@
 //global variable
 char lookahead;
 
-//define struct type to count A's and B's and monitor position
+//define structure type to count A's and B's and monitor position
 struct countAB {
 	int countA, countB, position;
 };
@@ -56,7 +56,6 @@ void nontermS() {
 	//placed before match('\n') for neater output
 	printf("Matched! # of A's: %d  # of B's: %d \n", count.countA, count.countB);
 	match('\n', count);
-
 	//reset A and B counters for next line
 	count.countA = 0;
 	count.countB = 0;
@@ -70,7 +69,6 @@ Struct nontermA(Struct counter) {
 		counter.countA++;
 		counter.position++;
 		counter = nontermA(counter);
-		counter = nontermB(counter);
 		break;
 	//default case for empty
 	default:
@@ -86,7 +84,6 @@ Struct nontermB(Struct counter) {
 		match('b', counter);
 		counter.countB++;
 		counter.position++;
-		counter = nontermA(counter);
 		counter = nontermB(counter);
 		break;
 	//default case for empty
