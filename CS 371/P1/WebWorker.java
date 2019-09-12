@@ -26,6 +26,7 @@ import java.io.*;
 import java.util.Date;
 import java.text.DateFormat;
 import java.util.TimeZone;
+import java.util.*;
 
 public class WebWorker implements Runnable
 {
@@ -52,9 +53,10 @@ public void run()
    try {
       InputStream  is = socket.getInputStream();
       OutputStream os = socket.getOutputStream();
-      readHTTPRequest(is);
+      //readHTTPRequest(is);
       writeHTTPHeader(os,"text/html");
-      writeContent(os);
+      readHTTPRequest(is);
+      //writeContent(os);
       os.flush();
       socket.close();
    } catch (Exception e) {
@@ -69,38 +71,89 @@ public void run()
 **/
 private void readHTTPRequest(InputStream is) //probably need to modify this for P1
 {
-   String line;
-   BufferedReader r = new BufferedReader(new InputStreamReader(is));
-   
-   try {
-	   
-   }
-	   
-   
-   
-   
-   
-   
-   while (true) {
-      try {
-         while (!r.ready()) Thread.sleep(1);
-         line = r.readLine();
-         System.err.println("Request line: ("+line+")"); //<----Might need  to do somthing here
-         if (line.length()==0) break;
-      } catch (Exception e) {
-         System.err.println("Request error: "+e);
-         break;
-      }
-   }
-   return;
+	try {
+
+	      // Open connections to the socket
+	      BufferedReader in = new BufferedReader(new InputStreamReader(is));
+	      PrintStream out = new PrintStream(new BufferedOutputStream(socket.getOutputStream()));
+
+	      // Read filename from first input line "GET /filename.html ..."
+	      // or if not in this format, treat as a file not found.
+	      String s=in.readLine();
+	      System.out.println(s);  // Log the request
+
+	      // Attempt to serve the file.  Catch FileNotFoundException and
+	      // return an HTTP error "404 Not Found".  Treat invalid requests
+	      // the same way.
+	      String filename = "";
+	      StringTokenizer st = new StringTokenizer(s);
+	      try {
+
+	        // Parse the filename from the GET command
+	        if (st.hasMoreElements() && st.nextToken().equalsIgnoreCase("GET")
+	            && st.hasMoreElements())
+	          filename=st.nextToken();
+	        else
+	          throw new FileNotFoundException();  // Bad request
+
+	        // Append trailing "/" with "index.html"
+	        if (filename.endsWith("/"))
+	          filename+="index.html";
+
+	        // Remove leading / from filename
+	        while (filename.indexOf("/")==0)
+	          filename=filename.substring(1);
+
+	        // Replace "/" with "\" in path for PC-based servers
+	        filename=filename.replace('/', File.separator.charAt(0));
+
+	        // Check for illegal characters to prevent access to superdirectories
+	        if (filename.indexOf("..")>=0 || filename.indexOf(':')>=0
+	            || filename.indexOf('|')>=0)
+	          throw new FileNotFoundException();
+
+	        // If a directory is requested and the trailing / is missing,
+	        // send the client an HTTP request to append it.  (This is
+	        // necessary for relative links to work correctly in the client).
+	        if (new File(filename).isDirectory()) {
+	          filename=filename.replace('\\', '/');
+	          out.print("HTTP/1.0 301 Moved Permanently\r\n"+
+	            "Location: /"+filename+"/\r\n\r\n");
+	          out.close();
+	          return;
+	        }
+
+	        // Open the file (may throw FileNotFoundException)
+	        InputStream f=new FileInputStream(filename);
+
+	        // Send file contents to client, then close the connection
+	        byte[] a=new byte[4096];
+	        int n;
+	        while ((n=f.read(a))>0)
+	          out.write(a, 0, n);
+	        out.close();
+	      }
+	      catch (FileNotFoundException x) {
+	        out.println("HTTP/1.0 404 Not Found\r\n"+
+	          "Content-type: text/html\r\n\r\n"+
+	          "<html><head></head><body>"+filename+" not found</body></html>\n");
+	        out.close();
+	      }
+	    }
+	    catch (IOException x) {
+	      System.out.println(x);
+	    }
+	return;
 }
+	   
+   
 
 /**
 * Write the HTTP header lines to the client network connection.
 * @param os is the OutputStream object to write to
 * @param contentType is the string MIME content type (e.g. "text/html")
 **/
-private void writeHTTPHeader(OutputStream os, String contentType) throws Exception //probably gonna need to modify this function too
+private void writeHTTPHeader(OutputStream os, String contentType) throws Exception 
 {
    Date d = new Date();
    DateFormat df = DateFormat.getDateTimeInstance();
