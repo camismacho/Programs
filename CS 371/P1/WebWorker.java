@@ -71,6 +71,16 @@ private void readHTTPRequest(InputStream is) //probably need to modify this for 
 {
    String line;
    BufferedReader r = new BufferedReader(new InputStreamReader(is));
+   
+   try {
+	   
+   }
+	   
+   
+   
+   
+   
+   
    while (true) {
       try {
          while (!r.ready()) Thread.sleep(1);
