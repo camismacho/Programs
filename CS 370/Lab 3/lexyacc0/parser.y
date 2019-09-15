@@ -16,12 +16,12 @@ int yylex(void);
 %union { int ival; char* str; }
 
 /* Starting non-terminal */
-%start all
-%type <str> phrases
+%start prog
+%type <str> function statements statement funcall
 
 /* Token types */
-%token <ival> NUMBER PLUS
-%token <str> OTHER
+%token <ival> NUMBER COMMA SEMICOLON LPAREN RPAREN LBRACE RBRACE
+%token <str> ID STRING
 
 %%
 /******* Rules *******/
