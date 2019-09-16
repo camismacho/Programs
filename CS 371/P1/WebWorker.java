@@ -49,68 +49,57 @@ import java.util.TimeZone;
     **/
     public void run()
     {
-        String urlAddress;
-        String contentType;  //.gif   .jpg   .png   .ico
-
+        String url = "";;
+        
         System.err.println("Handling connection...");
         try {
             InputStream  is = socket.getInputStream();
             OutputStream os = socket.getOutputStream();
-            urlAddress = readHTTPRequest( is );
-            System.out.println( urlAddress );  //debugging
-            //finding out what type of image it is
-            /*if ( urlAddress.contains( ".gif" ) )
-                contentType = "image/gif";
-            else if ( urlAddress.contains( ".jpg" ) )
-                contentType = "image/jpeg";
-            else if ( urlAddress.contains(".png") )
-                contentType = "image/png";
-            else if ( urlAddress.contains( ".ico" ) )
-                contentType = "image/x-icon";
-            else*/
-                contentType = "text/html";
+            url = readHTTPRequest(is);
+            System.out.println(url);
+            
             //send the contentType and urlAddress to writeHTTPHeader/ writeContent
-            writeHTTPHeader( os , contentType , urlAddress );  
-            writeContent( os , contentType , urlAddress );
+            writeHTTPHeader(os, "text/html", url);  
+            writeContent(os, "text/html", url);
             os.flush();
             socket.close();
-        } catch ( Exception e ) {
-            System.err.println( "Output error: " + e );
+        } catch (Exception e) {
+            System.err.println("Output error: " + e);
         }
-        System.err.println( "Done handling connection." );
+        System.err.println("Done handling connection.");
         return;
     }
 
     /**
     * Read the HTTP request header.
     **/
-    private String readHTTPRequest( InputStream is )
+    private String readHTTPRequest(InputStream is)
     {
         String line;
-        BufferedReader r = new BufferedReader( new InputStreamReader( is ) );
+        BufferedReader r = new BufferedReader(new InputStreamReader(is));
 
-        String urlAddress = "";
+        String url = "";
 
-        while ( true ) {
+        while (true) {
             try {
-                while ( !r.ready() ) Thread.sleep( 1 );
+                while (!r.ready()) Thread.sleep(1);
                 line = r.readLine();
-                if ( line.contains( "GET " ) ) {
-                    urlAddress = line.substring( 4 ); //get rid of http from url string
-                    for( int i = 0 ; i < urlAddress.length() ; i++ ) {
-                        if ( urlAddress.charAt( i ) == ' ' )
-                            urlAddress = urlAddress.substring(0 , i );
+                if (line.contains("GET ")) {
+                    url = line.substring(4); //get rid of http from url string
+                    for(int i = 0; i < url.length(); i++) {
+                        if (url.charAt(i) == ' ')
+                            url = url.substring(0 , i);
                     }//end for
                 }//end if
-                System.err.println( "Request line: (" + line + ")" );
-                if ( line.length() == 0 )
+                System.err.println("Request line: (" + line + ")");
+                if (line.length() == 0)
                     break;
-            } catch ( Exception e ) {
-                System.err.println( "Request error: " + e );
+            } catch (Exception e) {
+                System.err.println("Request error: " + e);
                 break;
             }
         }
-        return urlAddress;
+        return url;
     }
 
     /**
@@ -118,29 +107,29 @@ import java.util.TimeZone;
     * @param os is the OutputStream object to write to
     * @param contentType is the string MIME content type (e.g. "text/html")
     **/
-    private void writeHTTPHeader( OutputStream os , String contentType , String urlAddress ) throws Exception
+    private void writeHTTPHeader(OutputStream os, String contentType, String urlAddress) throws Exception
     {
         Date d = new Date();
         DateFormat df = DateFormat.getDateTimeInstance();
         df.setTimeZone( TimeZone.getTimeZone("GMT") );
         //if the file does not exist change the HTTP status
         try {
-            FileReader file = new FileReader( urlAddress );
-            BufferedReader r = new BufferedReader( file );
-        } catch( FileNotFoundException e ) {
-            System.out.println( "File not found: " + urlAddress );
-            os.write( "HTTP/1.1 404 Not Found\n".getBytes() );
+            FileReader file = new FileReader(urlAddress);
+            BufferedReader r = new BufferedReader(file);
+        } catch(FileNotFoundException e) {
+            System.out.println("File not found: " + urlAddress);
+            os.write("HTTP/1.1 404 Not Found\n".getBytes());
         }
         //otherwise keep the status 200 OK
-        os.write( "HTTP/1.1 200 OK\n".getBytes() );
-        os.write( "Date: ".getBytes());
-        os.write( ( df.format( d ) ).getBytes() );
-        os.write( "\n".getBytes() );
-        os.write( "Server: Joseph's very own server\n".getBytes() );
-        os.write( "Connection: close\n".getBytes() );
-        os.write( "Content-Type: ".getBytes() );
-        os.write( contentType.getBytes() );
-        os.write( "\n\n".getBytes() ); // HTTP header ends with 2 newlines
+        os.write("HTTP/1.1 200 OK\n".getBytes());
+        os.write("Date: ".getBytes());
+        os.write((df.format(d) ).getBytes());
+        os.write("\n".getBytes());
+        os.write("Server: Joseph's very own server\n".getBytes());
+        os.write("Connection: close\n".getBytes());
+        os.write("Content-Type: ".getBytes());
+        os.write(contentType.getBytes());
+        os.write("\n\n".getBytes()); // HTTP header ends with 2 newlines
         return;
     }
 
@@ -149,33 +138,33 @@ import java.util.TimeZone;
     * be done after the HTTP header has been written out.
     * @param os is the OutputStream object to write to
     **/
-    private void writeContent(OutputStream os , String contentType , String urlAddress) throws Exception
+    private void writeContent(OutputStream os, String contentType, String url) throws Exception
     {
         Date d = new Date();
         DateFormat df = DateFormat.getDateTimeInstance();
-        df.setTimeZone(TimeZone.getTimeZone( "GMT" ));
-        String dataContent = "";
-        String urlAddressCopy = "." + urlAddress.substring( 0 , urlAddress.length( ) );
-        String date = df.format( d );
-        File in = new File( urlAddressCopy );
+        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+        String fileContent = "";
+        String urlCopy = "." + url.substring(0, url.length());
+        String date = df.format(d);
+        File in = new File(url);
 
         // handel plain html text
             try{
-                FileReader inRead = new FileReader( in );
-                BufferedReader inBuffer = new BufferedReader( inRead );
-                while( ( dataContent = inBuffer.readLine() ) != null ) {
-                    os.write( dataContent.getBytes() );
-                    os.write( "\n".getBytes());
-                    if ( dataContent.contains( "<cs371date>" ) ) {
-                        os.write( date.getBytes() );
+                FileReader inRead = new FileReader(in);
+                BufferedReader inBuffer = new BufferedReader(inRead);
+                while((fileContent = inBuffer.readLine()) != null) {
+                    os.write(fileContent.getBytes());
+                    os.write("\n".getBytes());
+                    if (fileContent.contains("<cs371date>")) {
+                        os.write(date.getBytes());
                     }
-                    if ( dataContent.contains( "<cs371server>" ) )
-                        os.write( "My Server's ID string\n".getBytes() );
+                    if (fileContent.contains("<cs371server>"))
+                        os.write("Oh Boy A Working Server Yay\n".getBytes());
                 }
                 
             } catch(FileNotFoundException e) {
-                System.err.println( "File not found: " + urlAddress );
-                os.write( "<h1>Error: 404 Not found<h1>\n".getBytes() );
+                System.err.println("File not found: " + url);
+                os.write("<h1>Error: 404 Not found<h1>\n".getBytes());
             }
         
     }
