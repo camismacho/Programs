@@ -112,7 +112,7 @@ import java.util.TimeZone;
         Date d = new Date();
         DateFormat df = DateFormat.getDateTimeInstance();
         df.setTimeZone( TimeZone.getTimeZone("GMT-6") );
-        String urlCopy = "." + url.substring(0, url.length());
+        String urlCopy = "." + url;
         File in = new File(urlCopy);
 
         //if the file does not exist change the HTTP status
@@ -147,7 +147,7 @@ import java.util.TimeZone;
         DateFormat df = DateFormat.getDateTimeInstance();
         df.setTimeZone(TimeZone.getTimeZone("GMT-6"));
         String fileContent = "";
-        String urlCopy = "." + url.substring(0, url.length());
+        String urlCopy = "." + url;
         String date = df.format(d);
         File in = new File(urlCopy);
 
