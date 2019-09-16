@@ -146,7 +146,7 @@ import java.util.TimeZone;
         String fileContent = "";
         String urlCopy = "." + url.substring(0, url.length());
         String date = df.format(d);
-        File in = new File(url);
+        File in = new File(urlCopy);
 
         // handel plain html text
             try{
