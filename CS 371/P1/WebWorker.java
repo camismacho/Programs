@@ -49,7 +49,7 @@ import java.util.TimeZone;
     **/
     public void run()
     {
-        String url = "";;
+        String url = "";
         
         System.err.println("Handling connection...");
         try {
@@ -107,17 +107,20 @@ import java.util.TimeZone;
     * @param os is the OutputStream object to write to
     * @param contentType is the string MIME content type (e.g. "text/html")
     **/
-    private void writeHTTPHeader(OutputStream os, String contentType, String urlAddress) throws Exception
+    private void writeHTTPHeader(OutputStream os, String contentType, String url) throws Exception
     {
         Date d = new Date();
         DateFormat df = DateFormat.getDateTimeInstance();
-        df.setTimeZone( TimeZone.getTimeZone("GMT") );
+        df.setTimeZone( TimeZone.getTimeZone("GMT-6") );
+        String urlCopy = "." + url.substring(0, url.length());
+        File in = new File(urlCopy);
+
         //if the file does not exist change the HTTP status
         try {
-            FileReader file = new FileReader(urlAddress);
+            FileReader file = new FileReader(in);
             BufferedReader r = new BufferedReader(file);
         } catch(FileNotFoundException e) {
-            System.out.println("File not found: " + urlAddress);
+            System.err.println("File not found from write HTTP: " + url);
             os.write("HTTP/1.1 404 Not Found\n".getBytes());
         }
         //otherwise keep the status 200 OK
@@ -142,7 +145,7 @@ import java.util.TimeZone;
     {
         Date d = new Date();
         DateFormat df = DateFormat.getDateTimeInstance();
-        df.setTimeZone(TimeZone.getTimeZone("GMT"));
+        df.setTimeZone(TimeZone.getTimeZone("GMT-6"));
         String fileContent = "";
         String urlCopy = "." + url.substring(0, url.length());
         String date = df.format(d);
