@@ -49,16 +49,18 @@ import java.util.TimeZone;
     **/
     public void run()
     {
-        String url = "";
+    	//this is the address which will point to the file
+    	String url = "";
         
         System.err.println("Handling connection...");
         try {
             InputStream  is = socket.getInputStream();
             OutputStream os = socket.getOutputStream();
+            //set url String to the http request input and print
             url = readHTTPRequest(is);
-            System.out.println(url);
+            System.err.println("HTTP Request: " + url);
             
-            //send the contentType and urlAddress to writeHTTPHeader/ writeContent
+            //pass the url to write functions
             writeHTTPHeader(os, "text/html", url);  
             writeContent(os, "text/html", url);
             os.flush();
@@ -77,15 +79,18 @@ import java.util.TimeZone;
     {
         String line;
         BufferedReader r = new BufferedReader(new InputStreamReader(is));
-
+        //url is the address of the file
         String url = "";
 
         while (true) {
             try {
                 while (!r.ready()) Thread.sleep(1);
                 line = r.readLine();
+                //if there is a GET request, read url for file address
                 if (line.contains("GET ")) {
-                    url = line.substring(4); //get rid of http from url string
+                	//create a substring that excludes http
+                    url = line.substring(4);
+                    //get rid of whitespace
                     for(int i = 0; i < url.length(); i++) {
                         if (url.charAt(i) == ' ')
                             url = url.substring(0 , i);
@@ -112,18 +117,20 @@ import java.util.TimeZone;
         Date d = new Date();
         DateFormat df = DateFormat.getDateTimeInstance();
         df.setTimeZone( TimeZone.getTimeZone("GMT-6") );
+        //creates a copy of the file address with a "." at the front for proper reading
         String urlCopy = "." + url;
+        //create new file pointing to urlCopy
         File in = new File(urlCopy);
 
-        //if the file does not exist change the HTTP status
+        //if file doesn't exist throw 404
         try {
             FileReader file = new FileReader(in);
             BufferedReader r = new BufferedReader(file);
         } catch(FileNotFoundException e) {
-            System.err.println("File not found from write HTTP: " + url);
+            System.err.println("File not found: " + url);
             os.write("HTTP/1.1 404 Not Found\n".getBytes());
         }
-        //otherwise keep the status 200 OK
+        //else return 200 OK
         os.write("HTTP/1.1 200 OK\n".getBytes());
         os.write("Date: ".getBytes());
         os.write((df.format(d) ).getBytes());
@@ -143,29 +150,35 @@ import java.util.TimeZone;
     **/
     private void writeContent(OutputStream os, String contentType, String url) throws Exception
     {
+    	//copy date declarations for tag replacement
         Date d = new Date();
         DateFormat df = DateFormat.getDateTimeInstance();
         df.setTimeZone(TimeZone.getTimeZone("GMT-6"));
-        String fileContent = "";
-        String urlCopy = "." + url;
         String date = df.format(d);
+        //create a string which contains content of the file
+        String fileContent = "";
+        //urlCopy same as above
+        String urlCopy = "." + url;
+        //new file at urlCopy
         File in = new File(urlCopy);
 
-        // handel plain html text
-            try{
-                FileReader inRead = new FileReader(in);
-                BufferedReader inBuffer = new BufferedReader(inRead);
-                while((fileContent = inBuffer.readLine()) != null) {
-                    os.write(fileContent.getBytes());
-                    os.write("\n".getBytes());
+        //read contents of file and place into fileContent
+        try{
+        	FileReader f = new FileReader(in);
+            BufferedReader r = new BufferedReader(f);
+            while((fileContent = r.readLine()) != null) {
+            	os.write(fileContent.getBytes());
+                	os.write("\n".getBytes());
+                	//if tags are found, replace with date or message
                     if (fileContent.contains("<cs371date>")) {
                         os.write(date.getBytes());
                     }
                     if (fileContent.contains("<cs371server>"))
-                        os.write("Oh Boy A Working Server Yay\n".getBytes());
-                }
-                
-            } catch(FileNotFoundException e) {
+                        os.write("Generic Server Name\n".getBytes());
+            }    
+        } 
+        //if file doesn't exist, throw 404
+        catch(FileNotFoundException e) {
                 System.err.println("File not found: " + url);
                 os.write("<h1>Error: 404 Not found<h1>\n".getBytes());
             }
