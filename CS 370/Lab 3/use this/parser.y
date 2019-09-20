@@ -6,8 +6,8 @@
 // function prototypes from lex
 int yyerror(char *s);
 int yylex(void);
-int addString();
-%}
+int addString(char* input);
+%}  
 
 /* token value data types */
 %union { int ival; char* str; }
