@@ -66,7 +66,7 @@
 
 
 /* First part of user prologue.  */
-#line 27 "parser.y"
+#line 2 "parser.y"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -74,8 +74,9 @@
 // function prototypes from lex
 int yyerror(char *s);
 int yylex(void);
+int addString();
 
-#line 79 "y.tab.c"
+#line 80 "y.tab.c"
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus
@@ -140,10 +141,10 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 37 "parser.y"
+#line 13 "parser.y"
  int ival; char* str; 
 
-#line 147 "y.tab.c"
+#line 148 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -449,7 +450,7 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    50,    50,    55,    62,    69,    71,    76
+       0,    26,    26,    31,    38,    45,    47,    52
 };
 #endif
 
@@ -1230,51 +1231,50 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 51 "parser.y"
+#line 27 "parser.y"
     {
          printf("\t.section\t\t.rodata\n.LC0\n.string \"Hello World!\\n\"\n/t.text\n%s", (yyvsp[0].str));
      }
-#line 1238 "y.tab.c"
+#line 1239 "y.tab.c"
     break;
 
   case 3:
-#line 56 "parser.y"
+#line 32 "parser.y"
     {
 		char *code = (char*) malloc(128);
-		sprintf(code,"\t.globl\t%s\n\t.type\t%s,@function\nmain:\n\tpushq\t\rbp\n\tmovq\trsp, rbp\n\t%s\n\t%s\n\tmovl\t0, eax\n\tpopq\trbp\n\tret\n", (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-1].str), (yyvsp[-1].str));
+		sprintf(code,"\t.globl\t%s\n\t.type\t%s,@function\nmain:\n\tpushq\t\%%rbp\n\tmovq\t%%rsp, %%rbp\n\t%s\n\t%s\n\tmovl\t0, %%eax\n\tpopq\t%%rbp\n\tret\n", (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-1].str), (yyvsp[-1].str));
 		(yyval.str) = code;
 	}
-#line 1248 "y.tab.c"
+#line 1249 "y.tab.c"
     break;
 
   case 4:
-#line 63 "parser.y"
+#line 39 "parser.y"
     {
 		char *code = (char*) malloc(128);
 		strcat(code, (yyvsp[-1].str));
 		(yyval.str) = code;
 	}
-#line 1258 "y.tab.c"
+#line 1259 "y.tab.c"
     break;
 
   case 5:
-#line 69 "parser.y"
+#line 45 "parser.y"
     {}
-#line 1264 "y.tab.c"
+#line 1265 "y.tab.c"
     break;
 
   case 6:
-#line 72 "parser.y"
+#line 48 "parser.y"
     {
 		(yyval.str) = (yyvsp[0].str);
 	}
-#line 1272 "y.tab.c"
+#line 1273 "y.tab.c"
     break;
 
   case 7:
-#line 77 "parser.y"
+#line 53 "parser.y"
     {
-		printf("function call!\n");
 		int sid = addString((yyvsp[-2].str));
 		char *code = (char*) malloc(128);
 		sprintf(code,"\tmovel\t$.LC%d, %%edi\n\tcall\t%s\n", sid, (yyvsp[-4].str));
@@ -1516,7 +1516,8 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 84 "parser.y"
+#line 59 "parser.y"
+
 
 /******* Functions *******/
 extern FILE *yyin; // from lex
@@ -1542,6 +1543,10 @@ int yyerror(char *s)
 int yywrap()
 {
    return(1);
+}
+
+int addString() {
+	return(0);
 }
 
 
