@@ -1,28 +1,3 @@
-/*****
-* Yacc parser for simple example
-*
-* The grammar in this example is:
-* all -> phrases
-* phrases -> <empty>
-* phrases -> phrases NUMBER PLUS NUMBER
-* phrases -> phrases NUMBER
-* phrases -> phrases OTHER
-* 
-* The tokens that come from the scanner are: NUMBER, PLUS, and OTHER. 
-* The scanner skips all whitespace (space, tab, newline, and carriage return).
-* The lexemes of the token NUMBER are strings of digits ('0'-'9'). 
-* The lexeme of PLUS is only a string consisting of the plus symbol ('+').
-* The lexemes of the token OTHER are strings of characters that do not 
-* include whitespace, digits, or the plus symbol.
-* 
-* Given the input "acb 42 +34 52this is", the scanner would produce 
-* the tokens(/lexemes) of:
-* <OTHER,"abc">, <NUMBER,"42">, <PLUS,"+">, <NUMBER,"34">, <NUMBER,"52">,
-* <OTHER,"this">, <OTHER,"is">
-* 
-* and this would match the grammar.
-*****/
-
 /****** Header definitions ******/
 %{
 #include <stdio.h>
@@ -31,7 +6,8 @@
 // function prototypes from lex
 int yyerror(char *s);
 int yylex(void);
-%}
+int addString(char* input);
+%}  
 
 /* token value data types */
 %union { int ival; char* str; }
@@ -47,30 +23,41 @@ int yylex(void);
 %%
 /******* Rules *******/
 
-all: phrases 
+prog: function
      {
-         printf("all : (%s)\n",$1);
+         printf("\t.section\t\t.rodata\n.LC0\n.string \"Hello World!\\n\"\n/t.text\n%s", $1);
      }
 
-phrases: /*empty*/
-       { $$ = "empty"; }
-     | phrases NUMBER PLUS NUMBER 
-       { 
-          printf("ADD %d %d is %d\n",$2,$4,$2+$4);
-          $$ = "add";
-       }
-     | phrases NUMBER 
-       {
-          printf("NUMBER %d\n",$2);
-          $$ = "num";
-       }
-     | phrases OTHER 
-       {
-          printf("OTHER [%s]\n",$2);
-          $$ = "oth";
-       }
-     ;
+function: ID LPAREN RPAREN LBRACE statements RBRACE
+	{
+		char *code = (char*) malloc(128);
+		sprintf(code,"\t.globl\t%s\n\t.type\t%s,@function\nmain:\n\tpushq\t\%%rbp\n\tmovq\t%%rsp, %%rbp\n\t%s\n\t%s\n\tmovl\t0, %%eax\n\tpopq\t%%rbp\n\tret\n", $1, $1, $5, $5);
+		$$ = code;
+	}
+	
+statements: statement statements
+	{
+		char *code = (char*) malloc(128);
+		strcat(code, $1);
+		$$ = code;
+	}
+	
+	| {}
+	
+statement: funcall
+	{
+		$$ = $1;
+	}
+	
+funcall: ID LPAREN STRING RPAREN SEMICOLON
+	{
+		int sid = addString($3);
+		char *code = (char*) malloc(128);
+		sprintf(code,"\tmovel\t$.LC%d, %%edi\n\tcall\t%s\n", sid, $1);
+		$$ = code;
+     }
 %%
+
 /******* Functions *******/
 extern FILE *yyin; // from lex
 
@@ -96,4 +83,10 @@ int yywrap()
 {
    return(1);
 }
+
+int addString() {
+	return(0);
+}
+
+
 
