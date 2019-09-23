@@ -39,7 +39,7 @@ stringArray stringStore = {0,0};
 
 prog: function
      {
-         printf("\t.section\t.rodata\n.LC%d:\n\t.string\t%s\n\t.text\n%s", stringStore.sid, stringStore.strings[stringStore.arrayIndex - 1] ,$1);
+		printf("\t.section\t.rodata\n.LC%d:\n\t.string\t%s\n\t.text\n%s", stringStore.sid, stringStore.strings[stringStore.arrayIndex - 1] ,$1);
      }
 
 function: ID LPAREN RPAREN LBRACE statements RBRACE
