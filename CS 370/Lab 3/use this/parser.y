@@ -7,6 +7,16 @@
 int yyerror(char *s);
 int yylex(void);
 int addString(char* input);
+
+//declare struct for addString
+typedef struct {
+	int sid;
+	int arrayIndex;
+	char* strings[100];
+} stringArray;
+
+//initialize stringStore
+stringArray stringStore = {0,0};
 %}  
 
 /* token value data types */
@@ -25,13 +35,14 @@ int addString(char* input);
 
 prog: function
      {
-         printf("\t.section\t\t.rodata\n.LC0\n.string \"Hello World!\\n\"\n/t.text\n%s", $1);
+         printf("\t.section\t.rodata\n.LC%d:\n\t.string\t%s\n\t.text\n%s", stringStore.sid, stringStore.strings[arrayIndex - 1] ,$1);
      }
 
 function: ID LPAREN RPAREN LBRACE statements RBRACE
 	{
 		char *code = (char*) malloc(128);
-		sprintf(code,"\t.globl\t%s\n\t.type\t%s,@function\nmain:\n\tpushq\t\%%rbp\n\tmovq\t%%rsp, %%rbp\n\t%s\n\t%s\n\tmovl\t0, %%eax\n\tpopq\t%%rbp\n\tret\n", $1, $1, $5, $5);
+		sprintf(code,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tmovl\t$%d, %%eax\n\tpopq\t%%rbp\n\tret\n" , $1, $1, $1, $5, stringStore.sid );
+		
 		$$ = code;
 	}
 	
@@ -51,9 +62,9 @@ statement: funcall
 	
 funcall: ID LPAREN STRING RPAREN SEMICOLON
 	{
-		int sid = addString($3);
+		stringStore.sid = addString($3);
 		char *code = (char*) malloc(128);
-		sprintf(code,"\tmovel\t$.LC%d, %%edi\n\tcall\t%s\n", sid, $1);
+		sprintf(code,"\tmovel\t$.LC%d, %%edi\n\tcall\t%s\n", stringStore.sid, $1);
 		$$ = code;
      }
 %%
@@ -84,8 +95,11 @@ int yywrap()
    return(1);
 }
 
-int addString() {
-	return(0);
+int addString(char* input) {
+	stringStore.strings[stringStore.arrayIndex] = input;
+	stringStore.arrayIndex++;
+	
+	return stringStore.arrayIndex - 1;
 }
 
 
