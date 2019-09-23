@@ -1,3 +1,7 @@
+/* parser.y
+* Joseph Camacho-Terrazas
+*/
+
 /****** Header definitions ******/
 %{
 #include <stdio.h>
@@ -52,7 +56,7 @@ statements: statement statements
 		strcat(code, $1);
 		$$ = code;
 	}
-	
+	//empty string
 	| {}
 	
 statement: funcall

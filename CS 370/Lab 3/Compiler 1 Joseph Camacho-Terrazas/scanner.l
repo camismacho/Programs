@@ -1,6 +1,6 @@
-/* scanner.l
-* Joseph Camacho-Terrazas
-*/
+/****
+* Lex scanner for simple example
+****/
 
 /****** Header definitions ******/
 %{
@@ -15,63 +15,34 @@
 typedef union { int ival; char* str; } yystype;
 #define YYSTYPE yystype
 yystype yylval;
-
-//Tokens
-#define ID 1
-#define STRING 2
-#define LPAREN 3
-#define RPAREN 4
-#define LBRACE 5
-#define RBRACE 6
-#define SEMICOLON 7
+#define NUMBER 1
+#define PLUS   2
+#define OTHER  3
 #endif
 %}
 
 /****** Token Patterns ******/
 %%
 [ \t\n\r]* { /* skipping white space */ }
-
-[a-zA-Z]+ 	{
-			//printf("ID: (%s)\n", yytext);
-            yylval.str = strdup(yytext);
-            return(ID);
-          	}
-          
-\".*\"		{
-            //printf("STRING: (%s)\n", yytext);
-            yylval.str = strdup(yytext);
-            return(STRING);
-          	}
-          
-\(        	{
-            //printf("LPAREN: (%s)\n", yytext);
+[0-9]+   {
+            printf("number: (%s)\n", yytext);
+            yylval.ival = strtol(yytext,0,10);
+            return(NUMBER);
+         }
+\+       {
+            printf("plus\n");
             yylval.ival = yytext[0];
-            return(LPAREN);
-          	}
-          
-\)			{
-			//printf("RPAREN: (%s)\n", yytext);
-			yylval.ival = yytext[0];
-			return(RPAREN);
-			}
+            return(PLUS);
+         }
+[^0-9+ \t\n\r]+  {
+            printf("other: (%s)\n", yytext);
+            // creating a copy of the string is important, but
+            // in this small program we are leaking this memory,
+            // we don't clean it up; needs fixed in bigger program!
+            yylval.str = strdup(yytext);
+            return(OTHER);
+         }
 
-\{			{
-			//printf("LBRACE: (%s)\n", yytext);
-			yylval.ival = yytext[0];
-			return(LBRACE);
-			}
-          
-\}			{
-			//printf("RBRACE: (%s)\n", yytext);
-			yylval.ival = yytext[0];
-			return(RBRACE);
-			}
-          
-\;			{
-			//printf("SEMICOLON: (%s)\n", yytext);
-			yylval.ival = yytext[0];
-			return(SEMICOLON);
-			}
 %%
 /****** Functions (not used when used with parser) *******/
 
