@@ -35,7 +35,7 @@ stringArray stringStore = {0,0};
 
 prog: function
      {
-         printf("\t.section\t.rodata\n.LC%d:\n\t.string\t%s\n\t.text\n%s", stringStore.sid, stringStore.strings[arrayIndex - 1] ,$1);
+         printf("\t.section\t.rodata\n.LC%d:\n\t.string\t%s\n\t.text\n%s", stringStore.sid, stringStore.strings[stringStore.arrayIndex - 1] ,$1);
      }
 
 function: ID LPAREN RPAREN LBRACE statements RBRACE
@@ -64,7 +64,7 @@ funcall: ID LPAREN STRING RPAREN SEMICOLON
 	{
 		stringStore.sid = addString($3);
 		char *code = (char*) malloc(128);
-		sprintf(code,"\tmovel\t$.LC%d, %%edi\n\tcall\t%s\n", stringStore.sid, $1);
+		sprintf(code,"\tmovl\t$.LC%d, %%edi\n\tcall\t%s", stringStore.sid, $1);
 		$$ = code;
      }
 %%

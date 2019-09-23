@@ -74,9 +74,19 @@
 // function prototypes from lex
 int yyerror(char *s);
 int yylex(void);
-int addString();
+int addString(char* input);
 
-#line 80 "y.tab.c"
+//declare struct for addString
+typedef struct {
+	int sid;
+	int arrayIndex;
+	char* strings[100];
+} stringArray;
+
+//initialize stringStore
+stringArray stringStore = {0,0};
+
+#line 90 "y.tab.c"
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus
@@ -141,10 +151,10 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 13 "parser.y"
+#line 23 "parser.y"
  int ival; char* str; 
 
-#line 148 "y.tab.c"
+#line 158 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -450,7 +460,7 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    26,    26,    31,    38,    45,    47,    52
+       0,    36,    36,    41,    49,    56,    58,    63
 };
 #endif
 
@@ -1231,60 +1241,61 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 27 "parser.y"
+#line 37 "parser.y"
     {
-         printf("\t.section\t\t.rodata\n.LC0\n.string \"Hello World!\\n\"\n/t.text\n%s", (yyvsp[0].str));
+         printf("\t.section\t.rodata\n.LC%d:\n\t.string\t%s\n\t.text\n%s", stringStore.sid, stringStore.strings[stringStore.arrayIndex - 1] ,(yyvsp[0].str));
      }
-#line 1239 "y.tab.c"
-    break;
-
-  case 3:
-#line 32 "parser.y"
-    {
-		char *code = (char*) malloc(128);
-		sprintf(code,"\t.globl\t%s\n\t.type\t%s,@function\nmain:\n\tpushq\t\%%rbp\n\tmovq\t%%rsp, %%rbp\n\t%s\n\t%s\n\tmovl\t0, %%eax\n\tpopq\t%%rbp\n\tret\n", (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-1].str), (yyvsp[-1].str));
-		(yyval.str) = code;
-	}
 #line 1249 "y.tab.c"
     break;
 
+  case 3:
+#line 42 "parser.y"
+    {
+		char *code = (char*) malloc(128);
+		sprintf(code,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tmovl\t$%d, %%eax\n\tpopq\t%%rbp\n\tret\n" , (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-1].str), stringStore.sid );
+		
+		(yyval.str) = code;
+	}
+#line 1260 "y.tab.c"
+    break;
+
   case 4:
-#line 39 "parser.y"
+#line 50 "parser.y"
     {
 		char *code = (char*) malloc(128);
 		strcat(code, (yyvsp[-1].str));
 		(yyval.str) = code;
 	}
-#line 1259 "y.tab.c"
+#line 1270 "y.tab.c"
     break;
 
   case 5:
-#line 45 "parser.y"
+#line 56 "parser.y"
     {}
-#line 1265 "y.tab.c"
+#line 1276 "y.tab.c"
     break;
 
   case 6:
-#line 48 "parser.y"
+#line 59 "parser.y"
     {
 		(yyval.str) = (yyvsp[0].str);
 	}
-#line 1273 "y.tab.c"
-    break;
-
-  case 7:
-#line 53 "parser.y"
-    {
-		int sid = addString((yyvsp[-2].str));
-		char *code = (char*) malloc(128);
-		sprintf(code,"\tmovel\t$.LC%d, %%edi\n\tcall\t%s\n", sid, (yyvsp[-4].str));
-		(yyval.str) = code;
-     }
 #line 1284 "y.tab.c"
     break;
 
+  case 7:
+#line 64 "parser.y"
+    {
+		stringStore.sid = addString((yyvsp[-2].str));
+		char *code = (char*) malloc(128);
+		sprintf(code,"\tmovl\t$.LC%d, %%edi\n\tcall\t%s", stringStore.sid, (yyvsp[-4].str));
+		(yyval.str) = code;
+     }
+#line 1295 "y.tab.c"
+    break;
 
-#line 1288 "y.tab.c"
+
+#line 1299 "y.tab.c"
 
       default: break;
     }
@@ -1516,7 +1527,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 59 "parser.y"
+#line 70 "parser.y"
 
 
 /******* Functions *******/
@@ -1545,8 +1556,11 @@ int yywrap()
    return(1);
 }
 
-int addString() {
-	return(0);
+int addString(char* input) {
+	stringStore.strings[stringStore.arrayIndex] = input;
+	stringStore.arrayIndex++;
+	
+	return stringStore.arrayIndex - 1;
 }
 
 
