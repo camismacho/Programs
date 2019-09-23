@@ -1,6 +1,6 @@
-/*****
-* Yacc parser for simple example
-*****/
+/* parser.y
+* Joseph Camacho-Terrazas
+*/
 
 /****** Header definitions ******/
 %{
@@ -10,7 +10,18 @@
 // function prototypes from lex
 int yyerror(char *s);
 int yylex(void);
-%}
+int addString(char* input);
+
+//declare struct for addString
+typedef struct {
+	int sid;
+	int arrayIndex;
+	char* strings[100];
+} stringArray;
+
+//initialize stringStore
+stringArray stringStore = {0,0};
+%}  
 
 /* token value data types */
 %union { int ival; char* str; }
@@ -26,30 +37,42 @@ int yylex(void);
 %%
 /******* Rules *******/
 
-all: phrases 
+prog: function
      {
-         printf("all : (%s)\n",$1);
+         printf("\t.section\t.rodata\n.LC%d:\n\t.string\t%s\n\t.text\n%s", stringStore.sid, stringStore.strings[stringStore.arrayIndex - 1] ,$1);
      }
 
-phrases: /*empty*/
-       { $$ = "empty"; }
-     | phrases NUMBER PLUS NUMBER 
-       { 
-          printf("ADD %d %d is %d\n",$2,$4,$2+$4);
-          $$ = "add";
-       }
-     | phrases NUMBER 
-       {
-          printf("NUMBER %d\n",$2);
-          $$ = "num";
-       }
-     | phrases OTHER 
-       {
-          printf("OTHER [%s]\n",$2);
-          $$ = "oth";
-       }
-     ;
+function: ID LPAREN RPAREN LBRACE statements RBRACE
+	{
+		char *code = (char*) malloc(128);
+		sprintf(code,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tmovl\t$%d, %%eax\n\tpopq\t%%rbp\n\tret\n" , $1, $1, $1, $5, stringStore.sid );
+		
+		$$ = code;
+	}
+	
+statements: statement statements
+	{
+		char *code = (char*) malloc(128);
+		strcat(code, $1);
+		$$ = code;
+	}
+	//empty string
+	| {}
+	
+statement: funcall
+	{
+		$$ = $1;
+	}
+	
+funcall: ID LPAREN STRING RPAREN SEMICOLON
+	{
+		stringStore.sid = addString($3);
+		char *code = (char*) malloc(128);
+		sprintf(code,"\tmovl\t$.LC%d, %%edi\n\tcall\t%s", stringStore.sid, $1);
+		$$ = code;
+     }
 %%
+
 /******* Functions *******/
 extern FILE *yyin; // from lex
 
@@ -75,4 +98,13 @@ int yywrap()
 {
    return(1);
 }
+
+int addString(char* input) {
+	stringStore.strings[stringStore.arrayIndex] = input;
+	stringStore.arrayIndex++;
+	
+	return stringStore.arrayIndex - 1;
+}
+
+
 
