@@ -39,7 +39,15 @@ stringArray stringStore = {0,0};
 
 prog: function
      {
-		printf("\t.section\t.rodata\n.LC%d:\n\t.string\t%s\n\t.text\n%s", stringStore.sid, stringStore.strings[stringStore.arrayIndex - 1] ,$1);
+     	int index = 0;
+     	printf("\t.section\t.rodata\n");
+     	
+     	while (index < strPos) {
+     		printf(".LC%d:\n\t.string\t%s\n", index, stringStore.strings[index]);
+     		index++;
+     	}
+     	
+     	printf("\t.text\n%s", $1);
      }
 
 function: ID LPAREN RPAREN LBRACE statements RBRACE
@@ -54,10 +62,11 @@ statements: statement statements
 	{
 		char *code = (char*) malloc(128);
 		strcat(code, $1);
+		strcat(code, $2);
 		$$ = code;
 	}
 	//empty string
-	| {}
+	| {$$ = "";}
 	
 statement: funcall
 	{
