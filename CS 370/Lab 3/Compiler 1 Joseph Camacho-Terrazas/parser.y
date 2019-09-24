@@ -52,7 +52,7 @@ prog: function
 
 function: ID LPAREN RPAREN LBRACE statements RBRACE
 	{
-		char *code = (char*) malloc(128);
+		char *code = (char*) malloc(1000);
 		sprintf(code,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tmovl\t$%d, %%eax\n\tpopq\t%%rbp\n\tret\n" , $1, $1, $1, $5, stringStore.sid );
 		
 		$$ = code;
@@ -60,7 +60,7 @@ function: ID LPAREN RPAREN LBRACE statements RBRACE
 	
 statements: statement statements
 	{
-		char *code = (char*) malloc(128);
+		char *code = (char*) malloc(1000);
 		strcat(code, $1);
 		strcat(code, $2);
 		$$ = code;
@@ -76,8 +76,8 @@ statement: funcall
 funcall: ID LPAREN STRING RPAREN SEMICOLON
 	{
 		stringStore.sid = addString($3);
-		char *code = (char*) malloc(128);
-		sprintf(code,"\tmovl\t$.LC%d, %%edi\n\tcall\t%s", stringStore.sid, $1);
+		char *code = (char*) malloc(1000);
+		sprintf(code,"\n\tmovl\t$.LC%d, %%edi\n\tcall\t%s\n", stringStore.sid, $1);
 		$$ = code;
      }
 %%

@@ -1259,7 +1259,7 @@ yyreduce:
   case 3:
 #line 54 "parser.y"
     {
-		char *code = (char*) malloc(128);
+		char *code = (char*) malloc(1000);
 		sprintf(code,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tmovl\t$%d, %%eax\n\tpopq\t%%rbp\n\tret\n" , (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-1].str), stringStore.sid );
 		
 		(yyval.str) = code;
@@ -1270,7 +1270,7 @@ yyreduce:
   case 4:
 #line 62 "parser.y"
     {
-		char *code = (char*) malloc(128);
+		char *code = (char*) malloc(1000);
 		strcat(code, (yyvsp[-1].str));
 		strcat(code, (yyvsp[0].str));
 		(yyval.str) = code;
@@ -1296,8 +1296,8 @@ yyreduce:
 #line 77 "parser.y"
     {
 		stringStore.sid = addString((yyvsp[-2].str));
-		char *code = (char*) malloc(128);
-		sprintf(code,"\tmovl\t$.LC%d, %%edi\n\tcall\t%s", stringStore.sid, (yyvsp[-4].str));
+		char *code = (char*) malloc(1000);
+		sprintf(code,"\n\tmovl\t$.LC%d, %%edi\n\tcall\t%s\n", stringStore.sid, (yyvsp[-4].str));
 		(yyval.str) = code;
      }
 #line 1304 "y.tab.c"
