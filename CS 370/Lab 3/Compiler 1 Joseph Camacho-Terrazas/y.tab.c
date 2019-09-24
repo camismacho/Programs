@@ -460,7 +460,7 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    40,    40,    45,    53,    60,    62,    67
+       0,    40,    40,    53,    61,    69,    71,    76
 };
 #endif
 
@@ -1243,59 +1243,68 @@ yyreduce:
   case 2:
 #line 41 "parser.y"
     {
-		printf("\t.section\t.rodata\n.LC%d:\n\t.string\t%s\n\t.text\n%s", stringStore.sid, stringStore.strings[stringStore.arrayIndex - 1] ,(yyvsp[0].str));
+     	int index = 0;
+     	printf("\t.section\t.rodata\n");
+     	
+     	while (index < stringStore.arrayIndex) {
+     		printf(".LC%d:\n\t.string\t%s\n", index, stringStore.strings[index]);
+     		index++;
+     	}
+     	
+     	printf("\t.text\n%s", (yyvsp[0].str));
      }
-#line 1249 "y.tab.c"
+#line 1257 "y.tab.c"
     break;
 
   case 3:
-#line 46 "parser.y"
+#line 54 "parser.y"
     {
 		char *code = (char*) malloc(128);
 		sprintf(code,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tmovl\t$%d, %%eax\n\tpopq\t%%rbp\n\tret\n" , (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-1].str), stringStore.sid );
 		
 		(yyval.str) = code;
 	}
-#line 1260 "y.tab.c"
+#line 1268 "y.tab.c"
     break;
 
   case 4:
-#line 54 "parser.y"
+#line 62 "parser.y"
     {
 		char *code = (char*) malloc(128);
 		strcat(code, (yyvsp[-1].str));
+		strcat(code, (yyvsp[0].str));
 		(yyval.str) = code;
 	}
-#line 1270 "y.tab.c"
+#line 1279 "y.tab.c"
     break;
 
   case 5:
-#line 60 "parser.y"
-    {}
-#line 1276 "y.tab.c"
+#line 69 "parser.y"
+    {(yyval.str) = "";}
+#line 1285 "y.tab.c"
     break;
 
   case 6:
-#line 63 "parser.y"
+#line 72 "parser.y"
     {
 		(yyval.str) = (yyvsp[0].str);
 	}
-#line 1284 "y.tab.c"
+#line 1293 "y.tab.c"
     break;
 
   case 7:
-#line 68 "parser.y"
+#line 77 "parser.y"
     {
 		stringStore.sid = addString((yyvsp[-2].str));
 		char *code = (char*) malloc(128);
 		sprintf(code,"\tmovl\t$.LC%d, %%edi\n\tcall\t%s", stringStore.sid, (yyvsp[-4].str));
 		(yyval.str) = code;
      }
-#line 1295 "y.tab.c"
+#line 1304 "y.tab.c"
     break;
 
 
-#line 1299 "y.tab.c"
+#line 1308 "y.tab.c"
 
       default: break;
     }
@@ -1527,7 +1536,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 74 "parser.y"
+#line 83 "parser.y"
 
 
 /******* Functions *******/

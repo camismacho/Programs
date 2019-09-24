@@ -42,7 +42,7 @@ prog: function
      	int index = 0;
      	printf("\t.section\t.rodata\n");
      	
-     	while (index < strPos) {
+     	while (index < stringStore.arrayIndex) {
      		printf(".LC%d:\n\t.string\t%s\n", index, stringStore.strings[index]);
      		index++;
      	}
