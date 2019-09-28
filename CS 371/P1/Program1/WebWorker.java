@@ -66,10 +66,15 @@ import java.util.TimeZone;
             //first check the file type
             //then set it to the respective content type
             if (url.contains(".jpg")) cType = "image/jpeg";
-            if (url.contains(".png")) cType = "image/png";
-            if (url.contains(".gif")) cType = "image/gif";
+            else if (url.contains(".png")) cType = "image/png";
+            else if (url.contains(".gif")) cType = "image/gif";
+            else if (url.contains(".ico")) cType = "image/x-icon";
             //if no image found, set to default case of text/html
             else cType = "text/html";
+            
+            /*DEBUG*/
+            //System.err.println("Content Type at Run: " + cType);
+
             
             //now we can pass cType to the write functions
             writeHTTPHeader(os, cType, url);  
@@ -149,6 +154,8 @@ import java.util.TimeZone;
         os.write("Server: Joseph's very own server\n".getBytes());
         os.write("Connection: close\n".getBytes());
         os.write("Content-Type: ".getBytes());
+        /*DEBUG*/
+        //System.err.println("Content Type at Header: " + contentType);
         os.write(contentType.getBytes());
         os.write("\n\n".getBytes()); // HTTP header ends with 2 newlines
         return;
@@ -172,6 +179,9 @@ import java.util.TimeZone;
         String urlCopy = "." + url;
         //new file at urlCopy
         File in = new File(urlCopy);
+        
+        /*DEBUG*/
+        //System.err.println("Content Type at Write: " + contentType);
 
         //read contents of file and place into fileContent
         //for p2 we change to if statement to handle multiple types
