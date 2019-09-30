@@ -62,19 +62,17 @@ import java.util.TimeZone;
             url = readHTTPRequest(is);
             System.err.println("HTTP Request: " + url);
             
-            //pass the url to write functions
             //first check the file type
-            //then set it to the respective content type
+            //jpeg
             if (url.contains(".jpg")) cType = "image/jpeg";
+            //png
             else if (url.contains(".png")) cType = "image/png";
+            //gif
             else if (url.contains(".gif")) cType = "image/gif";
+            //ico
             else if (url.contains(".ico")) cType = "image/x-icon";
-            //if no image found, set to default case of text/html
+            //if no image type found, set to default case of text/html
             else cType = "text/html";
-            
-            /*DEBUG*/
-            //System.err.println("Content Type at Run: " + cType);
-
             
             //now we can pass cType to the write functions
             writeHTTPHeader(os, cType, url);  
@@ -104,7 +102,7 @@ import java.util.TimeZone;
                 line = r.readLine();
                 //if there is a GET request, read url for file address
                 if (line.contains("GET ")) {
-                	//create a substring that excludes http
+                	//create a substring that excludes 'http'
                     url = line.substring(4);
                     //get rid of whitespace if there is any
                     for(int i = 0; i < url.length(); i++) {
@@ -130,10 +128,11 @@ import java.util.TimeZone;
     **/
     private void writeHTTPHeader(OutputStream os, String contentType, String url) throws Exception
     {
+        //date formatting
         Date d = new Date();
         DateFormat df = DateFormat.getDateTimeInstance();
         df.setTimeZone( TimeZone.getTimeZone("GMT-6") );
-        //creates a copy of the file address with a "." at the front for proper reading
+        //creates a copy of the file address with "." at the front for proper reading
         String urlCopy = "." + url;
         //create new file pointing to urlCopy
         File in = new File(urlCopy);
@@ -141,7 +140,6 @@ import java.util.TimeZone;
         //if file doesn't exist throw 404
         try {
             FileReader file = new FileReader(in);
-            BufferedReader r = new BufferedReader(file);
         } catch(FileNotFoundException e) {
             System.err.println("File not found: " + url);
             os.write("HTTP/1.1 404 Not Found\n".getBytes());
@@ -199,7 +197,7 @@ import java.util.TimeZone;
 	                        os.write(date.getBytes());
 	                    }//end if
 	                    if (fileContent.contains("<cs371server>")) {
-	                        os.write("Generic Server Name\n".getBytes());
+	                        os.write("Sweet Server M8\n".getBytes());
 	        			}//end if
 	            }//end while
 	        }//end try 
@@ -214,9 +212,11 @@ import java.util.TimeZone;
         //using .contains, so we don't have to .equals every type
         else if (contentType.contains("image")) {
         	try {
-        		FileInputStream imgIn = new FileInputStream(in);
+                FileInputStream imgIn = new FileInputStream(in);
+                //create byte array to store image data
         		byte imgArr[] = new byte [(int) in.length()];
-        		imgIn.read(imgArr);
+                imgIn.read(imgArr);
+                //write image to output stream
         		DataOutputStream imgOut = new DataOutputStream(os);
         		imgOut.write(imgArr);
         	}//end try
