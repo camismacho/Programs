@@ -28,16 +28,16 @@ stringArray stringStore = {0,0};
 
 /* Starting non-terminal */
 %start prog
-%type <str> function statements statement funcall
+%type <str> function statements statement funcall arguments argument expression
 
 /* Token types */
-%token <ival> NUMBER COMMA SEMICOLON LPAREN RPAREN LBRACE RBRACE
+%token <ival> NUMBER COMMA SEMICOLON LPAREN RPAREN LBRACE RBRACE PLUS
 %token <str> ID STRING
 
 %%
 /******* Rules *******/
 
-prog: function
+prog: functions
      {
      	int index = 0;
      	printf("\t.section\t.rodata\n");
@@ -49,6 +49,16 @@ prog: function
      	
      	printf("\t.text\n%s", $1);
      }
+
+functions: function functions
+	{
+		char *code = (char*) malloc(1000);
+		strcat(code, $1);
+		strcat(code, $2);
+		$$ = code
+	}
+	//empty
+|	{$$ = "";}
 
 function: ID LPAREN RPAREN LBRACE statements RBRACE
 	{
@@ -66,20 +76,49 @@ statements: statement statements
 		$$ = code;
 	}
 	//empty string
-	| {$$ = "";}
+|	{$$ = "";}
 	
 statement: funcall
 	{
 		$$ = $1;
 	}
 	
-funcall: ID LPAREN STRING RPAREN SEMICOLON
+funcall: ID LPAREN arguments RPAREN SEMICOLON
 	{
 		stringStore.sid = addString($3);
 		char *code = (char*) malloc(1000);
 		sprintf(code,"\n\tmovl\t$.LC%d, %%edi\n\tcall\t%s\n", stringStore.sid, $1);
 		$$ = code;
      }
+
+arguments: argument
+	{
+
+	}
+| argument COMMA arguments
+	{
+
+	}
+	//empty
+|	{$$ = "";}
+
+argument: STRING
+	{
+
+	}
+| expression
+	{
+
+	}
+
+expression: NUMBER
+	{
+
+	}
+| expression PLUS expression
+	{
+		
+	}
 %%
 
 /******* Functions *******/

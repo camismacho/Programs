@@ -24,6 +24,9 @@ yystype yylval;
 #define LBRACE 5
 #define RBRACE 6
 #define SEMICOLON 7
+#define NUMBER 8
+#define COMMA 9
+#define PLUS 10
 #endif
 %}
 
@@ -72,6 +75,27 @@ yystype yylval;
 			yylval.ival = yytext[0];
 			return(SEMICOLON);
 			}
+
+[1-9]+		{
+			//printf("NUMBER: (%s)\n", yytext);
+			//use strtol to convert string to integer
+			yylval.ival = strtol(yytext, 0, 10);
+			return(NUMBER);
+			}
+
+\,			{
+			//printf("COMMA: (%s)\n, yytext");
+			yylval.ival = yytext[0];
+			return(COMMA);
+			}
+
+\+			{
+			//printf("PLUS: (%s)\n", yytext);
+			yylval.ival = yytext[0];
+			return(PLUS);
+			}
+			
+}
 %%
 /****** Functions (not used when used with parser) *******/
 
