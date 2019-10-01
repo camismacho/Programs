@@ -28,7 +28,7 @@ stringArray stringStore = {0,0};
 
 /* Starting non-terminal */
 %start prog
-%type <str> function statements statement funcall arguments argument expression
+%type <str> function functions statements statement funcall arguments argument expression
 
 /* Token types */
 %token <ival> NUMBER COMMA SEMICOLON LPAREN RPAREN LBRACE RBRACE PLUS
@@ -55,7 +55,7 @@ functions: function functions
 		char *code = (char*) malloc(1000);
 		strcat(code, $1);
 		strcat(code, $2);
-		$$ = code
+		$$ = code;
 	}
 	//empty
 |	{$$ = "";}
@@ -63,7 +63,7 @@ functions: function functions
 function: ID LPAREN RPAREN LBRACE statements RBRACE
 	{
 		char *code = (char*) malloc(1000);
-		sprintf(code,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tmovl\t$%d, %%eax\n\tpopq\t%%rbp\n\tret\n" , $1, $1, $1, $5, stringStore.sid );
+		sprintf(code,"\nPrint at function\n\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tmovl\t$%d, %%eax\n\tpopq\t%%rbp\n\tret\n" , $1, $1, $1, $5, stringStore.sid );
 		
 		$$ = code;
 	}
@@ -85,39 +85,51 @@ statement: funcall
 	
 funcall: ID LPAREN arguments RPAREN SEMICOLON
 	{
-		stringStore.sid = addString($3);
+		//stringStore.sid = addString($3);
 		char *code = (char*) malloc(1000);
-		sprintf(code,"\n\tmovl\t$.LC%d, %%edi\n\tcall\t%s\n", stringStore.sid, $1);
+		sprintf(code,"\nPrint at funcall\n\n\tmovl\t$.LC%d, %%edi\n\tcall\t%s\n", stringStore.sid, $1);
 		$$ = code;
      }
 
-arguments: argument
+arguments: argument COMMA arguments
 	{
-
+		stringStore.sid = addString($1);
+		char *code = (char*) malloc(1000);
+		sprintf(code, "print at arguments: argument COMMA arguments\n");
+		//strcat(code, $1);
+		//strcat(code, $3);
+		
+		$$ = code;
 	}
-| argument COMMA arguments
+|	argument
 	{
-
-	}
+		$$ = $1;
+	} 
 	//empty
 |	{$$ = "";}
 
 argument: STRING
 	{
-
+		char *code = (char*) malloc(1000);
+		sprintf(code, $1);
+		$$ = code;
 	}
 | expression
 	{
-
+		$$ = $1;
 	}
 
 expression: NUMBER
 	{
-
+		char *code = (char*) malloc(1000);
+		sprintf(code, "print at call expression: NUMBER");
+		$$ = code;		
 	}
 | expression PLUS expression
 	{
-		
+		char *code = (char*) malloc(1000);
+		sprintf(code, "print at call | expression PLUS expression");
+		$$ = code;
 	}
 %%
 

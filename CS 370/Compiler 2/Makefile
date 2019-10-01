@@ -11,7 +11,7 @@ all: ptest
 
 # yacc "-d" flag creates y.tab.h header
 y.tab.c: parser.y
-	yacc -d parser.y
+	yacc -d -v parser.y
 
 # lex "-d" flag turns on debugging output
 lex.yy.c: scanner.l y.tab.c
@@ -30,5 +30,5 @@ ltest: scanner.l
 
 # clean the directory for a pure rebuild (do "make clean")
 clean: 
-	rm -f lex.yy.c a.out y.tab.c y.tab.h *.o ptest ltest
+	rm -f lex.yy.c a.out y.tab.c y.tab.h *.o ptest ltest y.output
 
