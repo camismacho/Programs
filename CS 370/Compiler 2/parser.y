@@ -28,7 +28,7 @@ stringArray stringStore = {0,0};
 
 /* Starting non-terminal */
 %start prog
-%type <str> function functions statements statement funcall arguments argument expression
+%type <str> functions function statements statement funcall arguments argument expression
 
 /* Token types */
 %token <ival> NUMBER COMMA SEMICOLON LPAREN RPAREN LBRACE RBRACE PLUS
@@ -95,7 +95,7 @@ arguments: argument COMMA arguments
 	{
 		stringStore.sid = addString($1);
 		char *code = (char*) malloc(1000);
-		sprintf(code, "print at arguments: argument COMMA arguments\n");
+		sprintf(code, "\nprint at arguments: argument COMMA arguments\n");
 		//strcat(code, $1);
 		//strcat(code, $3);
 		
@@ -112,7 +112,7 @@ argument: STRING
 	{
 		char *code = (char*) malloc(1000);
 		sprintf(code, $1);
-		$$ = code;
+		$$ = $1;
 	}
 | expression
 	{
@@ -121,14 +121,13 @@ argument: STRING
 
 expression: NUMBER
 	{
-		char *code = (char*) malloc(1000);
-		sprintf(code, "print at call expression: NUMBER");
-		$$ = code;		
+		printf("\nprint at call expression: NUMBER %d\n", $1);
+		$$ = $1;		
 	}
 | expression PLUS expression
 	{
 		char *code = (char*) malloc(1000);
-		sprintf(code, "print at call | expression PLUS expression");
+		sprintf(code, "\nprint at call | expression PLUS expression\n");
 		$$ = code;
 	}
 %%
