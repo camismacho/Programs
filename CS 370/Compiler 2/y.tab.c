@@ -82,7 +82,9 @@ typedef struct {
 //initialize stringStore
 stringArray stringStore = {0,0};
 
-#line 86 "y.tab.c" /* yacc.c:339  */
+int numStore[100];
+
+#line 88 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -146,10 +148,10 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 27 "parser.y" /* yacc.c:355  */
+#line 29 "parser.y" /* yacc.c:355  */
  int ival; char* str; 
 
-#line 153 "y.tab.c" /* yacc.c:355  */
+#line 155 "y.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -166,7 +168,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 170 "y.tab.c" /* yacc.c:358  */
+#line 172 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -464,8 +466,8 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    40,    40,    53,    61,    63,    71,    79,    81,    86,
-      94,   104,   109,   111,   117,   122,   127
+       0,    42,    42,    55,    63,    65,    73,    81,    83,    88,
+     100,   114,   119,   121,   127,   132,   137
 };
 #endif
 
@@ -1244,7 +1246,7 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 41 "parser.y" /* yacc.c:1646  */
+#line 43 "parser.y" /* yacc.c:1646  */
     {
      	int index = 0;
      	printf("\t.section\t.rodata\n");
@@ -1256,140 +1258,148 @@ yyreduce:
      	
      	printf("\t.text\n%s", (yyvsp[0].str));
      }
-#line 1260 "y.tab.c" /* yacc.c:1646  */
+#line 1262 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 54 "parser.y" /* yacc.c:1646  */
+#line 56 "parser.y" /* yacc.c:1646  */
     {
 		char *code = (char*) malloc(1000);
 		strcat(code, (yyvsp[-1].str));
 		strcat(code, (yyvsp[0].str));
 		(yyval.str) = code;
 	}
-#line 1271 "y.tab.c" /* yacc.c:1646  */
+#line 1273 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 61 "parser.y" /* yacc.c:1646  */
+#line 63 "parser.y" /* yacc.c:1646  */
     {(yyval.str) = "";}
-#line 1277 "y.tab.c" /* yacc.c:1646  */
+#line 1279 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 64 "parser.y" /* yacc.c:1646  */
+#line 66 "parser.y" /* yacc.c:1646  */
     {
 		char *code = (char*) malloc(1000);
 		sprintf(code,"\nPrint at function\n\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tmovl\t$%d, %%eax\n\tpopq\t%%rbp\n\tret\n" , (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-1].str), stringStore.sid );
 		
 		(yyval.str) = code;
 	}
-#line 1288 "y.tab.c" /* yacc.c:1646  */
+#line 1290 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 72 "parser.y" /* yacc.c:1646  */
+#line 74 "parser.y" /* yacc.c:1646  */
     {
 		char *code = (char*) malloc(1000);
 		strcat(code, (yyvsp[-1].str));
 		strcat(code, (yyvsp[0].str));
 		(yyval.str) = code;
 	}
-#line 1299 "y.tab.c" /* yacc.c:1646  */
+#line 1301 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 79 "parser.y" /* yacc.c:1646  */
+#line 81 "parser.y" /* yacc.c:1646  */
     {(yyval.str) = "";}
-#line 1305 "y.tab.c" /* yacc.c:1646  */
+#line 1307 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 82 "parser.y" /* yacc.c:1646  */
+#line 84 "parser.y" /* yacc.c:1646  */
     {
 		(yyval.str) = (yyvsp[0].str);
 	}
-#line 1313 "y.tab.c" /* yacc.c:1646  */
+#line 1315 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 87 "parser.y" /* yacc.c:1646  */
+#line 89 "parser.y" /* yacc.c:1646  */
     {
-		//stringStore.sid = addString($3);
+		char* check = (char*) malloc(1000);
+		check = "";
+		if (strcmp(check, (yyvsp[-2].str)) != 0) {
+			stringStore.sid = addString((yyvsp[-2].str));
+		}
 		char *code = (char*) malloc(1000);
 		sprintf(code,"\nPrint at funcall\n\n\tmovl\t$.LC%d, %%edi\n\tcall\t%s\n", stringStore.sid, (yyvsp[-4].str));
 		(yyval.str) = code;
      }
-#line 1324 "y.tab.c" /* yacc.c:1646  */
+#line 1330 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 95 "parser.y" /* yacc.c:1646  */
+#line 101 "parser.y" /* yacc.c:1646  */
     {
-		stringStore.sid = addString((yyvsp[-2].str));
+		char* check = (char*) malloc(1000);
+		check = "";
+		if (strcmp(check, (yyvsp[-2].str)) != 0) {
+			stringStore.sid = addString((yyvsp[-2].str));
+		}
 		char *code = (char*) malloc(1000);
-		sprintf(code, "\nprint at arguments: argument COMMA arguments\n");
+		//sprintf(code, "\nprint at arguments: argument COMMA arguments\n");
 		//strcat(code, $1);
 		//strcat(code, $3);
 		
 		(yyval.str) = code;
 	}
-#line 1338 "y.tab.c" /* yacc.c:1646  */
+#line 1348 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 105 "parser.y" /* yacc.c:1646  */
+#line 115 "parser.y" /* yacc.c:1646  */
     {
 		(yyval.str) = (yyvsp[0].str);
 	}
-#line 1346 "y.tab.c" /* yacc.c:1646  */
+#line 1356 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 109 "parser.y" /* yacc.c:1646  */
+#line 119 "parser.y" /* yacc.c:1646  */
     {(yyval.str) = "";}
-#line 1352 "y.tab.c" /* yacc.c:1646  */
+#line 1362 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 112 "parser.y" /* yacc.c:1646  */
+#line 122 "parser.y" /* yacc.c:1646  */
     {
 		char *code = (char*) malloc(1000);
 		sprintf(code, (yyvsp[0].str));
 		(yyval.str) = (yyvsp[0].str);
 	}
-#line 1362 "y.tab.c" /* yacc.c:1646  */
+#line 1372 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 118 "parser.y" /* yacc.c:1646  */
+#line 128 "parser.y" /* yacc.c:1646  */
     {
 		(yyval.str) = (yyvsp[0].str);
 	}
-#line 1370 "y.tab.c" /* yacc.c:1646  */
+#line 1380 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 123 "parser.y" /* yacc.c:1646  */
+#line 133 "parser.y" /* yacc.c:1646  */
     {
-		printf("\nprint at call expression: NUMBER %d\n", (yyvsp[0].ival));
+		//printf("\nprint at call expression: NUMBER %d\n", $1);
 		(yyval.str) = (yyvsp[0].ival);		
-	}
-#line 1379 "y.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 16:
-#line 128 "parser.y" /* yacc.c:1646  */
-    {
-		char *code = (char*) malloc(1000);
-		sprintf(code, "\nprint at call | expression PLUS expression\n");
-		(yyval.str) = code;
 	}
 #line 1389 "y.tab.c" /* yacc.c:1646  */
     break;
 
+  case 16:
+#line 138 "parser.y" /* yacc.c:1646  */
+    {
+		char *code = (char*) malloc(1000);
+		//sprintf(code, "\nprint at call | expression PLUS expression\n");
+		(yyval.str) = code;
+	}
+#line 1399 "y.tab.c" /* yacc.c:1646  */
+    break;
 
-#line 1393 "y.tab.c" /* yacc.c:1646  */
+
+#line 1403 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1617,7 +1627,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 133 "parser.y" /* yacc.c:1906  */
+#line 143 "parser.y" /* yacc.c:1906  */
 
 
 /******* Functions *******/

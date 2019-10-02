@@ -21,6 +21,8 @@ typedef struct {
 
 //initialize stringStore
 stringArray stringStore = {0,0};
+
+int numStore[100];
 %}  
 
 /* token value data types */
@@ -85,7 +87,11 @@ statement: funcall
 	
 funcall: ID LPAREN arguments RPAREN SEMICOLON
 	{
-		//stringStore.sid = addString($3);
+		char* check = (char*) malloc(1000);
+		check = "";
+		if (strcmp(check, $3) != 0) {
+			stringStore.sid = addString($3);
+		}
 		char *code = (char*) malloc(1000);
 		sprintf(code,"\nPrint at funcall\n\n\tmovl\t$.LC%d, %%edi\n\tcall\t%s\n", stringStore.sid, $1);
 		$$ = code;
@@ -93,11 +99,12 @@ funcall: ID LPAREN arguments RPAREN SEMICOLON
 
 arguments: argument COMMA arguments
 	{
-		stringStore.sid = addString($1);
+		char* check = (char*) malloc(1000);
+		check = "";
+		if (strcmp(check, $1) != 0) {
+			stringStore.sid = addString($1);
+		}
 		char *code = (char*) malloc(1000);
-		sprintf(code, "\nprint at arguments: argument COMMA arguments\n");
-		//strcat(code, $1);
-		//strcat(code, $3);
 		
 		$$ = code;
 	}
@@ -121,13 +128,13 @@ argument: STRING
 
 expression: NUMBER
 	{
-		printf("\nprint at call expression: NUMBER %d\n", $1);
+		//printf("\nprint at call expression: NUMBER %d\n", $1);
 		$$ = $1;		
 	}
 | expression PLUS expression
 	{
 		char *code = (char*) malloc(1000);
-		sprintf(code, "\nprint at call | expression PLUS expression\n");
+		//sprintf(code, "\nprint at call | expression PLUS expression\n");
 		$$ = code;
 	}
 %%
