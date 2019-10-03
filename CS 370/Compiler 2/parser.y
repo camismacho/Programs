@@ -11,6 +11,7 @@
 int yyerror(char *s);
 int yylex(void);
 int addString(char* input);
+int addNum(int input);
 
 //declare struct for addString
 typedef struct {
@@ -19,10 +20,19 @@ typedef struct {
 	char* strings[100];
 } stringArray;
 
+//declare struct for addNum
+typedef struct {
+	int nid;
+	int numIndex;
+	int nums[100];
+} numArray;
+
 //initialize stringStore
 stringArray stringStore = {0,0};
 
-int numStore[100];
+//initialize numStore
+numArray numStore = {0, 0};
+
 %}  
 
 /* token value data types */
@@ -172,6 +182,13 @@ int addString(char* input) {
 	stringStore.arrayIndex++;
 	
 	return stringStore.arrayIndex - 1;
+}
+
+int addNum(int input) {
+	numStore.nums[numStore.numIndex] = input;
+	numStore.numIndex++;
+
+	return numStore.numIndex - 1;
 }
 
 
