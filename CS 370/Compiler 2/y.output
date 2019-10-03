@@ -32,42 +32,51 @@ Grammar
 
 Terminals, with rules where they appear
 
-$end (0) 0
-error (256)
-NUMBER (258) 15
-COMMA (259) 9
-SEMICOLON (260) 8
-LPAREN (261) 4 8
-RPAREN (262) 4 8
-LBRACE (263) 4
-RBRACE (264) 4
-PLUS (265) 14
-ID (266) 4 8
-STRING (267) 12
+    $end (0) 0
+    error (256)
+    NUMBER <ival> (258) 15
+    COMMA <ival> (259) 9
+    SEMICOLON <ival> (260) 8
+    LPAREN <ival> (261) 4 8
+    RPAREN <ival> (262) 4 8
+    LBRACE <ival> (263) 4
+    RBRACE <ival> (264) 4
+    PLUS <ival> (265) 14
+    ID <str> (266) 4 8
+    STRING <str> (267) 12
 
 
 Nonterminals, with rules where they appear
 
-$accept (13)
-    on left: 0
-prog (14)
-    on left: 1, on right: 0
-functions (15)
-    on left: 2 3, on right: 1 2
-function (16)
-    on left: 4, on right: 2
-statements (17)
-    on left: 5 6, on right: 4 5
-statement (18)
-    on left: 7, on right: 5
-funcall (19)
-    on left: 8, on right: 7
-arguments (20)
-    on left: 9 10 11, on right: 8 9
-argument (21)
-    on left: 12 13, on right: 9 10
-expression (22)
-    on left: 14 15, on right: 13 14
+    $accept (13)
+        on left: 0
+    prog (14)
+        on left: 1
+        on right: 0
+    functions <str> (15)
+        on left: 2 3
+        on right: 1 2
+    function <str> (16)
+        on left: 4
+        on right: 2
+    statements <str> (17)
+        on left: 5 6
+        on right: 4 5
+    statement <str> (18)
+        on left: 7
+        on right: 5
+    funcall <str> (19)
+        on left: 8
+        on right: 7
+    arguments <str> (20)
+        on left: 9 10 11
+        on right: 8 9
+    argument <str> (21)
+        on left: 12 13
+        on right: 9 10
+    expression <str> (22)
+        on left: 14 15
+        on right: 13 14
 
 
 State 0

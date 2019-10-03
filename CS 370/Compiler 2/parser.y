@@ -129,16 +129,15 @@ argument: STRING
 expression: expression PLUS expression
 	{
 		char *code = (char*) malloc(1000);
-		//sprintf(code, "\tmovl\t$%d,\t%%eax\n\tpushq\t%%rax\n", $1);
-		sprintf(code, "expression: %c PLUS expression: %c\n", $1, $3);
+		strcat(code, $1);
+		strcat(code, $3);
 		$$ = code;
 	}
 |	NUMBER
 	{
-		/*char *code = (char*) malloc(1000);
-		sprintf(code, "\tmovl\t$%d,\t%%eax\n\tpushq\t%%rax\n", $1);
-		$$ = code;		*/
-		$$ = $1;
+		char *code = (char*) malloc(1000);
+		sprintf(code, "\nPrint at NUMBER\n\tmovl\t$%d,\t%%eax\n\tpushq\t%%rax\n", $1);
+		$$ = code;
 	}
 %%
 
