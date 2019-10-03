@@ -126,16 +126,19 @@ argument: STRING
 		$$ = $1;
 	}
 
-expression: NUMBER
-	{
-		//printf("\nprint at call expression: NUMBER %d\n", $1);
-		$$ = $1;		
-	}
-| expression PLUS expression
+expression: expression PLUS expression
 	{
 		char *code = (char*) malloc(1000);
-		//sprintf(code, "\nprint at call | expression PLUS expression\n");
+		//sprintf(code, "\tmovl\t$%d,\t%%eax\n\tpushq\t%%rax\n", $1);
+		sprintf(code, "expression: %c PLUS expression: %c\n", $1, $3);
 		$$ = code;
+	}
+|	NUMBER
+	{
+		/*char *code = (char*) malloc(1000);
+		sprintf(code, "\tmovl\t$%d,\t%%eax\n\tpushq\t%%rax\n", $1);
+		$$ = code;		*/
+		$$ = $1;
 	}
 %%
 

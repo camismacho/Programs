@@ -26,22 +26,22 @@ Grammar
    12 argument: STRING
    13         | expression
 
-   14 expression: NUMBER
-   15           | expression PLUS expression
+   14 expression: expression PLUS expression
+   15           | NUMBER
 
 
 Terminals, with rules where they appear
 
 $end (0) 0
 error (256)
-NUMBER (258) 14
+NUMBER (258) 15
 COMMA (259) 9
 SEMICOLON (260) 8
 LPAREN (261) 4 8
 RPAREN (262) 4 8
 LBRACE (263) 4
 RBRACE (264) 4
-PLUS (265) 15
+PLUS (265) 14
 ID (266) 4 8
 STRING (267) 12
 
@@ -67,7 +67,7 @@ arguments (20)
 argument (21)
     on left: 12 13, on right: 9 10
 expression (22)
-    on left: 14 15, on right: 13 15
+    on left: 14 15, on right: 13 14
 
 
 State 0
@@ -221,9 +221,9 @@ State 16
 
 State 17
 
-   14 expression: NUMBER .
+   15 expression: NUMBER .
 
-    $default  reduce using rule 14 (expression)
+    $default  reduce using rule 15 (expression)
 
 
 State 18
@@ -253,7 +253,7 @@ State 20
 State 21
 
    13 argument: expression .
-   15 expression: expression . PLUS expression
+   14 expression: expression . PLUS expression
 
     PLUS  shift, and go to state 24
 
@@ -283,7 +283,7 @@ State 23
 
 State 24
 
-   15 expression: expression PLUS . expression
+   14 expression: expression PLUS . expression
 
     NUMBER  shift, and go to state 17
 
@@ -306,10 +306,10 @@ State 26
 
 State 27
 
-   15 expression: expression . PLUS expression
-   15           | expression PLUS expression .
+   14 expression: expression . PLUS expression
+   14           | expression PLUS expression .
 
     PLUS  shift, and go to state 24
 
-    PLUS      [reduce using rule 15 (expression)]
-    $default  reduce using rule 15 (expression)
+    PLUS      [reduce using rule 14 (expression)]
+    $default  reduce using rule 14 (expression)

@@ -806,7 +806,7 @@ case 2:
 YY_RULE_SETUP
 #line 37 "scanner.l"
 {
-			//printf("ID: (%s)\n", yytext);
+			printf("ID: (%s)\n", yytext);
             yylval.str = strdup(yytext);
             return(ID);
           	}
@@ -816,7 +816,7 @@ case 3:
 YY_RULE_SETUP
 #line 43 "scanner.l"
 {
-            //printf("STRING: (%s)\n", yytext);
+            printf("STRING: (%s)\n", yytext);
             yylval.str = strdup(yytext);
             return(STRING);
           	}
@@ -825,7 +825,7 @@ case 4:
 YY_RULE_SETUP
 #line 49 "scanner.l"
 {
-            //printf("LPAREN: (%s)\n", yytext);
+            printf("LPAREN: (%s)\n", yytext);
             yylval.ival = yytext[0];
             return(LPAREN);
           	}
@@ -834,7 +834,7 @@ case 5:
 YY_RULE_SETUP
 #line 55 "scanner.l"
 {
-			//printf("RPAREN: (%s)\n", yytext);
+			printf("RPAREN: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(RPAREN);
 			}
@@ -843,7 +843,7 @@ case 6:
 YY_RULE_SETUP
 #line 61 "scanner.l"
 {
-			//printf("LBRACE: (%s)\n", yytext);
+			printf("LBRACE: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(LBRACE);
 			}
@@ -852,7 +852,7 @@ case 7:
 YY_RULE_SETUP
 #line 67 "scanner.l"
 {
-			//printf("RBRACE: (%s)\n", yytext);
+			printf("RBRACE: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(RBRACE);
 			}
@@ -861,7 +861,7 @@ case 8:
 YY_RULE_SETUP
 #line 73 "scanner.l"
 {
-			//printf("SEMICOLON: (%s)\n", yytext);
+			printf("SEMICOLON: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(SEMICOLON);
 			}
@@ -870,7 +870,7 @@ case 9:
 YY_RULE_SETUP
 #line 79 "scanner.l"
 {
-			//printf("NUMBER: (%s)\n", yytext);
+			printf("NUMBER: (%s)\n", yytext);
 			//use strtol to convert string to integer
 			yylval.ival = strtol(yytext, 0, 10);
 			return(NUMBER);
@@ -880,7 +880,7 @@ case 10:
 YY_RULE_SETUP
 #line 86 "scanner.l"
 {
-			//printf("COMMA: (%s)\n", yytext);
+			printf("COMMA: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(COMMA);
 			}
@@ -889,7 +889,7 @@ case 11:
 YY_RULE_SETUP
 #line 92 "scanner.l"
 {
-			//printf("PLUS: (%s)\n", yytext);
+			printf("PLUS: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(PLUS);
 			}
