@@ -12,53 +12,47 @@
 .LC5:
 	.string	"Hello World!"
 	.text
-	
-.globl	func
+	.globl	func
 	.type	func, @function
 func:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	movq	$.LC0, %rsi
+	movq	$.LC0, %rdi
 	movl	$0, %eax
 	call	puts
 
-
 	popq	%rbp
 	ret
-	
-.globl	main
+	.globl	main
 	.type	main, @function
 main:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	movq	$.LC1, %rsi
-	movq	$.LC2, %rdi
-	movl	$42, %eax
+	movq	$.LC1, %rdi
+	movq	$.LC2, %rsi
+	movl	$42, %edx
 	movl	$0, %eax
 	call	func
-
-	movq	$.LC3, %rsi
-	movq	$.LC4, %rdi
-	movl	$42, %eax
-	pushq	%rax
-	movl	$4, %eax
-	pushq	%rax
-	movl	$5, %eax
-	pushq	%rax
-	movl	$2, %eax
+	movq	$.LC3, %rdi
+	movq	$.LC4, %rsi
+	movl	$42, %edx
+	pushq	%rdx
+	movl	$4, %edx
+	pushq	%rdx
+	movl	$5, %edx
+	pushq	%rdx
+	movl	$2, %edx
 	popq	%rcx
-	addl	%ecx, %eax
+	addl	%ecx, %edx
 	popq	%rcx
-	addl	%ecx, %eax
+	addl	%ecx, %edx
 	popq	%rcx
-	addl	%ecx, %eax
+	addl	%ecx, %edx
 	movl	$0, %eax
 	call	printf
-
-	movq	$.LC5, %rsi
+	movq	$.LC5, %rdi
 	movl	$0, %eax
 	call	puts
-
 
 	popq	%rbp
 	ret

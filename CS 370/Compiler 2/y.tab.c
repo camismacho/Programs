@@ -73,7 +73,7 @@ int yylex(void);
 int addString(char* input);
 int addNum(int input);
 int argNum = 0;
-char *argRegStr[] = {"%rsi","%rdi","%rdx","%rcx","r8","r9"};
+char *argRegStr[] = {"%rdi","%rsi","%rdx","%rcx","r8","r9"};
 
 //declare struct for addString
 typedef struct {
@@ -1284,7 +1284,7 @@ yyreduce:
 #line 68 "parser.y" /* yacc.c:1646  */
     {
 		char *code = (char*) malloc(1000);
-		sprintf(code,"\t\n.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tpopq\t%%rbp\n\tret\n" , (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-1].str));
+		sprintf(code,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tpopq\t%%rbp\n\tret\n" , (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-1].str));
 		
 		(yyval.str) = code;
 	}
@@ -1320,7 +1320,7 @@ yyreduce:
 #line 91 "parser.y" /* yacc.c:1646  */
     {
 		char *code = (char*) malloc(1000);
-		sprintf(code,"%s\tmovl\t$0, %%eax\n\tcall\t%s\n\n", (yyvsp[-2].str), (yyvsp[-4].str));
+		sprintf(code,"%s\tmovl\t$0, %%eax\n\tcall\t%s\n", (yyvsp[-2].str), (yyvsp[-4].str));
 		argNum = 0;
 		(yyval.str) = code;
      }
@@ -1377,7 +1377,7 @@ yyreduce:
 #line 127 "parser.y" /* yacc.c:1646  */
     {
 		char *code = (char*) malloc(1000);
-		sprintf(code, "%s\tpushq\t%%rax\n%s\tpopq\t%%rcx\n\taddl\t%%ecx, %%eax\n", (yyvsp[-2].str), (yyvsp[0].str));
+		sprintf(code, "%s\tpushq\t%%rdx\n%s\tpopq\t%%rcx\n\taddl\t%%ecx, %%edx\n", (yyvsp[-2].str), (yyvsp[0].str));
 		(yyval.str) = code;
 	}
 #line 1384 "y.tab.c" /* yacc.c:1646  */
@@ -1387,7 +1387,7 @@ yyreduce:
 #line 133 "parser.y" /* yacc.c:1646  */
     {
 		char *code = (char*) malloc(1000);
-		sprintf(code, "\tmovl\t$%d, %%eax\n", (yyvsp[0].ival));
+		sprintf(code, "\tmovl\t$%d, %%edx\n", (yyvsp[0].ival));
 		(yyval.str) = code;
 	}
 #line 1394 "y.tab.c" /* yacc.c:1646  */
