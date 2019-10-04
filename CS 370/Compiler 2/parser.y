@@ -56,7 +56,7 @@ prog: functions
 
 functions: function functions
 	{
-		char *code = (char*) malloc(1000);
+		char *code = (char*) malloc(sizeof(char)*1000);
 		strcat(code, $1);
 		strcat(code, $2);
 		$$ = code;
@@ -66,15 +66,15 @@ functions: function functions
 
 function: ID LPAREN RPAREN LBRACE statements RBRACE
 	{
-		char *code = (char*) malloc(1000);
-		sprintf(code,"\t\n.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tpopq\t%%rbp\n\tret\n" , $1, $1, $1, $5);
+		char *code = (char*) malloc(sizeof(char)*1000);
+		sprintf(code,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tpopq\t%%rbp\n\tret\n" , $1, $1, $1, $5);
 		
 		$$ = code;
 	}
 	
 statements: statement statements
 	{
-		char *code = (char*) malloc(1000);
+		char *code = (char*) malloc(sizeof(char)*1000);
 		strcat(code, $1);
 		strcat(code, $2);
 		$$ = code;
@@ -89,15 +89,15 @@ statement: funcall
 	
 funcall: ID LPAREN arguments RPAREN SEMICOLON
 	{
-		char *code = (char*) malloc(1000);
-		sprintf(code,"%s\tmovl\t$0, %%edx\n\tcall\t%s\n\n", $3, $1);
+		char *code = (char*) malloc(sizeof(char)*1000);
+		sprintf(code,"%s\tcall\t%s\n", $3, $1);
 		argNum = 0;
 		$$ = code;
      }
 
 arguments: argument COMMA arguments
 	{
-		char *code = (char*) malloc(1000);
+		char *code = (char*) malloc(sizeof(char)*1000);
 		strcat(code, $1);
 		strcat(code, $3);
 		$$ = code;
@@ -112,8 +112,8 @@ arguments: argument COMMA arguments
 argument: STRING
 	{
         stringStore.sid = addString($1);
-        char *code = (char*) malloc(1000);
-        sprintf(code, "\tmovl\t$.LC%d, %s\n", stringStore.sid, argRegStr[argNum]);
+        char *code = (char*) malloc(sizeof(char)*1000);
+        sprintf(code, "\tmovq\t$.LC%d, %s\n", stringStore.sid, argRegStr[argNum]);
         argNum++;
         
 		$$ = code;
@@ -125,13 +125,13 @@ argument: STRING
 
 expression: expression PLUS expression
 	{
-		char *code = (char*) malloc(1000);
+		char *code = (char*) malloc(sizeof(char)*1000);
 		sprintf(code, "%s\tpushq\t%%rax\n%s\tpopq\t%%rcx\n\taddl\t%%ecx, %%eax\n", $1, $3);
 		$$ = code;
 	}
 |	NUMBER
 	{
-		char *code = (char*) malloc(1000);
+		char *code = (char*) malloc(sizeof(char)*1000);
 		sprintf(code, "\tmovl\t$%d, %%eax\n", $1);
 		$$ = code;
 	}

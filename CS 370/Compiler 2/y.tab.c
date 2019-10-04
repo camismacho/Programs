@@ -1274,7 +1274,7 @@ yyreduce:
   case 3:
 #line 58 "parser.y"
     {
-		char *code = (char*) malloc(1000);
+		char *code = (char*) malloc(sizeof(char)*1000);
 		strcat(code, (yyvsp[-1].str));
 		strcat(code, (yyvsp[0].str));
 		(yyval.str) = code;
@@ -1291,8 +1291,8 @@ yyreduce:
   case 5:
 #line 68 "parser.y"
     {
-		char *code = (char*) malloc(1000);
-		sprintf(code,"\t\n.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tpopq\t%%rbp\n\tret\n" , (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-1].str));
+		char *code = (char*) malloc(sizeof(char)*1000);
+		sprintf(code,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tpopq\t%%rbp\n\tret\n" , (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-1].str));
 		
 		(yyval.str) = code;
 	}
@@ -1302,7 +1302,7 @@ yyreduce:
   case 6:
 #line 76 "parser.y"
     {
-		char *code = (char*) malloc(1000);
+		char *code = (char*) malloc(sizeof(char)*1000);
 		strcat(code, (yyvsp[-1].str));
 		strcat(code, (yyvsp[0].str));
 		(yyval.str) = code;
@@ -1327,8 +1327,8 @@ yyreduce:
   case 9:
 #line 91 "parser.y"
     {
-		char *code = (char*) malloc(1000);
-		sprintf(code,"%s\tmovl\t$0, %%edx\n\tcall\t%s\n\n", (yyvsp[-2].str), (yyvsp[-4].str));
+		char *code = (char*) malloc(sizeof(char)*1000);
+		sprintf(code,"%s\tcall\t%s\n", (yyvsp[-2].str), (yyvsp[-4].str));
 		argNum = 0;
 		(yyval.str) = code;
      }
@@ -1338,7 +1338,7 @@ yyreduce:
   case 10:
 #line 99 "parser.y"
     {
-		char *code = (char*) malloc(1000);
+		char *code = (char*) malloc(sizeof(char)*1000);
 		strcat(code, (yyvsp[-2].str));
 		strcat(code, (yyvsp[0].str));
 		(yyval.str) = code;
@@ -1364,8 +1364,8 @@ yyreduce:
 #line 113 "parser.y"
     {
         stringStore.sid = addString((yyvsp[0].str));
-        char *code = (char*) malloc(1000);
-        sprintf(code, "\tmovl\t$.LC%d, %s\n", stringStore.sid, argRegStr[argNum]);
+        char *code = (char*) malloc(sizeof(char)*1000);
+        sprintf(code, "\tmovq\t$.LC%d, %s\n", stringStore.sid, argRegStr[argNum]);
         argNum++;
         
 		(yyval.str) = code;
@@ -1384,7 +1384,7 @@ yyreduce:
   case 15:
 #line 127 "parser.y"
     {
-		char *code = (char*) malloc(1000);
+		char *code = (char*) malloc(sizeof(char)*1000);
 		sprintf(code, "%s\tpushq\t%%rax\n%s\tpopq\t%%rcx\n\taddl\t%%ecx, %%eax\n", (yyvsp[-2].str), (yyvsp[0].str));
 		(yyval.str) = code;
 	}
@@ -1394,7 +1394,7 @@ yyreduce:
   case 16:
 #line 133 "parser.y"
     {
-		char *code = (char*) malloc(1000);
+		char *code = (char*) malloc(sizeof(char)*1000);
 		sprintf(code, "\tmovl\t$%d, %%eax\n", (yyvsp[0].ival));
 		(yyval.str) = code;
 	}

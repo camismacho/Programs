@@ -1,19 +1,6 @@
 	.section	.rodata
 .LC0:
 	.string	"hello world!"
-	.text
-	.globl	func
-	.type	func, @function
-func:
-	pushq	%rbp
-	movq	%rsp, %rbp
-	movl	$.LC0, %edi
-	call	puts
-	nop
-	popq	%rbp
-	ret
-
-	.section	.rodata
 .LC1:
 	.string	"second"
 .LC2:
@@ -25,10 +12,19 @@ func:
 .LC5:
 	.string	"Hello World!"
 	.text
+    .globl	func
+	.type	func, @function
+func:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	$.LC0, %edi
+	call	puts
+	nop
+	popq	%rbp
+	ret
 	.globl	main
 	.type	main, @function
 main:
-
 	pushq	%rbp
 	movq	%rsp, %rbp
 	movl	$42, %edx
