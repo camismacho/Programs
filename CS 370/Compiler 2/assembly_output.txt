@@ -1,0 +1,61 @@
+        .section        .rodata
+.LC0:
+        .string "hello world!"
+.LC1:
+        .string "goodbye"
+.LC2:
+        .string "second"
+.LC3:
+        .string "printf call %s %d\n"
+.LC4:
+        .string "and more"
+.LC5:
+        .string "Hello World!"
+        .text
+
+.globl  func
+        .type   func, @function
+func:
+        pushq   %rbp
+        movq    %rsp, %rbp
+        movl    $.LC0, %%rdi
+
+        call    puts
+
+        popq    %rbp
+        ret
+
+.globl  main
+        .type   main, @function
+main:
+        pushq   %rbp
+        movq    %rsp, %rbp
+        movl    $.LC1, %%rdi
+        movl    $.LC2, %%rsi
+        movl    $42, %eax
+
+        call    func
+        movl    $.LC3, %%rdi
+        movl    $.LC4, %%rsi
+        movl    $42, %eax
+        pushq   %rax
+        movl    $4, %eax
+        pushq   %rax
+        movl    $5, %eax
+        pushq   %rax
+        movl    $2, %eax
+        popq    %rcx
+        addl    %ecx, %eax
+        popq    %rcx
+        addl    %ecx, %eax
+        popq    %rcx
+        addl    %ecx, %eax
+
+        call    printf
+        movl    $.LC5, %%rdi
+
+        call    puts
+
+        popq    %rbp
+        ret
+

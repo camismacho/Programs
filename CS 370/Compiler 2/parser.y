@@ -12,6 +12,8 @@ int yyerror(char *s);
 int yylex(void);
 int addString(char* input);
 int addNum(int input);
+int argNum = 0;
+char *argRegStr[] = {"%rsi","%rdi","%rdx","%rcx","r8","r9"};
 
 //declare struct for addString
 typedef struct {
@@ -20,18 +22,8 @@ typedef struct {
 	char* strings[100];
 } stringArray;
 
-//declare struct for addNum
-typedef struct {
-	int nid;
-	int numIndex;
-	int nums[100];
-} numArray;
-
 //initialize stringStore
 stringArray stringStore = {0,0};
-
-//initialize numStore
-numArray numStore = {0, 0};
 
 %}  
 
@@ -75,7 +67,7 @@ functions: function functions
 function: ID LPAREN RPAREN LBRACE statements RBRACE
 	{
 		char *code = (char*) malloc(1000);
-		sprintf(code,"\nPrint at function\n\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tmovl\t$%d, %%eax\n\tpopq\t%%rbp\n\tret\n" , $1, $1, $1, $5, stringStore.sid );
+		sprintf(code,"\t\n.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tpopq\t%%rbp\n\tret\n" , $1, $1, $1, $5);
 		
 		$$ = code;
 	}
@@ -97,25 +89,17 @@ statement: funcall
 	
 funcall: ID LPAREN arguments RPAREN SEMICOLON
 	{
-		char* check = (char*) malloc(1000);
-		check = "";
-		if (strcmp(check, $3) != 0) {
-			stringStore.sid = addString($3);
-		}
 		char *code = (char*) malloc(1000);
-		sprintf(code,"\nPrint at funcall\n\n\tmovl\t$.LC%d, %%edi\n\tcall\t%s\n", stringStore.sid, $1);
+		sprintf(code,"%s\tmovl\t$0, %%edx\n\tcall\t%s\n\n", $3, $1);
+		argNum = 0;
 		$$ = code;
      }
 
 arguments: argument COMMA arguments
 	{
-		char* check = (char*) malloc(1000);
-		check = "";
-		if (strcmp(check, $1) != 0) {
-			stringStore.sid = addString($1);
-		}
 		char *code = (char*) malloc(1000);
-		
+		strcat(code, $1);
+		strcat(code, $3);
 		$$ = code;
 	}
 |	argument
@@ -127,9 +111,12 @@ arguments: argument COMMA arguments
 
 argument: STRING
 	{
-		char *code = (char*) malloc(1000);
-		sprintf(code, $1);
-		$$ = $1;
+        stringStore.sid = addString($1);
+        char *code = (char*) malloc(1000);
+        sprintf(code, "\tmovl\t$.LC%d, %s\n", stringStore.sid, argRegStr[argNum]);
+        argNum++;
+        
+		$$ = code;
 	}
 | expression
 	{
@@ -139,14 +126,13 @@ argument: STRING
 expression: expression PLUS expression
 	{
 		char *code = (char*) malloc(1000);
-		strcat(code, $1);
-		strcat(code, $3);
+		sprintf(code, "%s\tpushq\t%%rax\n%s\tpopq\t%%rcx\n\taddl\t%%ecx, %%eax\n", $1, $3);
 		$$ = code;
 	}
 |	NUMBER
 	{
 		char *code = (char*) malloc(1000);
-		sprintf(code, "\nPrint at NUMBER\n\tmovl\t$%d,\t%%eax\n\tpushq\t%%rax\n", $1);
+		sprintf(code, "\tmovl\t$%d, %%eax\n", $1);
 		$$ = code;
 	}
 %%
@@ -182,13 +168,6 @@ int addString(char* input) {
 	stringStore.arrayIndex++;
 	
 	return stringStore.arrayIndex - 1;
-}
-
-int addNum(int input) {
-	numStore.nums[numStore.numIndex] = input;
-	numStore.numIndex++;
-
-	return numStore.numIndex - 1;
 }
 
 
