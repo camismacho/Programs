@@ -73,7 +73,7 @@ int yylex(void);
 int addString(char* input);
 int addNum(int input);
 int argNum = 0;
-char *argRegStr[] = {"%rsi","%rdi","%rdx","%rcx","r8","r9"};
+char *argRegStr[] = {"%rdi","%rsi","%rdx","%rcx","%r8","%r9"};
 
 //declare struct for addString
 typedef struct {
@@ -1283,7 +1283,11 @@ yyreduce:
   case 5:
 #line 68 "parser.y" /* yacc.c:1646  */
     {
+<<<<<<< HEAD
 		char *code = (char*) malloc(sizeof(char)*1000);
+=======
+		char *code = (char*) malloc(1000);
+>>>>>>> 89a8380f74c9f39f979ff1cb5706754f9ab1a0fa
 		sprintf(code,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tpopq\t%%rbp\n\tret\n" , (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-5].str), (yyvsp[-1].str));
 		
 		(yyval.str) = code;
@@ -1324,8 +1328,12 @@ yyreduce:
 		sprintf(code,"%s\tcall\t%s\n", (yyvsp[-2].str), (yyvsp[-4].str));
 =======
 		char *code = (char*) malloc(1000);
+<<<<<<< HEAD
 		sprintf(code,"%s\tmovl\t$0, %%eax\n\tcall\t%s\n\n", (yyvsp[-2].str), (yyvsp[-4].str));
 >>>>>>> c355adf2383d54fc12ced3d611d5714a811f4701
+=======
+		sprintf(code,"%s\tmovl\t$0, %%eax\n\tcall\t%s\n", (yyvsp[-2].str), (yyvsp[-4].str));
+>>>>>>> 89a8380f74c9f39f979ff1cb5706754f9ab1a0fa
 		argNum = 0;
 		(yyval.str) = code;
      }
@@ -1385,8 +1393,13 @@ yyreduce:
   case 15:
 #line 127 "parser.y" /* yacc.c:1646  */
     {
+<<<<<<< HEAD
 		char *code = (char*) malloc(sizeof(char)*1000);
 		sprintf(code, "%s\tpushq\t%%rax\n%s\tpopq\t%%rcx\n\taddl\t%%ecx, %%eax\n", (yyvsp[-2].str), (yyvsp[0].str));
+=======
+		char *code = (char*) malloc(1000);
+		sprintf(code, "%s\tpushq\t%%rdx\n%s\tpopq\t%%rcx\n\taddl\t%%ecx, %%edx\n", (yyvsp[-2].str), (yyvsp[0].str));
+>>>>>>> 89a8380f74c9f39f979ff1cb5706754f9ab1a0fa
 		(yyval.str) = code;
 	}
 #line 1384 "y.tab.c" /* yacc.c:1646  */
@@ -1395,8 +1408,13 @@ yyreduce:
   case 16:
 #line 133 "parser.y" /* yacc.c:1646  */
     {
+<<<<<<< HEAD
 		char *code = (char*) malloc(sizeof(char)*1000);
 		sprintf(code, "\tmovl\t$%d, %%eax\n", (yyvsp[0].ival));
+=======
+		char *code = (char*) malloc(1000);
+		sprintf(code, "\tmovl\t$%d, %%edx\n", (yyvsp[0].ival));
+>>>>>>> 89a8380f74c9f39f979ff1cb5706754f9ab1a0fa
 		(yyval.str) = code;
 	}
 #line 1394 "y.tab.c" /* yacc.c:1646  */
