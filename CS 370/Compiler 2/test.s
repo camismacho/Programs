@@ -10,6 +10,8 @@
 .LC4:
 	.string	"and more"
 .LC5:
+	.string	"one more"
+.LC6:
 	.string	"Hello World!"
 	.text
 	.globl	func
@@ -35,6 +37,7 @@ main:
 	call	func
 	movq	$.LC3, %rdi
 	movq	$.LC4, %rsi
+	movq	$.LC5, %rdx
 	movl	$42, %edx
 	pushq	%rdx
 	movl	$4, %edx
@@ -50,7 +53,7 @@ main:
 	addl	%ecx, %edx
 	movl	$0, %eax
 	call	printf
-	movq	$.LC5, %rdi
+	movq	$.LC6, %rdi
 	movl	$0, %eax
 	call	puts
 

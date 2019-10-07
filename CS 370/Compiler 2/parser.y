@@ -13,7 +13,7 @@ int yylex(void);
 int addString(char* input);
 int addNum(int input);
 int argNum = 0;
-char *argRegStr[] = {"%rdi","%rsi","%rdx","%rcx","r8","r9"};
+char *argRegStr[] = {"%rdi","%rsi","%rdx","%rcx","%r8","%r9"};
 
 //declare struct for addString
 typedef struct {
