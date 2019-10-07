@@ -89,8 +89,13 @@ statement: funcall
 	
 funcall: ID LPAREN arguments RPAREN SEMICOLON
 	{
+<<<<<<< HEAD
 		char *code = (char*) malloc(sizeof(char)*1000);
 		sprintf(code,"%s\tcall\t%s\n", $3, $1);
+=======
+		char *code = (char*) malloc(1000);
+		sprintf(code,"%s\tmovl\t$0, %%eax\n\tcall\t%s\n\n", $3, $1);
+>>>>>>> c355adf2383d54fc12ced3d611d5714a811f4701
 		argNum = 0;
 		$$ = code;
      }
@@ -112,7 +117,11 @@ arguments: argument COMMA arguments
 argument: STRING
 	{
         stringStore.sid = addString($1);
+<<<<<<< HEAD
         char *code = (char*) malloc(sizeof(char)*1000);
+=======
+        char *code = (char*) malloc(1000);
+>>>>>>> c355adf2383d54fc12ced3d611d5714a811f4701
         sprintf(code, "\tmovq\t$.LC%d, %s\n", stringStore.sid, argRegStr[argNum]);
         argNum++;
         
