@@ -56,7 +56,7 @@ prog: functions
 
 functions: function functions
 	{
-		char *code = (char*) malloc(1000);
+		char *code = (char*) malloc(sizeof(char)*1000);
 		strcat(code, $1);
 		strcat(code, $2);
 		$$ = code;
@@ -66,7 +66,11 @@ functions: function functions
 
 function: ID LPAREN RPAREN LBRACE statements RBRACE
 	{
+<<<<<<< HEAD
+		char *code = (char*) malloc(sizeof(char)*1000);
+=======
 		char *code = (char*) malloc(1000);
+>>>>>>> 89a8380f74c9f39f979ff1cb5706754f9ab1a0fa
 		sprintf(code,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tpopq\t%%rbp\n\tret\n" , $1, $1, $1, $5);
 		
 		$$ = code;
@@ -74,7 +78,7 @@ function: ID LPAREN RPAREN LBRACE statements RBRACE
 	
 statements: statement statements
 	{
-		char *code = (char*) malloc(1000);
+		char *code = (char*) malloc(sizeof(char)*1000);
 		strcat(code, $1);
 		strcat(code, $2);
 		$$ = code;
@@ -89,15 +93,24 @@ statement: funcall
 	
 funcall: ID LPAREN arguments RPAREN SEMICOLON
 	{
+<<<<<<< HEAD
+		char *code = (char*) malloc(sizeof(char)*1000);
+		sprintf(code,"%s\tcall\t%s\n", $3, $1);
+=======
 		char *code = (char*) malloc(1000);
+<<<<<<< HEAD
+		sprintf(code,"%s\tmovl\t$0, %%eax\n\tcall\t%s\n\n", $3, $1);
+>>>>>>> c355adf2383d54fc12ced3d611d5714a811f4701
+=======
 		sprintf(code,"%s\tmovl\t$0, %%eax\n\tcall\t%s\n", $3, $1);
+>>>>>>> 89a8380f74c9f39f979ff1cb5706754f9ab1a0fa
 		argNum = 0;
 		$$ = code;
      }
 
 arguments: argument COMMA arguments
 	{
-		char *code = (char*) malloc(1000);
+		char *code = (char*) malloc(sizeof(char)*1000);
 		strcat(code, $1);
 		strcat(code, $3);
 		$$ = code;
@@ -112,7 +125,11 @@ arguments: argument COMMA arguments
 argument: STRING
 	{
         stringStore.sid = addString($1);
+<<<<<<< HEAD
+        char *code = (char*) malloc(sizeof(char)*1000);
+=======
         char *code = (char*) malloc(1000);
+>>>>>>> c355adf2383d54fc12ced3d611d5714a811f4701
         sprintf(code, "\tmovq\t$.LC%d, %s\n", stringStore.sid, argRegStr[argNum]);
         argNum++;
         
@@ -125,14 +142,24 @@ argument: STRING
 
 expression: expression PLUS expression
 	{
+<<<<<<< HEAD
+		char *code = (char*) malloc(sizeof(char)*1000);
+		sprintf(code, "%s\tpushq\t%%rax\n%s\tpopq\t%%rcx\n\taddl\t%%ecx, %%eax\n", $1, $3);
+=======
 		char *code = (char*) malloc(1000);
 		sprintf(code, "%s\tpushq\t%%rdx\n%s\tpopq\t%%rcx\n\taddl\t%%ecx, %%edx\n", $1, $3);
+>>>>>>> 89a8380f74c9f39f979ff1cb5706754f9ab1a0fa
 		$$ = code;
 	}
 |	NUMBER
 	{
+<<<<<<< HEAD
+		char *code = (char*) malloc(sizeof(char)*1000);
+		sprintf(code, "\tmovl\t$%d, %%eax\n", $1);
+=======
 		char *code = (char*) malloc(1000);
 		sprintf(code, "\tmovl\t$%d, %%edx\n", $1);
+>>>>>>> 89a8380f74c9f39f979ff1cb5706754f9ab1a0fa
 		$$ = code;
 	}
 %%
