@@ -6,79 +6,45 @@
 .LC2:
 	.string	"second"
 .LC3:
-	.string	"printf call %s %d\n"
+	.string	"printf call %s %d %s\n"
 .LC4:
 	.string	"and more"
 .LC5:
+	.string	"poop"
+.LC6:
+	.string	"%s %s %s %s %s\n"
+.LC7:
+	.string	"one"
+.LC8:
+	.string	"two"
+.LC9:
+	.string	"three"
+.LC10:
+	.string	"four"
+.LC11:
+	.string	"five"
+.LC12:
 	.string	"Hello World!"
 	.text
-<<<<<<< HEAD
-<<<<<<< HEAD
 	.globl	func
-=======
-	
-.globl	func
->>>>>>> c355adf2383d54fc12ced3d611d5714a811f4701
-=======
-	.globl	func
->>>>>>> 89a8380f74c9f39f979ff1cb5706754f9ab1a0fa
 	.type	func, @function
 func:
 	pushq	%rbp
 	movq	%rsp, %rbp
-<<<<<<< HEAD
-	movq	$.LC0, %rsi
-<<<<<<< HEAD
-	call	puts
-
-	popq	%rbp
-	ret
-	.globl	main
-=======
-=======
 	movq	$.LC0, %rdi
->>>>>>> 89a8380f74c9f39f979ff1cb5706754f9ab1a0fa
-	movl	$0, %eax
 	call	puts
 
 	popq	%rbp
+	movl	$0, %eax
 	ret
-<<<<<<< HEAD
-	
-.globl	main
->>>>>>> c355adf2383d54fc12ced3d611d5714a811f4701
-=======
 	.globl	main
->>>>>>> 89a8380f74c9f39f979ff1cb5706754f9ab1a0fa
 	.type	main, @function
 main:
 	pushq	%rbp
 	movq	%rsp, %rbp
-<<<<<<< HEAD
-	movq	$.LC1, %rsi
-	movq	$.LC2, %rdi
-	movl	$42, %eax
-<<<<<<< HEAD
-	call	func
-=======
-	movl	$0, %eax
-	call	func
-
->>>>>>> c355adf2383d54fc12ced3d611d5714a811f4701
-	movq	$.LC3, %rsi
-	movq	$.LC4, %rdi
-	movl	$42, %eax
-	pushq	%rax
-	movl	$4, %eax
-	pushq	%rax
-	movl	$5, %eax
-	pushq	%rax
-	movl	$2, %eax
-=======
 	movq	$.LC1, %rdi
 	movq	$.LC2, %rsi
 	movl	$42, %edx
-	movl	$0, %eax
 	call	func
 	movq	$.LC3, %rdi
 	movq	$.LC4, %rsi
@@ -89,33 +55,24 @@ main:
 	movl	$5, %edx
 	pushq	%rdx
 	movl	$2, %edx
->>>>>>> 89a8380f74c9f39f979ff1cb5706754f9ab1a0fa
 	popq	%rcx
 	addl	%ecx, %edx
 	popq	%rcx
 	addl	%ecx, %edx
 	popq	%rcx
-<<<<<<< HEAD
-	addl	%ecx, %eax
-<<<<<<< HEAD
+	addl	%ecx, %edx
+	movq	$.LC5, %rdx
 	call	printf
-	movq	$.LC5, %rsi
+	movq	$.LC6, %rdi
+	movq	$.LC7, %rsi
+	movq	$.LC8, %rdx
+	movq	$.LC9, %rcx
+	movq	$.LC10, %r8
+	movq	$.LC11, %r9
+	call	printf
+	movq	$.LC12, %rdi
 	call	puts
 
-=======
-=======
-	addl	%ecx, %edx
->>>>>>> 89a8380f74c9f39f979ff1cb5706754f9ab1a0fa
-	movl	$0, %eax
-	call	printf
-	movq	$.LC5, %rdi
-	movl	$0, %eax
-	call	puts
-
-<<<<<<< HEAD
-
->>>>>>> c355adf2383d54fc12ced3d611d5714a811f4701
-=======
->>>>>>> 89a8380f74c9f39f979ff1cb5706754f9ab1a0fa
 	popq	%rbp
+	movl	$0, %eax
 	ret
