@@ -115,9 +115,6 @@ char\*     {
             yylval.ival = yytext[0];
             return(EQUALS);
             }
-            
-
-			
 %%
 /****** Functions (not used when used with parser) *******/
 

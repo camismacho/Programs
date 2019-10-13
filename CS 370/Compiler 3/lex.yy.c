@@ -933,7 +933,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 121 "scanner.l"
+#line 118 "scanner.l"
 ECHO;
 	YY_BREAK
 #line 939 "lex.yy.c"
@@ -1953,7 +1953,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 121 "scanner.l"
+#line 118 "scanner.l"
 
 /****** Functions (not used when used with parser) *******/
 

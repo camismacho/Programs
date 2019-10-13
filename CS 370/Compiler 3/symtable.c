@@ -43,9 +43,21 @@ Symbol** newSymbolTable()
 // - this function must allocate a new Symbol structure, it must 
 //   strdup() the name to save its own copy, and must set all structure
 //   fields appropiately
+// - return 0 on success, other on failure
 int addSymbol(Symbol** table, char* name, int scopeLevel, DataType type)
 {
    // your implementation should be less than 10 lines long -- keep it simple!
+}
+
+// Lookup a symbol name to see if it is in the symbol table
+// - returns a pointer to the symbol record, or NULL if not found
+// - it should return the first symbol record that exists with the
+//   given name; there is no need to look further once you find one
+// - pseudocode: hash the name to get table index, then look through
+//   linked list to see if the name exists as a symbol
+Symbol* findSymbol(Symbol** table, char* name)
+{
+   // this function should also have a pretty simple implementation
 }
 
 // Iterator over entire symbol table

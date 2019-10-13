@@ -21,6 +21,7 @@ typedef struct {
 
 Symbol** newSymbolTable();
 int addSymbol(Symbol** table, char* name, int scopeLevel, DataType type);
+Symbol* findSymbol(Symbol** table, char* name);
 Symbol* iterSymbolTable(Symbol** table, int scopeLevel, SymbolTableIter* iter);
 
 #endif
