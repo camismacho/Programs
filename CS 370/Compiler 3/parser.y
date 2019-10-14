@@ -51,7 +51,7 @@ prog: declarations functions
      		index++;
      	}
      	
-     	printf("\t.text\n%s", $1);
+     	printf("\t.text\n%s", $2);
      }
 
 functions: function functions
@@ -67,7 +67,7 @@ functions: function functions
 function: ID LPAREN parameters RPAREN LBRACE statements RBRACE
 	{
 		char *code = (char*) malloc(1000);
-		sprintf(code,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tpopq\t%%rbp\n\tmovl\t$0, %%eax\n\tret\n" , $1, $1, $1, $5);
+		sprintf(code,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tpopq\t%%rbp\n\tmovl\t$0, %%eax\n\tret\n" , $1, $1, $1, $6);
 		
 		$$ = code;
 	}
@@ -102,7 +102,8 @@ funcall: ID LPAREN arguments RPAREN
 
 assignment: ID EQUALS expression
     {
-    
+        char* code = (char*) malloc(1000);
+        sprintf(code, "");
     }
     
 arguments: argument COMMA arguments
