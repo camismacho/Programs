@@ -32,16 +32,16 @@ stringArray stringStore = {0,0};
 
 /* Starting non-terminal */
 %start prog
-%type <str> functions function statements statement funcall arguments argument expression
+%type <str> functions function statements statement funcall assignment arguments argument expression declarations vardecl parameters
 
 /* Token types */
-%token <ival> NUMBER COMMA SEMICOLON LPAREN RPAREN LBRACE RBRACE PLUS
+%token <ival> NUMBER COMMA SEMICOLON LPAREN RPAREN LBRACE RBRACE PLUS EQUALS KWINT KWCHAR
 %token <str> ID STRING
 
 %%
 /******* Rules *******/
 
-prog: functions
+prog: declarations functions
      {
      	int index = 0;
      	printf("\t.section\t.rodata\n");
@@ -64,7 +64,7 @@ functions: function functions
 	//empty
 |	{$$ = "";}
 
-function: ID LPAREN RPAREN LBRACE statements RBRACE
+function: ID LPAREN parameters RPAREN LBRACE statements RBRACE
 	{
 		char *code = (char*) malloc(1000);
 		sprintf(code,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tpopq\t%%rbp\n\tmovl\t$0, %%eax\n\tret\n" , $1, $1, $1, $5);
@@ -72,7 +72,7 @@ function: ID LPAREN RPAREN LBRACE statements RBRACE
 		$$ = code;
 	}
 	
-statements: statement statements
+statements: statement SEMICOLON statements
 	{
 		char *code = (char*) malloc(1000);
 		strcat(code, $1);
@@ -87,7 +87,12 @@ statement: funcall
 		$$ = $1;
 	}
 	
-funcall: ID LPAREN arguments RPAREN SEMICOLON
+|   assignment
+    {
+        $$ = $1;
+    }
+	
+funcall: ID LPAREN arguments RPAREN
 	{
 		char *code = (char*) malloc(1000);
 		sprintf(code,"%s\tcall\t%s\n", $3, $1);
@@ -95,6 +100,11 @@ funcall: ID LPAREN arguments RPAREN SEMICOLON
 		$$ = code;
      }
 
+assignment: ID EQUALS expression
+    {
+    
+    }
+    
 arguments: argument COMMA arguments
 	{
 		char *code = (char*) malloc(1000);
@@ -118,7 +128,7 @@ argument: STRING
         
 		$$ = code;
 	}
-| expression
+|   expression
 	{
 		$$ = $1;
 	}
@@ -135,6 +145,22 @@ expression: expression PLUS expression
 		sprintf(code, "\tmovl\t$%d, %%edx\n", $1);
 		$$ = code;
 	}
+|   ID
+    {
+    
+    }
+    
+declarations: vardecl SEMICOLON declarations
+
+vardecl: KWINT ID
+
+| KWCHAR ID
+
+parameters: vardecl COMMA parameters
+
+| vardecl
+
+|   {$$ = "";}
 %%
 
 /******* Functions *******/
