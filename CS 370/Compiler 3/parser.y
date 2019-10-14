@@ -153,12 +153,19 @@ expression: expression PLUS expression
 declarations: vardecl SEMICOLON declarations
 
 vardecl: KWINT ID
-
+        {
+        char *code = (char*) malloc(1000);
+        sprintf(code, "\t
+        }
+        
 | KWCHAR ID
 
 parameters: vardecl COMMA parameters
 
 | vardecl
+    {
+    $$ =$1;
+    }
 
 |   {$$ = "";}
 %%
