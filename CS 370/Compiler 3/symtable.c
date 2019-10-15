@@ -46,7 +46,8 @@ Symbol** newSymbolTable()
 // - return 0 on success, other on failure
 int addSymbol(Symbol** table, char* name, int scopeLevel, DataType type)
 {
-   // your implementation should be less than 10 lines long -- keep it simple!
+    Symbol** temp = table;
+    
 }
 
 // Lookup a symbol name to see if it is in the symbol table
