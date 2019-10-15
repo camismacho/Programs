@@ -1,9 +1,15 @@
-
+/*
+ * symtable.c
+ * addSymbol & findSymbol by Joseph Camacho-Terrazas
+ */
 #include <stdlib.h>
 #include <string.h>
 #include "symtable.h"
 
 #define TABLESIZE 97
+
+//startNode is the head node of a linked list
+Symbol* startNode = 0;
 
 // Table hash function
 // - just adds up all chars in the string and then 
@@ -46,8 +52,29 @@ Symbol** newSymbolTable()
 // - return 0 on success, other on failure
 int addSymbol(Symbol** table, char* name, int scopeLevel, DataType type)
 {
-    Symbol** temp = table;
-    
+    if (table != NULL) {
+        //create pointer for the head
+        Symbol* node;
+        //creates a hash value for the given name
+        int hashVal = hash(name);
+        //allocate a new symbol structure
+        node = (Symbol*) malloc(sizeof(Symbol) * TABLESIZE);
+        //allocte space for the name
+        node -> name = (char*) malloc(sizeof(char) * 1000);
+        //insert the rest of the fields into the pointer
+        node -> name = strdup(name);
+        node -> scopeLevel = scopeLevel;
+        node -> type = type;
+        //moves current node to the next one, and sets up a new head
+        node -> next = startNode;
+        startNode = node;
+        //insert this node into the table array
+        table[hashVal] = node;
+        //return 0 on success
+        return 0;
+    }
+    //return -1 on anything other than success
+    return -1;    
 }
 
 // Lookup a symbol name to see if it is in the symbol table
@@ -58,7 +85,22 @@ int addSymbol(Symbol** table, char* name, int scopeLevel, DataType type)
 //   linked list to see if the name exists as a symbol
 Symbol* findSymbol(Symbol** table, char* name)
 {
-   // this function should also have a pretty simple implementation
+    //create a hash value for given name
+    int hashVal = hash(name);
+    //create a cursor node
+    Symbol* cursor = startNode;
+   //iterate through the table
+    while (cursor != NULL) {
+        //return the index if the name exists as a symbol
+        if (cursor == table[hashVal]) {
+            return table[hashVal];
+            break;
+        }
+    //move cursor to next node
+    cursor = cursor -> next;
+    }
+    //return a null symbol pointer if nothing is found
+    return NULL;
 }
 
 // Iterator over entire symbol table
@@ -87,5 +129,11 @@ Symbol* iterSymbolTable(Symbol** table, int scopeLevel, SymbolTableIter* iter)
    // update iterator position and return current symbol
    iter->lastsym = cur;
    return cur;
+}
+
+int main(int argc, char** argv) {
+    Symbol talbe = newSymbolTable();
+    addSymbol(talbe, poop, 0, string);
+    
 }
 

@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "symtable.c"
 // function prototypes from lex
 int yyerror(char *s);
 int yylex(void);
