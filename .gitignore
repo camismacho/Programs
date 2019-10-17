@@ -2,6 +2,5 @@
 *.tab.o
 *.yy.c
 *.yy.o
-*.s
 *.tab.h
 *.tab.c

@@ -52,6 +52,7 @@ prog: declarations functions
         int index = 0;
         printf("\t.data\n");
         //probably use a loop to read each symbol
+        //then print out each symbol for data section
         iterSymbolTable(symTable, 0, -1);
         
      	int index = 0;
@@ -172,7 +173,7 @@ vardecl: KWINT ID
     //use enumerations for the datatype field
     addSymbol(symTable, $2, 0, T_INT);
     char *code = (char*) malloc(1000);
-    sprintf(code, "\t
+    sprintf(code, "\t");
     }
         
 | KWCHAR ID
