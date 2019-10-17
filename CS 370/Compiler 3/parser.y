@@ -27,7 +27,7 @@ typedef struct {
 stringArray stringStore = {0,0};
 
 //create a symbol table
-Symbol** symTable = newSymbolTable();
+Symbol** symTable;
 
 %}  
 
@@ -197,6 +197,8 @@ extern FILE *yyin; // from lex
 
 int main(int argc, char **argv)
 {
+    //probably a good place to initialize a newSymbolTable
+    symTable = newSymbolTable();
    if (argc==2) {
       yyin = fopen(argv[1],"r");
       if (!yyin) {

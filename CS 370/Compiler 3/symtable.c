@@ -8,9 +8,6 @@
 
 #define TABLESIZE 97
 
-//startNode is the head node of a linked list
-Symbol* startNode = 0;
-
 // Table hash function
 // - just adds up all chars in the string and then 
 //   mods by table size to get 0 to (size-1) index value
@@ -58,16 +55,15 @@ int addSymbol(Symbol** table, char* name, int scopeLevel, DataType type)
         //creates a hash value for the given name
         int hashVal = hash(name);
         //allocate a new symbol structure
-        node = (Symbol*) malloc(sizeof(Symbol) * TABLESIZE);
+        node = (Symbol*) malloc(sizeof(Symbol));
         //allocte space for the name
-        node -> name = (char*) malloc(sizeof(char) * 1000);
+        //node -> name = (char*) malloc(sizeof(char) * 1000);
         //insert the rest of the fields into the pointer
         node -> name = strdup(name);
         node -> scopeLevel = scopeLevel;
         node -> type = type;
         //moves current node to the next one, and sets up a new head
-        node -> next = startNode;
-        startNode = node;
+        node -> next = table[hashVal];
         //insert this node into the table array
         table[hashVal] = node;
         //return 0 on success
@@ -88,7 +84,7 @@ Symbol* findSymbol(Symbol** table, char* name)
     //create a hash value for given name
     int hashVal = hash(name);
     //create a cursor node
-    Symbol* cursor = startNode;
+    Symbol* cursor = table[hashVal];
    //iterate through the table
     while (cursor != NULL) {
         //return the index if the name exists as a symbol
