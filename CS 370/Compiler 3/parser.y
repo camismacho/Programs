@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "symtable.c"
+#include "symtable.h"
 // function prototypes from lex
 int yyerror(char *s);
 int yylex(void);
@@ -51,8 +51,8 @@ prog: declarations functions
      //iterSymbolTable will be here
         int index = 0;
         printf("\t.data\n");
-        
-        
+        //probably use a loop to read each symbol
+        iterSymbolTable(symTable, 0, -1);
         
      	int index = 0;
      	printf("\t.section\t.rodata\n");

@@ -132,8 +132,6 @@ Symbol* iterSymbolTable(Symbol** table, int scopeLevel, SymbolTableIter* iter)
 }
 
 int main(int argc, char** argv) {
-    Symbol talbe = newSymbolTable();
-    addSymbol(talbe, poop, 0, string);
-    
+    return 0;    
 }
 
