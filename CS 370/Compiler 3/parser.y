@@ -26,6 +26,9 @@ typedef struct {
 //initialize stringStore
 stringArray stringStore = {0,0};
 
+//create a symbol table
+Symbol** symTable = newSymbolTable();
+
 %}  
 
 /* token value data types */
@@ -44,6 +47,13 @@ stringArray stringStore = {0,0};
 
 prog: declarations functions
      {
+     //iterate through symbol table to create assembly header .data
+     //iterSymbolTable will be here
+        int index = 0;
+        printf("\t.data\n");
+        
+        
+        
      	int index = 0;
      	printf("\t.section\t.rodata\n");
      	
@@ -103,6 +113,7 @@ funcall: ID LPAREN arguments RPAREN
 
 assignment: ID EQUALS expression
     {
+        //add findsymbol here
         char* code = (char*) malloc(1000);
         sprintf(code, "");
     }
@@ -149,18 +160,26 @@ expression: expression PLUS expression
 	}
 |   ID
     {
-    
+    //add findsymbol here
+    findsymbol(symTable, $1);
     }
     
 declarations: vardecl SEMICOLON declarations
 
 vardecl: KWINT ID
-        {
-        char *code = (char*) malloc(1000);
-        sprintf(code, "\t
-        }
+    {
+    //call addSymbol here for kwint type
+    //use enumerations for the datatype field
+    addSymbol(symTable, $2, 0, T_INT);
+    char *code = (char*) malloc(1000);
+    sprintf(code, "\t
+    }
         
 | KWCHAR ID
+    {
+    addSymbol(symTable, $2, 0, T_STRING);
+    }
+//call addSymbol
 
 parameters: vardecl COMMA parameters
 
