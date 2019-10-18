@@ -56,8 +56,6 @@ int addSymbol(Symbol** table, char* name, int scopeLevel, DataType type)
         int hashVal = hash(name);
         //allocate a new symbol structure
         node = (Symbol*) malloc(sizeof(Symbol));
-        //allocte space for the name
-        //node -> name = (char*) malloc(sizeof(char) * 1000);
         //insert the rest of the fields into the pointer
         node -> name = strdup(name);
         node -> scopeLevel = scopeLevel;
@@ -90,7 +88,6 @@ Symbol* findSymbol(Symbol** table, char* name)
         //return the index if the name exists as a symbol
         if (cursor == table[hashVal]) {
             return table[hashVal];
-            break;
         }
     //move cursor to next node
     cursor = cursor -> next;
@@ -127,7 +124,4 @@ Symbol* iterSymbolTable(Symbol** table, int scopeLevel, SymbolTableIter* iter)
    return cur;
 }
 
-int main(int argc, char** argv) {
-    return 0;    
-}
 

@@ -49,11 +49,15 @@ prog: declarations functions
      {
      //iterate through symbol table to create assembly header .data
      //iterSymbolTable will be here
-        int index = 0;
         printf("\t.data\n");
-        //probably use a loop to read each symbol
-        //then print out each symbol for data section
-        iterSymbolTable(symTable, 0, -1);
+        int i = -1;
+        Symbol* sym;
+        
+        while (sym != NULL) {
+            sym = iterSymbolTable(symTable, 0, i);
+            printf("%s:\t.word 0", sym);
+            i++;
+        }
         
      	int index = 0;
      	printf("\t.section\t.rodata\n");
@@ -116,7 +120,7 @@ assignment: ID EQUALS expression
     {
         //add findsymbol here
         char* code = (char*) malloc(1000);
-        sprintf(code, "");
+        sprintf(code, "%s\tmovl\t%%edx, %s\n\tmovl\t%s, %%eax\n\tmovl\t%%eax, %%esi\t", $3, findSymbol(symTable, $1), findSymbol(symTable, $1));
     }
     
 arguments: argument COMMA arguments
@@ -161,35 +165,37 @@ expression: expression PLUS expression
 	}
 |   ID
     {
-    //add findsymbol here
-    findsymbol(symTable, $1);
+        char* code = (char*) malloc(1000);
+        sprintf(code, "\tmovl\t%s, %%edx\n", $1);
+        findSymbol(symTable, $1);
     }
     
 declarations: vardecl SEMICOLON declarations
+    {
+         $$ = "";
+    }
+    //empty string
+|       {$$ = "";}
 
 vardecl: KWINT ID
     {
-    //call addSymbol here for kwint type
-    //use enumerations for the datatype field
-    addSymbol(symTable, $2, 0, T_INT);
-    char *code = (char*) malloc(1000);
-    sprintf(code, "\t");
+        addSymbol(symTable, $2, 0, T_INT);
+        $$ = "";
     }
         
 | KWCHAR ID
     {
-    addSymbol(symTable, $2, 0, T_STRING);
+        addSymbol(symTable, $2, 0, T_STRING);
+        $$ = "";
     }
 //call addSymbol
 
 parameters: vardecl COMMA parameters
-
+        {$$ = "";}
 | vardecl
-    {
-    $$ =$1;
-    }
+        {$$ = "";}
 
-|   {$$ = "";}
+|       {$$ = "";}
 %%
 
 /******* Functions *******/

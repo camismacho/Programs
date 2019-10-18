@@ -9,6 +9,9 @@ CC = gcc
 # default rule build the parser
 all: run
 
+symtable.o: symtable.c symtable.h
+	gcc -c symtable.c
+
 # yacc "-d" flag creates y.tab.h header
 y.tab.c: parser.y
 	yacc -d -v parser.y
@@ -18,8 +21,8 @@ lex.yy.c: scanner.l y.tab.c
 	lex scanner.l
 
 # compiler executable needs scanner and parser object files
-compiler: lex.yy.o y.tab.o
-	gcc -o compiler y.tab.o lex.yy.o
+compiler: lex.yy.o y.tab.o symtable.o
+	gcc -o compiler y.tab.o lex.yy.o symtable.o
 
 # create a test.s file from executable
 test.s: compiler testComp2.c
