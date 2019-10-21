@@ -38,7 +38,7 @@ run: finalOut
 # -ll for compiling lexer as standalone
 ltest: scanner.l
 	lex scanner.l
-	gcc -DLEXONLY lex.yy.c -o ltest -lfl
+	gcc -DLEXONLY lex.yy.c -o ltest -ll
 
 # clean the directory for a pure rebuild (do "make clean")
 clean: 

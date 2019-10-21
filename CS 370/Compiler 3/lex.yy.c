@@ -816,7 +816,7 @@ case 2:
 YY_RULE_SETUP
 #line 40 "scanner.l"
 {
-            printf("KWINT: (%s)\n", yytext);
+            //printf("KWINT: (%s)\n", yytext);
             yylval.ival = yytext[0];
             return(KWINT);
             }
@@ -825,7 +825,7 @@ case 3:
 YY_RULE_SETUP
 #line 46 "scanner.l"
 {
-            printf("KWCHAR: (%s)\n", yytext);
+            //printf("KWCHAR: (%s)\n", yytext);
             yylval.ival = yytext[0];
             return(KWCHAR);
             }
@@ -834,7 +834,7 @@ case 4:
 YY_RULE_SETUP
 #line 52 "scanner.l"
 {
-			printf("ID: (%s)\n", yytext);
+			//printf("ID: (%s)\n", yytext);
             yylval.str = strdup(yytext);
             return(ID);
           	}
@@ -844,7 +844,7 @@ case 5:
 YY_RULE_SETUP
 #line 58 "scanner.l"
 {
-            printf("STRING: (%s)\n", yytext);
+            //printf("STRING: (%s)\n", yytext);
             yylval.str = strdup(yytext);
             return(STRING);
           	}
@@ -853,7 +853,7 @@ case 6:
 YY_RULE_SETUP
 #line 64 "scanner.l"
 {
-            printf("LPAREN: (%s)\n", yytext);
+            //printf("LPAREN: (%s)\n", yytext);
             yylval.ival = yytext[0];
             return(LPAREN);
           	}
@@ -862,7 +862,7 @@ case 7:
 YY_RULE_SETUP
 #line 70 "scanner.l"
 {
-			printf("RPAREN: (%s)\n", yytext);
+			//printf("RPAREN: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(RPAREN);
 			}
@@ -871,7 +871,7 @@ case 8:
 YY_RULE_SETUP
 #line 76 "scanner.l"
 {
-			printf("LBRACE: (%s)\n", yytext);
+			//printf("LBRACE: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(LBRACE);
 			}
@@ -880,7 +880,7 @@ case 9:
 YY_RULE_SETUP
 #line 82 "scanner.l"
 {
-			printf("RBRACE: (%s)\n", yytext);
+			//printf("RBRACE: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(RBRACE);
 			}
@@ -889,7 +889,7 @@ case 10:
 YY_RULE_SETUP
 #line 88 "scanner.l"
 {
-			printf("SEMICOLON: (%s)\n", yytext);
+			//printf("SEMICOLON: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(SEMICOLON);
 			}
@@ -898,7 +898,7 @@ case 11:
 YY_RULE_SETUP
 #line 94 "scanner.l"
 {
-			printf("NUMBER: (%s)\n", yytext);
+			//printf("NUMBER: (%s)\n", yytext);
 			//use strtol to convert string to integer
 			yylval.ival = strtol(yytext, 0, 10);
 			return(NUMBER);
@@ -908,7 +908,7 @@ case 12:
 YY_RULE_SETUP
 #line 101 "scanner.l"
 {
-			printf("COMMA: (%s)\n", yytext);
+			//printf("COMMA: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(COMMA);
 			}
@@ -917,7 +917,7 @@ case 13:
 YY_RULE_SETUP
 #line 107 "scanner.l"
 {
-			printf("PLUS: (%s)\n", yytext);
+			////printff("PLUS: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(PLUS);
 			}
@@ -926,7 +926,7 @@ case 14:
 YY_RULE_SETUP
 #line 113 "scanner.l"
 {
-            printf("EQUALS: (%s)\n", yytext);
+            ////printff("EQUALS: (%s)\n", yytext);
             yylval.ival = yytext[0];
             return(EQUALS);
             }

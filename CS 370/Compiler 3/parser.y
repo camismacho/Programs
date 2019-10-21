@@ -26,9 +26,11 @@ typedef struct {
 //initialize stringStore
 stringArray stringStore = {0,0};
 
-//create a symbol table
+//global variables needed for symbol table
 Symbol** symTable;
-
+SymbolTableIter iter;
+Symbol* tempSym;
+Symbol* findSym;
 %}  
 
 /* token value data types */
@@ -47,26 +49,25 @@ Symbol** symTable;
 
 prog: declarations functions
      {
-     //iterate through symbol table to create assembly header .data
-     //iterSymbolTable will be here
+        //use symbol table to print .data section
         printf("\t.data\n");
-        int i = -1;
-        Symbol* sym;
-        
-        while (sym != NULL) {
-            sym = iterSymbolTable(symTable, 0, i);
-            printf("%s:\t.word 0", sym);
-            i++;
+        while (1) {
+            tempSym = iterSymbolTable(symTable, 0, &iter);
+            if (tempSym == NULL) {break;}
+            printf("%s:\t.word 0\n", tempSym -> name);
         }
+        /*while (tempSym != NULL) {
+            tempSym = iterSymbolTable(symTable, 0, &iter);
+            printf("%s:\t.word 0\n", tempSym -> name);
+        }*/
         
+        //iterate through stringStore to print .rodata section
      	int index = 0;
      	printf("\t.section\t.rodata\n");
-     	
      	while (index < stringStore.arrayIndex) {
      		printf(".LC%d:\n\t.string\t%s\n", index, stringStore.strings[index]);
      		index++;
      	}
-     	
      	printf("\t.text\n%s", $2);
      }
 
@@ -84,7 +85,6 @@ function: ID LPAREN parameters RPAREN LBRACE statements RBRACE
 	{
 		char *code = (char*) malloc(1000);
 		sprintf(code,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n%s\n\tpopq\t%%rbp\n\tmovl\t$0, %%eax\n\tret\n" , $1, $1, $1, $6);
-		
 		$$ = code;
 	}
 	
@@ -92,7 +92,7 @@ statements: statement SEMICOLON statements
 	{
 		char *code = (char*) malloc(1000);
 		strcat(code, $1);
-		strcat(code, $2);
+		strcat(code, $3);
 		$$ = code;
 	}
 	//empty string
@@ -111,16 +111,17 @@ statement: funcall
 funcall: ID LPAREN arguments RPAREN
 	{
 		char *code = (char*) malloc(1000);
-		sprintf(code,"%s\tcall\t%s\n", $3, $1);
+		sprintf(code,"%s\tmovl\t$0, %%eax\n\tcall\t%s\n", $3, $1);
 		argNum = 0;
 		$$ = code;
      }
 
 assignment: ID EQUALS expression
     {
-        //add findsymbol here
+        findSym = findSymbol(symTable, $1);
         char* code = (char*) malloc(1000);
-        sprintf(code, "%s\tmovl\t%%edx, %s\n\tmovl\t%s, %%eax\n\tmovl\t%%eax, %%esi\t", $3, findSymbol(symTable, $1), findSymbol(symTable, $1));
+        sprintf(code, "%s\tmovl\t%%eax, %s\n\tmovl\t%s, %%eax\n\tmovl\t%%eax, %%esi\t\n", $3, findSym -> name, findSym -> name);
+        $$ = code;
     }
     
 arguments: argument COMMA arguments
@@ -167,7 +168,7 @@ expression: expression PLUS expression
     {
         char* code = (char*) malloc(1000);
         sprintf(code, "\tmovl\t%s, %%edx\n", $1);
-        findSymbol(symTable, $1);
+        $$ = code;
     }
     
 declarations: vardecl SEMICOLON declarations
@@ -188,7 +189,6 @@ vardecl: KWINT ID
         addSymbol(symTable, $2, 0, T_STRING);
         $$ = "";
     }
-//call addSymbol
 
 parameters: vardecl COMMA parameters
         {$$ = "";}
@@ -205,6 +205,7 @@ int main(int argc, char **argv)
 {
     //probably a good place to initialize a newSymbolTable
     symTable = newSymbolTable();
+    iter.index = -1;
    if (argc==2) {
       yyin = fopen(argv[1],"r");
       if (!yyin) {

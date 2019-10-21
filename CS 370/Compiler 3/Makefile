@@ -25,8 +25,8 @@ compiler: lex.yy.o y.tab.o symtable.o
 	gcc -o compiler y.tab.o lex.yy.o symtable.o
 
 # create a test.s file from executable
-test.s: compiler testComp2.c
-	./compiler testComp2.c > test.s
+test.s: compiler testComp3.c
+	./compiler testComp3.c > test.s
 
 # compile assembly file into final executable finalOut
 finalOut: test.s
