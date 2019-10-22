@@ -50,16 +50,13 @@ Symbol* findSym;
 prog: declarations functions
      {
         //use symbol table to print .data section
+        iter.index = -1;
         printf("\t.data\n");
         while (1) {
             tempSym = iterSymbolTable(symTable, 0, &iter);
             if (tempSym == NULL) {break;}
             printf("%s:\t.word 0\n", tempSym -> name);
         }
-        /*while (tempSym != NULL) {
-            tempSym = iterSymbolTable(symTable, 0, &iter);
-            printf("%s:\t.word 0\n", tempSym -> name);
-        }*/
         
         //iterate through stringStore to print .rodata section
      	int index = 0;
@@ -205,7 +202,6 @@ int main(int argc, char **argv)
 {
     //probably a good place to initialize a newSymbolTable
     symTable = newSymbolTable();
-    iter.index = -1;
    if (argc==2) {
       yyin = fopen(argv[1],"r");
       if (!yyin) {
