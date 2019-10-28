@@ -160,9 +160,9 @@ void genCodeFromASTree(ASTNode* node, int count, FILE *out)
    
     case AST_PROGRAM:
        fprintf(out,"Program\n");
-       genCodeFromASTree(node->child[0],level+1,out);  // child 0 is gobal var decls
+       genCodeFromASTree(node->child[0], 0, out);  // child 0 is global var decls
        fprintf(out,"%s--functions--\n",levelPrefix(level+1));
-       genCodeFromASTree(node->child[1],level+1,out);  // child 1 is function defs
+       genCodeFromASTree(node->child[1], 0, out);  // child 1 is function defs
        break;
     
     case AST_VARDECL:
@@ -177,51 +177,51 @@ void genCodeFromASTree(ASTNode* node, int count, FILE *out)
     
     case AST_FUNCTION:
        fprintf(out,"Function def (%s)\n",node->strval);
-       genCodeFromASTree(node->child[0],level+1,out); // child 0 is arg list
+       genCodeFromASTree(node->child[0], 0, out); // child 0 is arg list
        fprintf(out,"%s--body--\n",levelPrefix(level+1));
-       genCodeFromASTree(node->child[1],level+1,out); // child 1 is body (stmt list)
+       genCodeFromASTree(node->child[1], 0, out); // child 1 is body (stmt list)
        break;
     
     case AST_SBLOCK:
        fprintf(out,"Statement block\n");
-       genCodeFromASTree(node->child[0],level+1,out);  // child 0 is statement list
+       genCodeFromASTree(node->child[0], 0, out);  // child 0 is statement list
        break;
     
     case AST_FUNCALL:
        fprintf(out,"Function call (%s)\n",node->strval);
-       genCodeFromASTree(node->child[0],level+1,out);  // child 0 is argument list
+       genCodeFromASTree(node->child[0], 0, out);  // child 0 is argument list
        break;
     
     case AST_ARGUMENT:
        fprintf(out,"Funcall argument\n");
-       genCodeFromASTree(node->child[0],level+1,out);  // child 0 is argument expr
+       genCodeFromASTree(node->child[0], 0, out);  // child 0 is argument expr
        break;
     
     case AST_ASSIGNMENT:
        fprintf(out,"Assignment to (%s)\n", node->strval);
-       genCodeFromASTree(node->child[0],level+1,out);  // child 1 is right hand side
+       genCodeFromASTree(node->child[0], 0, out);  // child 1 is right hand side
        break;
     
     case AST_WHILE:
        fprintf(out,"While loop\n");
-       genCodeFromASTree(node->child[0],level+1,out);  // child 0 is condition expr
+       genCodeFromASTree(node->child[0], 0, out);  // child 0 is condition expr
        fprintf(out,"%s--body--\n",levelPrefix(level+1));
-       genCodeFromASTree(node->child[1],level+1,out);  // child 1 is loop body
+       genCodeFromASTree(node->child[1], 0, out);  // child 1 is loop body
        break;
    
     case AST_IFTHEN:
        fprintf(out,"If then\n");
-       genCodeFromASTree(node->child[0],level+1,out);  // child 0 is condition expr
+       genCodeFromASTree(node->child[0], 0, out);  // child 0 is condition expr
        fprintf(out,"%s--ifpart--\n",levelPrefix(level+1));
-       genCodeFromASTree(node->child[1],level+1,out);  // child 1 is if body
+       genCodeFromASTree(node->child[1], 0, out);  // child 1 is if body
        fprintf(out,"%s--elsepart--\n",levelPrefix(level+1));
-       genCodeFromASTree(node->child[2],level+1,out);  // child 2 is else body
+       genCodeFromASTree(node->child[2], 0, out);  // child 2 is else body
        break;
    
     case AST_EXPRESSION:
        fprintf(out,"Expression (op %d)\n",node->ival);
-       genCodeFromASTree(node->child[0],level+1,out);  // child 0 is left side
-       genCodeFromASTree(node->child[1],level+1,out);  // child 1 is right side
+       genCodeFromASTree(node->child[0], 0, out);  // child 0 is left side
+       genCodeFromASTree(node->child[1], 0, out);  // child 1 is right side
        break;
    
     case AST_VARREF:

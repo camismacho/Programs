@@ -134,22 +134,20 @@ argument: expression
 expression: expression PLUS expression
 	{
         $$ = newASTNode(AST_EXPRESSION);
-	
-		char *code = (char*) malloc(1000);
-		sprintf(code, "%s\tpushq\t%%rdx\n%s\tpopq\t%%rcx\n\taddl\t%%ecx, %%edx\n", $1, $3);
-		$$ = code;
+        $$ -> child[0] = $1;
+        $$ -> child[1] = $3;
+        $$ -> ival = $2;
+        
 	}
 |	NUMBER
 	{
-		char *code = (char*) malloc(1000);
-		sprintf(code, "\tmovl\t$%d, %%edx\n", $1);
-		$$ = code;
+		$$ = newASTNode(AST_EXPRESSION);
+		$$ -> ival = $1;
 	}
 |   ID
     {
-        char* code = (char*) malloc(1000);
-        sprintf(code, "\tmovl\t%s, %%edx\n", $1);
-        $$ = code;
+        $$ = newASTNode(AST_EXPRESSION);
+        $$ -> ival = $1;
     }
 |   STRING
 	{
@@ -163,7 +161,7 @@ expression: expression PLUS expression
     
 declarations: vardecl SEMICOLON declarations
     {
-         $$ = 0;
+        $$ = 0;
     }
     //empty string
 |       {$$ = 0;}
