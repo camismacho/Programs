@@ -186,7 +186,7 @@ parameters: vardecl COMMA parameters
         {$$ = 0;}
 | vardecl
         {$$ = 0;}
-
+//empty
 |       {$$ = 0;}
 %%
 
