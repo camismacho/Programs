@@ -12,26 +12,20 @@
 // function prototypes from lex
 int yyerror(char *s);
 int yylex(void);
-int addString(char* input);
-int addNum(int input);
-int argNum = 0;
-char *argRegStr[] = {"%rdi","%rsi","%rdx","%rcx","%r8","%r9"};
+// int addString(char* input);
+//int argNum = 0;
+// char *argRegStr[] = {"%rdi","%rsi","%rdx","%rcx","%r8","%r9"};
 
 //declare struct for addString
-typedef struct {
-	int sid;
-	int arrayIndex;
-	char* strings[100];
-} stringArray;
+
 
 //initialize stringStore
-stringArray stringStore = {0,0};
 
 //global variables needed for symbol table
-Symbol** symTable;
-SymbolTableIter iter;
-Symbol* tempSym;
-Symbol* findSym;
+// Symbol** symTable;
+// SymbolTableIter iter;
+// Symbol* tempSym;
+// Symbol* findSym;
 %}  
 
 /* token value data types */
@@ -39,12 +33,12 @@ Symbol* findSym;
     int ival;
     char* str; 
     struct astnode_s * astnode;
-    }
+}
 
 /* Starting non-terminal */
 %start prog
 // nonterminals return ASTnode pointer
-%type <astnode> functions function statements statement funcall assignment arguments argument expression declarations vardecl parameters
+%type <astnode> prog functions function statements statement funcall assignment arguments argument expression declarations vardecl parameters
 
 /* Token types - either int or string*/
 %token <ival> NUMBER COMMA SEMICOLON LPAREN RPAREN LBRACE RBRACE PLUS EQUALS KWINT KWCHAR
@@ -55,15 +49,14 @@ Symbol* findSym;
 
 prog: declarations functions
      {
-        if (debug) fprintf(stderr, "Program\n");
-		$$ = newASTNode(AST_PROGRAM);
+        //if (debug) fprintf(stderr, "Program\n");
 		$$ -> child[0] = $1;
-		$4 -> child[1] = $2;
+		$$ -> child[1] = $2;
      }
 
 functions: function functions
 	{
-		if (debug) fprintf(stderr, "--Functions--\n");
+		//if (debug) fprintf(stderr, "--Functions--\n");
 		$1 -> next = $2;
 		$$ = $1;
 	}
@@ -72,7 +65,7 @@ functions: function functions
 
 function: ID LPAREN parameters RPAREN LBRACE statements RBRACE
 	{
-		if (debug) fprintf(stderr, "Function def (%s)\n", $1);
+		//if (debug) fprintf(stderr, "Function def (%s)\n", $1);
 		$$ = newASTNode(AST_FUNCTION);
 		$$ -> valtype = T_STRING;
 		$$ -> strval = $1;
@@ -135,33 +128,32 @@ expression: expression PLUS expression
 	{
         $$ = newASTNode(AST_EXPRESSION);
         $$ -> child[0] = $1;
-        $$ -> child[1] = $3;
         $$ -> ival = $2;
-        
+        $$ -> child[1] = $3;
 	}
 |	NUMBER
 	{
-		$$ = newASTNode(AST_EXPRESSION);
+		$$ = newASTNode(AST_CONSTANT);
 		$$ -> ival = $1;
+		$$ -> valtype = T_INT;
 	}
 |   ID
     {
-        $$ = newASTNode(AST_EXPRESSION);
-        $$ -> ival = $1;
+        $$ = newASTNode(AST_CONSTANT);
+        $$ -> strval = $1;
+        $$ -> valtype = T_STRING;
     }
 |   STRING
 	{
-        stringStore.sid = addString($1);
-        char *code = (char*) malloc(1000);
-        sprintf(code, "\tmovq\t$.LC%d, %s\n", stringStore.sid, argRegStr[argNum]);
-        argNum++;
-        
-		$$ = code;
+        $$ = newASTNode(AST_CONSTANT);
+        $$ -> strval = $1;
+        $$ -> valtype = T_STRING;
 	}
     
 declarations: vardecl SEMICOLON declarations
     {
-        $$ = 0;
+        $1 -> next = $3;
+        $$ = $1;
     }
     //empty string
 |       {$$ = 0;}
@@ -169,21 +161,24 @@ declarations: vardecl SEMICOLON declarations
 vardecl: KWINT ID
     {
         $$ = newASTNode(AST_VARDECL);
-    
-        addSymbol(symTable, $2, 0, T_INT);
-        $$ = 0;
+        $$ -> strval = $2;
+        $$ -> valtype = T_INT;
     }
         
 | KWCHAR ID
     {
-        addSymbol(symTable, $2, 0, T_STRING);
-        $$ = 0;
+        $$ = newASTNode(AST_VARDECL);
+        $$ -> strval = $2;
+        $$ -> valtype = T_STRING;
     }
 
 parameters: vardecl COMMA parameters
-        {$$ = 0;}
+        {
+        $1 -> next = $3;
+        $$ = $1;
+        }
 | vardecl
-        {$$ = 0;}
+        {$$ = $1;}
 //empty
 |       {$$ = 0;}
 %%
@@ -193,7 +188,9 @@ extern FILE *yyin; // from lex
 
 int main(int argc, char **argv)
 {
-    symTable = newSymbolTable();
+    ASTNode* prog = newASTNode(AST_PROGRAM);
+    
+    
    if (argc==2) {
       yyin = fopen(argv[1],"r");
       if (!yyin) {
@@ -201,7 +198,10 @@ int main(int argc, char **argv)
          return(1);
       }
    }
-   return(yyparse());
+   FILE* output = fopen("test.s", "w");
+   yyparse();
+   genCodeFromASTree(prog, 0, output);
+   return(0);
 }
 
 int yyerror(char *s)
@@ -215,12 +215,7 @@ int yywrap()
    return(1);
 }
 
-int addString(char* input) {
-	stringStore.strings[stringStore.arrayIndex] = input;
-	stringStore.arrayIndex++;
-	
-	return stringStore.arrayIndex - 1;
-}
+
 
 
 

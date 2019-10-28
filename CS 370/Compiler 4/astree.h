@@ -38,6 +38,7 @@ typedef struct astnode_s {
 ASTNode* newASTNode(ASTNodeType type);
 void printASTree(ASTNode* tree, int level, FILE *out);
 void genCodeFromASTree(ASTNode* tree, int count, FILE *out);
+int addString(char* input);
 
 #endif
 

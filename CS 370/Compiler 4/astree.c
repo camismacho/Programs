@@ -4,6 +4,25 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "astree.h"
+#include "symtable.h"
+
+typedef struct {
+	int sid;
+	int arrayIndex;
+	char* strings[100];
+} stringArray;
+
+stringArray stringStore = {0,0};
+
+/***** SYMBOL TABLE THINGS *****/
+Symbol** symTable;
+SymbolTableIter iter;
+Symbol* tempSym;
+Symbol* findSym;
+
+/***** ARGUMENT REGISTER THINGS *****/
+int argNum = 0;
+char *argRegStr[] = {"%rdi","%rsi","%rdx","%rcx","%r8","%r9"};
 
 // Create a new AST node 
 // - allocates space and initializes node type, zeros other stuff out
@@ -35,6 +54,8 @@ static char* levelPrefix(int level)
    prefix[i] = '\0';
    return prefix;
 }
+
+
 
 // Print the abstract syntax tree starting at the given node
 // - this is a recursive function, your initial call should 
@@ -154,14 +175,29 @@ void genCodeFromASTree(ASTNode* node, int count, FILE *out)
    if (!node)
       return;
    
-   fprintf(out,"%s",levelPrefix(level)); // note: no newline printed here!
+    //create a new symbol table 
+   symTable = newSymbolTable();
    
    switch (node->type) {
    
     case AST_PROGRAM:
-       fprintf(out,"Program\n");
+        iter.index = -1;
+        fprintf(out, "\t.data\n");
+        while (1) {
+            tempSym = iterSymbolTable(symTable, 0, &iter);
+            if (tempSym == NULL) {break;}
+            fprintf(out, "%s:\t.word 0\n");
+        }
+        
+        int index = 0;
+     	fprintf(out, "\t.section\t.rodata\n");
+     	while (index < stringStore.arrayIndex) {
+     		fprintf(out, ".LC%d:\n\t.string\t%s\n", index, stringStore.strings[index]);
+     		index++;
+     	}
+     	fprintf(out, "\t.text\n");
        genCodeFromASTree(node->child[0], 0, out);  // child 0 is global var decls
-       fprintf(out,"%s--functions--\n",levelPrefix(level+1));
+       //fprintf(out,"%s--functions--\n",levelPrefix(level+1));
        genCodeFromASTree(node->child[1], 0, out);  // child 1 is function defs
        break;
     
@@ -178,7 +214,7 @@ void genCodeFromASTree(ASTNode* node, int count, FILE *out)
     case AST_FUNCTION:
        fprintf(out,"Function def (%s)\n",node->strval);
        genCodeFromASTree(node->child[0], 0, out); // child 0 is arg list
-       fprintf(out,"%s--body--\n",levelPrefix(level+1));
+//        fprintf(out,"%s--body--\n",levelPrefix(level+1));
        genCodeFromASTree(node->child[1], 0, out); // child 1 is body (stmt list)
        break;
     
@@ -205,16 +241,16 @@ void genCodeFromASTree(ASTNode* node, int count, FILE *out)
     case AST_WHILE:
        fprintf(out,"While loop\n");
        genCodeFromASTree(node->child[0], 0, out);  // child 0 is condition expr
-       fprintf(out,"%s--body--\n",levelPrefix(level+1));
+//        fprintf(out,"%s--body--\n",levelPrefix(level+1));
        genCodeFromASTree(node->child[1], 0, out);  // child 1 is loop body
        break;
    
     case AST_IFTHEN:
        fprintf(out,"If then\n");
        genCodeFromASTree(node->child[0], 0, out);  // child 0 is condition expr
-       fprintf(out,"%s--ifpart--\n",levelPrefix(level+1));
+//        fprintf(out,"%s--ifpart--\n",levelPrefix(level+1));
        genCodeFromASTree(node->child[1], 0, out);  // child 1 is if body
-       fprintf(out,"%s--elsepart--\n",levelPrefix(level+1));
+//        fprintf(out,"%s--elsepart--\n",levelPrefix(level+1));
        genCodeFromASTree(node->child[2], 0, out);  // child 2 is else body
        break;
    
@@ -231,8 +267,10 @@ void genCodeFromASTree(ASTNode* node, int count, FILE *out)
     case AST_CONSTANT:
        if (node->valtype == T_INT)
           fprintf(out,"Int Constant = %d\n",node->ival);
-       else if (node->valtype == T_STRING)
-          fprintf(out,"String Constant = (%s)\n",node->strval);
+       else if (node->valtype == T_STRING){
+           stringStore.sid = addString(node -> strval);
+        fprintf(out, "\tmovq\t$.LC%d, %s\n", stringStore.sid, argRegStr[argNum]);
+       }
        else 
           fprintf(out,"Unknown Constant\n");
        break;
@@ -240,7 +278,13 @@ void genCodeFromASTree(ASTNode* node, int count, FILE *out)
     default:
        fprintf(out,"Unknown AST node!\n");
    }
-   genCodeFromASTree(node->next,level,out); // IMPORTANT: walks down sibling list
+   genCodeFromASTree(node->next,0,out); // IMPORTANT: walks down sibling list
 }
 
+int addString(char* input) {
+	stringStore.strings[stringStore.arrayIndex] = input;
+	stringStore.arrayIndex++;
+	
+	return stringStore.arrayIndex - 1;
+}
 
