@@ -12,6 +12,8 @@
 // function prototypes from lex
 int yyerror(char *s);
 int yylex(void);
+
+ASTNode* tree;
 // int addString(char* input);
 //int argNum = 0;
 // char *argRegStr[] = {"%rdi","%rsi","%rdx","%rcx","%r8","%r9"};
@@ -50,8 +52,9 @@ int yylex(void);
 prog: declarations functions
      {
         //if (debug) fprintf(stderr, "Program\n");
-		$$ -> child[0] = $1;
-		$$ -> child[1] = $2;
+        tree = newASTNode(AST_PROGRAM);
+		tree -> child[0] = $1;
+		tree -> child[1] = $2;
      }
 
 functions: function functions
@@ -139,8 +142,9 @@ expression: expression PLUS expression
 	}
 |   ID
     {
-        $$ = newASTNode(AST_CONSTANT);
+        $$ = newASTNode(AST_VARREF);
         $$ -> strval = $1;
+        //what is ival?
         $$ -> valtype = T_STRING;
     }
 |   STRING
@@ -200,7 +204,7 @@ int main(int argc, char **argv)
    }
    FILE* output = fopen("test.s", "w");
    yyparse();
-   genCodeFromASTree(prog, 0, output);
+   genCodeFromASTree(tree, 0, output);
    return(0);
 }
 
