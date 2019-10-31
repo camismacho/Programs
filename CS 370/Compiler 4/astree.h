@@ -34,6 +34,14 @@ typedef struct astnode_s {
    struct astnode_s* child[ASTNUMCHILDREN]; // pointers to children, if any
 } ASTNode;
 
+
+// struct for stringstore
+typedef struct {
+	int sid;
+	int arrayIndex;
+	char* strings[100];
+} stringArray;
+
 // Function Prototypes -- see C file for detailed descriptions
 ASTNode* newASTNode(ASTNodeType type);
 void printASTree(ASTNode* tree, int level, FILE *out);

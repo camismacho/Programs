@@ -14,20 +14,9 @@ int yyerror(char *s);
 int yylex(void);
 
 ASTNode* tree;
-// int addString(char* input);
-//int argNum = 0;
-// char *argRegStr[] = {"%rdi","%rsi","%rdx","%rcx","%r8","%r9"};
 
-//declare struct for addString
+stringArray stringStore = {0,0};
 
-
-//initialize stringStore
-
-//global variables needed for symbol table
-// Symbol** symTable;
-// SymbolTableIter iter;
-// Symbol* tempSym;
-// Symbol* findSym;
 %}  
 
 /* token value data types */
@@ -99,7 +88,7 @@ funcall: ID LPAREN arguments RPAREN
         $$ = newASTNode(AST_FUNCALL);
         $$ -> strval = $1;
         $$ -> child[0] = $3;
-     }
+    }
 
 assignment: ID EQUALS expression
     {
@@ -110,7 +99,6 @@ assignment: ID EQUALS expression
     
 arguments: argument COMMA arguments
 	{
-        //may need to create new node here instead, ask..
 		$1 -> next = $3;
 		$$ = $1;
 	}
@@ -144,12 +132,14 @@ expression: expression PLUS expression
     {
         $$ = newASTNode(AST_VARREF);
         $$ -> strval = $1;
-        //what is ival?
+        //we don't need ival atm
         $$ -> valtype = T_STRING;
     }
 |   STRING
 	{
+        //stringStore.sid = addString($1);
         $$ = newASTNode(AST_CONSTANT);
+        //$$ -> ival = stringStore.sid;
         $$ -> strval = $1;
         $$ -> valtype = T_STRING;
 	}
@@ -191,11 +181,8 @@ parameters: vardecl COMMA parameters
 extern FILE *yyin; // from lex
 
 int main(int argc, char **argv)
-{
-    ASTNode* prog = newASTNode(AST_PROGRAM);
-    
-    
-   if (argc==2) {
+{ 
+  if (argc==2) {
       yyin = fopen(argv[1],"r");
       if (!yyin) {
          printf("Error: unable to open file (%s)\n",argv[1]);
@@ -204,7 +191,8 @@ int main(int argc, char **argv)
    }
    FILE* output = fopen("test.s", "w");
    yyparse();
-   genCodeFromASTree(tree, 0, output);
+   printASTree(tree, 0, output);
+   //genCodeFromASTree(tree, 0, output);
    return(0);
 }
 

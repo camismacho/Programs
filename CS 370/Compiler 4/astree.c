@@ -6,13 +6,7 @@
 #include "astree.h"
 #include "symtable.h"
 
-typedef struct {
-	int sid;
-	int arrayIndex;
-	char* strings[100];
-} stringArray;
-
-stringArray stringStore = {0,0};
+//stringArray stringStore = {0,0};
 
 /***** SYMBOL TABLE THINGS *****/
 Symbol** symTable;
@@ -172,7 +166,7 @@ void printASTree(ASTNode* node, int level, FILE *out)
 //   instead of printf(...); call it with "stdout" for terminal output
 void genCodeFromASTree(ASTNode* node, int count, FILE *out)
 {
-   if (!node)
+   /*if (!node)
       return;
    
     //create a new symbol table 
@@ -181,6 +175,7 @@ void genCodeFromASTree(ASTNode* node, int count, FILE *out)
    switch (node->type) {
    
     case AST_PROGRAM:
+        //DONT NEED SYMBOL TABLE ANYMORE BOIIIIIII
         iter.index = -1;
         fprintf(out, "\t.data\n");
         while (1) {
@@ -288,6 +283,7 @@ void genCodeFromASTree(ASTNode* node, int count, FILE *out)
        break;
    
     case AST_CONSTANT:
+        //use ival to create string id's
        if (node->valtype == T_INT)
           fprintf(out,"Int Constant = %d\n",node->ival);
        else if (node->valtype == T_STRING){
@@ -301,13 +297,13 @@ void genCodeFromASTree(ASTNode* node, int count, FILE *out)
     default:
        fprintf(out,"Unknown AST node!\n");
    }
-   genCodeFromASTree(node->next,0,out); // IMPORTANT: walks down sibling list
+   genCodeFromASTree(node->next,0,out); // IMPORTANT: walks down sibling list*/
 }
 
-int addString(char* input) {
+/*int addString(char* input) {
 	stringStore.strings[stringStore.arrayIndex] = input;
 	stringStore.arrayIndex++;
 	
 	return stringStore.arrayIndex - 1;
-}
+}*/
 
