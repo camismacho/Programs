@@ -166,7 +166,7 @@ void printASTree(ASTNode* node, int level, FILE *out)
 //   instead of printf(...); call it with "stdout" for terminal output
 void genCodeFromASTree(ASTNode* node, int count, FILE *out)
 {
-   /*if (!node)
+   if (!node)
       return;
    
     //create a new symbol table 
@@ -175,32 +175,24 @@ void genCodeFromASTree(ASTNode* node, int count, FILE *out)
    switch (node->type) {
    
     case AST_PROGRAM:
-        //DONT NEED SYMBOL TABLE ANYMORE BOIIIIIII
-        iter.index = -1;
-        fprintf(out, "\t.data\n");
-        while (1) {
-            tempSym = iterSymbolTable(symTable, 0, &iter);
-            if (tempSym == NULL) {break;}
-            fprintf(out, "%s:\t.word 0\n");
-        }
-        
-        int index = 0;
-     	fprintf(out, "\t.section\t.rodata\n");
-     	while (index < stringStore.arrayIndex) {
+        fprintf(out, "\t.section\t.rodata\n");
+     	
+       genCodeFromASTree(node->child[0], 0, out);  // child 0 is global var decls
+       
+       while (index < stringStore.arrayIndex) {
      		fprintf(out, ".LC%d:\n\t.string\t%s\n", index, stringStore.strings[index]);
      		index++;
      	}
      	fprintf(out, "\t.text\n");
-       genCodeFromASTree(node->child[0], 0, out);  // child 0 is global var decls
-       //fprintf(out,"%s--functions--\n",levelPrefix(level+1));
+
        genCodeFromASTree(node->child[1], 0, out);  // child 1 is function defs
        break;
     
     case AST_VARDECL:
        if (node->valtype == T_INT)
-          addSymbol(symTable, node -> strval, 0, T_INT);
+          fprintf(out, "%s:\t.word 0\n");
        else if (node->valtype == T_STRING)
-          addSymbol(symTable, node -> strval, 0, T_STRING);
+          fprintf(out, "%s:\t.word 0\n");
        else
           fprintf(out," type unknown\n");
        break;
