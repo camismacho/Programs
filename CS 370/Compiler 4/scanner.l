@@ -1,4 +1,4 @@
-/* scanner.l for compiler 3
+/* scanner.l for compiler 4
 * Joseph Camacho-Terrazas
 */
 

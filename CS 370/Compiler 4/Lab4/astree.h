@@ -20,8 +20,8 @@ typedef enum {
 } ASTNodeType;
 
 // max number of node children (3 will accomodate an ifthen node 
-// that has its condition, ifblock, and elseblock as children
-// each node type has different kinds or children, or none
+// that has its condition, ifblock, and elseblock as children)
+// - each node type has different kinds or children, or none
 #define ASTNUMCHILDREN 3
 
 // AST Node definition; not all node types will use all the fields
@@ -34,20 +34,11 @@ typedef struct astnode_s {
    struct astnode_s* child[ASTNUMCHILDREN]; // pointers to children, if any
 } ASTNode;
 
-
-// struct for stringstore
-typedef struct {
-	int sid;
-	int arrayIndex;
-	char* strings[100];
-} stringArray;
-
 // Function Prototypes -- see C file for detailed descriptions
+void DLines();
 ASTNode* newASTNode(ASTNodeType type);
 void printASTree(ASTNode* tree, int level, FILE *out);
 void genCodeFromASTree(ASTNode* tree, int count, FILE *out);
-int addString(char* input);
-int isCFile(char* file, char* suffix);
 
 #endif
 
