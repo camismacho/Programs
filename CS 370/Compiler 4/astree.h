@@ -47,7 +47,7 @@ ASTNode* newASTNode(ASTNodeType type);
 void printASTree(ASTNode* tree, int level, FILE *out);
 void genCodeFromASTree(ASTNode* tree, int count, FILE *out);
 int addString(char* input);
-int isCFile(char* file, char* suffix);
+int isCFile(char* file);
 
 #endif
 

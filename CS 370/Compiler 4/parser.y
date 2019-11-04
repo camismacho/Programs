@@ -194,6 +194,7 @@ extern FILE *yyin; // from lex
 int main(int argc, char **argv)
 { 
     if (argc == 1) {
+        fprintf(stderr, "Please enter the .c file name: ");
         char fileName[100];
         char *newLine;
         
@@ -202,23 +203,31 @@ int main(int argc, char **argv)
         newLine = strchr(fileName, '\n');
         if (newLine)
             *newLine = '\0';
-
-        //check if file opens
-        yyin = fopen(fileName, "r");
-        if (!yyin) {
-            fprintf(stderr, "Error: unable to open file (%s)\n", fileName);
-            return (-1);
-        }
+            
+        //check for valid .c file
+        if(isCFile(fileName) == 0) {
+            //check if file opens
+            yyin = fopen(fileName, "r");
+            if (!yyin) {
+                fprintf(stderr, "Error: unable to open file (%s)\n", fileName);
+                return (-1);
+            }
         
-        //parse and print normally to stdout
-        yyparse();
-        genCodeFromASTree(tree, 0, stdout);
-        return(0);
+            //parse and print normally to stdout
+            yyparse();
+            genCodeFromASTree(tree, 0, stdout);
+            return(0);
+        }
+        //if it's not a .c file, error
+        else {
+            fprintf(stderr, "%s is not a valid .c file!\n", fileName);
+            return(-1);
+        }
     }
 
     if (argc==2) {
         //if the file is a .c then parse it
-        if (isCFile(argv[1], ".c") == 0) {
+        if (isCFile(argv[1]) == 0) {
             //try to open, if not, error
             yyin = fopen(argv[1],"r");
         
@@ -228,8 +237,7 @@ int main(int argc, char **argv)
             }
             //output into a .s file with the same name as input
             char fileName[100];
-            char suffix[5];
-            strcpy(suffix, ".s");
+            char* suffix = ".s";
             //use strncpy to omit the ".c"
             strncpy(fileName, argv[1], strlen(argv[1]) - 2);
             strcat(fileName, suffix);
@@ -252,37 +260,41 @@ int main(int argc, char **argv)
    
     if (argc == 3) {
         //if the file is a .c then parse it
-        if (isCFile(argv[1], ".c") == 0) {
+        if (isCFile(argv[1]) == 0) {
             //try to open, if not, error
             yyin = fopen(argv[1],"r");
-        
             if (!yyin) {
                 fprintf(stderr, "Error: unable to open file (%s)\n",argv[1]);
                 return(1);
             }
-            //output into a test file with the same name as input
-            char fileName[100];
-            char suffix[5];
-            strcpy(suffix, ".s");
-            //create string minus ".c"
-            strncpy(fileName, argv[1], strlen(argv[1]) - 2);
-            //add ".s" to the filename
-            strcat(fileName, suffix);
-            //create the new file and parse
-            FILE* output = fopen(fileName, "w");
-            if (!output) {
-                fprintf(stderr, "Error: unable to open file (%s)\n", fileName);
-                return(-1);
-            }
-            //-d flag prints the tree
+            
+            //-d flag prints the tree only with no .s file
             if (strcmp(argv[2], "-d") == 0){
                 yyparse();
                 printASTree(tree, 0, stdout);
                 return(0);
             }
+            
             //-t flag still outputs to .s, but also prints debug info from parser
             if (strcmp(argv[2], "-t") == 0) {
+                //enable debug output
                 debug = 1;
+                
+                //output into a test file with the same name as input
+                char fileName[100];
+                char* suffix = ".s";
+                //create string minus ".c"
+                strncpy(fileName, argv[1], strlen(argv[1]) - 2);
+                //add ".s" to the filename
+                strcat(fileName, suffix);
+                //create the new file and parse
+                FILE* output = fopen(fileName, "w");
+                if (!output) {
+                    fprintf(stderr, "Error: unable to open file (%s)\n", fileName);
+                    return(-1);
+                }
+                
+                //parse and output
                 yyparse();
                 genCodeFromASTree(tree, 0, output);
                 return(0);
@@ -328,10 +340,11 @@ int addString(char* input) {
 }
 
 //this function will check if the file has .c as a suffix
-int isCFile(char* file, char* suffix) {
+int isCFile(char* file) {
     //if the filename or suffix is invalid
+    char* suffix = ".c";
     if (!file || !suffix) {
-        fprintf(stderr, "%s nvalid file or suffix %s!\n", file, suffix);
+        fprintf(stderr, "%s Invalid file or suffix %s!\n", file, suffix);
         return(-1);
     }
     //create length variables of the file and suffix
