@@ -48,6 +48,7 @@ run: finalOut
 	@echo "	**********>Running with filename argument<**********"
 	@echo "";
 	./compiler testComp4.c
+	ls
 	@echo "";
 	@echo "	(Deleting generated .s files)"
 	rm -f *.s

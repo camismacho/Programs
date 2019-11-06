@@ -70,6 +70,7 @@ import java.util.TimeZone;
             //gif
             else if (url.contains(".gif")) cType = "image/gif";
             //ico
+            //I don't think it works but I gave it the old college try
             else if (url.contains(".ico")) cType = "image/x-icon";
             //if no image type found, set to default case of text/html
             else cType = "text/html";

@@ -304,7 +304,12 @@ int main(int argc, char **argv)
                 fprintf(stderr, "Invalid flag! argv[2]: %s\n", argv[2]);
                 return(-1);
                 }
-        }   
+        }
+        //if it's not a .c file, error
+        else {
+            fprintf(stderr, "%s is not a valid .c file!\n", argv[1]);
+            return(-1);
+        }
     return(0);
     }
     
