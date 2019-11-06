@@ -161,6 +161,7 @@ void printASTree(ASTNode* node, int level, FILE *out)
 //   instead of printf(...); call it with "stdout" for terminal output
 void genCodeFromASTree(ASTNode* node, int level, FILE *out)
 {
+    char* instr = "";
    if (!node)
       return;
    
@@ -249,6 +250,24 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
         }
         else 
             fprintf(out,"Unknown Constant\n");
+        break;
+        
+    case AST_RELEXPR:
+        genCodeFromASTree(node -> child[0], 0, out); //child 0 is left side
+        fprintf(out, "\tpushq\t%%rax\n");
+        genCodeFromASTree(node -> child[1], 0, out); //child 1 is right side
+        fprintf(out, "\tpopq\t%%rcx\n");
+        fprintf(out, "\tcmpl\t%%eax, %%ecx\n");
+        
+        switch (node -> ival) {
+            case '<': instr = "jl"; break;
+            case '>': instr = "jg"; break;
+            case '!': instr = "jne"; break;
+            case '=': instr = "je"; break;
+            default: instr = "unknown relop";
+        }//end switch
+        
+        fprintf(out, "\t%s\tLL%d\n", instr, count);
         break;
     
     default:

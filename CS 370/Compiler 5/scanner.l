@@ -19,18 +19,21 @@ yystype yylval;
 //Tokens
 #define KWINT 1
 #define KWCHAR 2
-#define ID 3
-#define STRING 4
-#define LPAREN 5
-#define RPAREN 6
-#define LBRACE 7
-#define RBRACE 8
-#define SEMICOLON 9
-#define NUMBER 10
-#define COMMA 11
-#define PLUS 12
-#define EQUALS 13
-#define RELOP 14
+#define KWWHILE 3
+#define KWIF 4
+#define KWELSE 5
+#define ID 6
+#define STRING 7
+#define LPAREN 8
+#define RPAREN 9
+#define LBRACE 10
+#define RBRACE 11
+#define SEMICOLON 12
+#define NUMBER 13
+#define COMMA 14
+#define PLUS 15
+#define EQUALS 16
+#define RELOP 17
 #endif
 %}
 

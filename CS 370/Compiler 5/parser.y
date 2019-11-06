@@ -30,10 +30,10 @@ stringArray stringStore = {0,0};
 /* Starting non-terminal */
 %start prog
 // nonterminals return ASTnode pointer
-%type <astnode> prog functions function statements statement funcall assignment arguments argument expression declarations vardecl parameters
+%type <astnode> prog functions function statements statement funcall assignment arguments argument expression declarations vardecl parameters whileloop ifthen ifthenelse relexpr
 
 /* Token types - either int or string*/
-%token <ival> NUMBER COMMA SEMICOLON LPAREN RPAREN LBRACE RBRACE PLUS EQUALS KWINT KWCHAR
+%token <ival> NUMBER COMMA SEMICOLON LPAREN RPAREN LBRACE RBRACE PLUS EQUALS KWINT KWCHAR KWIF KWELSE KWWHILE ADDOP RELOP
 %token <str> ID STRING
 
 %%
@@ -46,6 +46,31 @@ prog: declarations functions
 		tree -> child[0] = $1;
 		tree -> child[1] = $2;
      }
+     
+declarations: vardecl SEMICOLON declarations
+    {
+        $1 -> next = $3;
+        $$ = $1;
+    }
+    //empty string
+|       {$$ = 0;}
+
+vardecl: KWINT ID
+    {
+        if (debug) fprintf(stderr, "+++Declaration Int (%s)+++\n", $2);
+        $$ = newASTNode(AST_VARDECL);
+        $$ -> strval = $2;
+        $$ -> valtype = T_INT;
+    }
+        
+| KWCHAR ID
+    {
+        if (debug) fprintf(stderr, "+++Declaration String (%s)+++\n", $2);
+        $$ = newASTNode(AST_VARDECL);
+        $$ -> strval = $2;
+        $$ -> valtype = T_STRING;
+    }
+
 
 functions: function functions
 	{
@@ -66,7 +91,7 @@ function: ID LPAREN parameters RPAREN LBRACE statements RBRACE
 		$$ -> child[1] = $6;
 	}
 	
-statements: statement SEMICOLON statements
+statements: statement statements
 	{
         //if (debug) fprintf(stderr, "\t---Statements---\n");
         $1 -> next = $3;
@@ -75,23 +100,24 @@ statements: statement SEMICOLON statements
 	//empty string
 |	{$$ = 0;}
 	
-statement: funcall
+statement: funcall SEMICOLON
 	{
 		$$ = $1;
 	}
 	
-|   assignment
+|   assignment SEMICOLON
     {
         $$ = $1;
     }
-	
-funcall: ID LPAREN arguments RPAREN
-	{
-        if (debug) fprintf(stderr, "^Funcall (%s)^\n", $1);
-        $$ = newASTNode(AST_FUNCALL);
-        $$ -> strval = $1;
-        $$ -> child[0] = $3;
-    }
+    
+|   whileloop
+    {}
+    
+|   ifthen
+    {}
+
+| ifthenelse
+    {}
 
 assignment: ID EQUALS expression
     {
@@ -100,6 +126,22 @@ assignment: ID EQUALS expression
         $$ -> strval = $1;
         $$ -> child[0] = $3;
     }
+funcall: ID LPAREN arguments RPAREN
+	{
+        if (debug) fprintf(stderr, "^Funcall (%s)^\n", $1);
+        $$ = newASTNode(AST_FUNCALL);
+        $$ -> strval = $1;
+        $$ -> child[0] = $3;
+    }
+    
+whileloop: KWWHILE LPAREN relexpr RPAREN LBRACE statements RBRACE
+    {}
+    
+ifthen: KWIF LPAREN relexpr RPAREN LBRACE statements RBRACE
+    {}
+    
+ifthenelse: KWIF LPAREN relexpr RPAREN LBRACE statements RBRACE KWELSE LBRACE statements RBRACE
+    {}
     
 arguments: argument COMMA arguments
 	{
@@ -121,7 +163,7 @@ argument: expression
 		$$ -> child[0] = $1;
 	}
 
-expression: expression PLUS expression
+expression: expression ADDOP expression
 	{
         //if (debug) fprintf(stderr, "\t^Expression plus Expression^\n");
         $$ = newASTNode(AST_EXPRESSION);
@@ -152,31 +194,10 @@ expression: expression PLUS expression
         $$ -> valtype = T_STRING;
         stringStore.sid = addString($1);
 	}
+	
+relexpr: expression RELOP expression
+    {}
     
-declarations: vardecl SEMICOLON declarations
-    {
-        $1 -> next = $3;
-        $$ = $1;
-    }
-    //empty string
-|       {$$ = 0;}
-
-vardecl: KWINT ID
-    {
-        if (debug) fprintf(stderr, "+++Declaration Int (%s)+++\n", $2);
-        $$ = newASTNode(AST_VARDECL);
-        $$ -> strval = $2;
-        $$ -> valtype = T_INT;
-    }
-        
-| KWCHAR ID
-    {
-        if (debug) fprintf(stderr, "+++Declaration String (%s)+++\n", $2);
-        $$ = newASTNode(AST_VARDECL);
-        $$ -> strval = $2;
-        $$ -> valtype = T_STRING;
-    }
-
 parameters: vardecl COMMA parameters
         {
         $1 -> next = $3;
