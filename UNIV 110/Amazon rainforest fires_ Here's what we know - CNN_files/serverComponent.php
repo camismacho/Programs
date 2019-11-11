@@ -1,0 +1,2 @@
+
+Bootstrapper._serverTime = '2019-11-10 23:00:05'; Bootstrapper._clientIP = '73.98.61.82'; Bootstrapper.insertPageFiles(['https://agility.cnn.com/turner/cnn-prod/code/1ce0b2f61595da9291b80103845c2c3e.js?conditionId0=423209','https://agility.cnn.com/turner/cnn-prod/code/4a89b075e42ac241fc8bdf31e48c34d1.js?conditionId0=4839055']);Bootstrapper.setPageSpecificDataDefinitionIds([50215,8909]);
