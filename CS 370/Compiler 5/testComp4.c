@@ -16,7 +16,7 @@ main(int argc, char* argv)
    printf("goodbye %s %d\n","second",42+4+x+2);
    puts("Hello World!\n");
    x = 0;
-   while(10 > x) { 
+   while(x < 10) { 
        puts("loopy loop\n");
        x = x + 1;
    }

@@ -4,13 +4,7 @@
 	.comm	y,4,4
 	.section	.rodata
 .LC0:
-	.string	"poopy balls1\n"
-.LC1:
-	.string	"poopy balls2\n"
-.LC2:
-	.string	"poopy balls3\n"
-.LC3:
-	.string	"poopy balls4\n"
+	.string	"Hello World!\n"
 	.text
 	.globl	func
 	.type	func, @function
@@ -26,14 +20,18 @@ func:
 	movl	%edi, -4(%rbp)
 	movq	%rsi, -16(%rbp)
 	movq	%rdx, -24(%rbp)
+	movl	$0, x(%rip)
+	jmp	.L2
+.L3:
 	movl	$.LC0, %edi
 	call	puts
-	movl	$.LC1, %edi
-	call	puts
-	movl	$.LC2, %edi
-	call	puts
-	movl	$.LC3, %edi
-	call	puts
+	movl	x(%rip), %eax
+	addl	$1, %eax
+	movl	%eax, x(%rip)
+.L2:
+	movl	x(%rip), %eax
+	cmpl	$4, %eax
+	jle	.L3
 	nop
 	leave
 	.cfi_def_cfa 7, 8
