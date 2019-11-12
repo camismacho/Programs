@@ -33,7 +33,7 @@ stringArray stringStore = {0,0};
 %type <astnode> prog functions function statements statement funcall assignment arguments argument expression declarations vardecl parameters whileloop ifthen ifthenelse relexpr
 
 /* Token types - either int or string*/
-%token <ival> NUMBER COMMA SEMICOLON LPAREN RPAREN LBRACE RBRACE PLUS EQUALS KWINT KWCHAR KWIF KWELSE KWWHILE ADDOP RELOP
+%token <ival> NUMBER COMMA SEMICOLON LPAREN RPAREN LBRACE RBRACE EQUALS KWINT KWCHAR KWIF KWELSE KWWHILE ADDOP RELOP
 %token <str> ID STRING
 
 %%
@@ -94,7 +94,7 @@ function: ID LPAREN parameters RPAREN LBRACE statements RBRACE
 statements: statement statements
 	{
         //if (debug) fprintf(stderr, "\t---Statements---\n");
-        $1 -> next = $3;
+        $1 -> next = $2;
 		$$ = $1;
 	}
 	//empty string
@@ -111,13 +111,19 @@ statement: funcall SEMICOLON
     }
     
 |   whileloop
-    {}
+    {
+        $$ = $1;
+    }
     
 |   ifthen
-    {}
+    {
+        $$ = $1;
+    }
 
 | ifthenelse
-    {}
+    {
+        $$ = $1;
+    }
 
 assignment: ID EQUALS expression
     {
@@ -135,13 +141,27 @@ funcall: ID LPAREN arguments RPAREN
     }
     
 whileloop: KWWHILE LPAREN relexpr RPAREN LBRACE statements RBRACE
-    {}
+    {
+        $$ = newASTNode(AST_WHILE);
+        $$ -> child[0] = $3;
+        $$ -> child[1] = $6;
+    }
     
 ifthen: KWIF LPAREN relexpr RPAREN LBRACE statements RBRACE
-    {}
+    {
+        $$ = newASTNode(AST_IFTHEN);
+        $$ -> child[0] = $3;
+        $$ -> child[1] = $6;
+        $$ -> child[2] = 0;
+    }
     
 ifthenelse: KWIF LPAREN relexpr RPAREN LBRACE statements RBRACE KWELSE LBRACE statements RBRACE
-    {}
+    {
+        $$ = newASTNode(AST_IFTHEN);
+        $$ -> child[0] = $3;
+        $$ -> child[1] = $6;
+        $$ -> child[2] = $10;
+    }
     
 arguments: argument COMMA arguments
 	{
@@ -196,7 +216,12 @@ expression: expression ADDOP expression
 	}
 	
 relexpr: expression RELOP expression
-    {}
+    {
+        $$ = newASTNode(AST_RELEXPR);
+        $$ -> ival = $2;
+        $$ -> child[0] = $1;
+        $$ -> child[1] = $3;
+    }
     
 parameters: vardecl COMMA parameters
         {

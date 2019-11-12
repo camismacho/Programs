@@ -16,7 +16,7 @@
 typedef enum { 
    AST_PROGRAM, AST_VARDECL, AST_FUNCTION, AST_SBLOCK, AST_FUNCALL, 
    AST_ASSIGNMENT, AST_WHILE, AST_IFTHEN, AST_EXPRESSION, AST_VARREF, 
-   AST_CONSTANT, AST_ARGUMENT
+   AST_CONSTANT, AST_ARGUMENT, AST_RELEXPR
 } ASTNodeType;
 
 // max number of node children (3 will accomodate an ifthen node 
@@ -48,6 +48,7 @@ void printASTree(ASTNode* tree, int level, FILE *out);
 void genCodeFromASTree(ASTNode* tree, int count, FILE *out);
 int addString(char* input);
 int isCFile(char* file);
+int getUniqueLabelID();
 
 #endif
 

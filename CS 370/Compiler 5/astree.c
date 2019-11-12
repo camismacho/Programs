@@ -12,7 +12,7 @@ char *argRegStr[] = {"%rdi","%rsi","%rdx","%rcx","%r8","%r9"};
 int stringCounter = 0;
 extern stringArray stringStore;
 int ind = 0;
-
+int count = 100;
 // Create a new AST node 
 // - allocates space and initializes node type, zeros other stuff out
 // - returns pointer to node
@@ -125,6 +125,22 @@ void printASTree(ASTNode* node, int level, FILE *out)
        else 
           fprintf(out,"Unknown Constant\n");
        break;
+    case AST_RELEXPR:
+        printASTree(node -> child[0], 0, out); //child 0 is left side
+        fprintf(out, "Left Side\n");
+        printASTree(node -> child[1], 0, out); //child 1 is right side
+        fprintf(out, "Right Side\n");
+        
+        switch (node -> ival) {
+            case '<': fprintf(out, "Relop <\n"); break;
+            case '>': fprintf(out, "Relop >\n"); break;
+            case '!': fprintf(out, "Relop !\n"); break;
+            case '=': fprintf(out, "Relop =\n"); break;
+            default: ;
+        }//end switch
+        
+        break;
+    
     default:
        fprintf(out,"Unknown AST node!\n");
    }
@@ -162,6 +178,7 @@ void printASTree(ASTNode* node, int level, FILE *out)
 void genCodeFromASTree(ASTNode* node, int level, FILE *out)
 {
     char* instr = "";
+    
    if (!node)
       return;
    
@@ -219,12 +236,16 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
     
     case AST_WHILE:
         genCodeFromASTree(node->child[0], 0, out);  // child 0 is condition expr
+        
         genCodeFromASTree(node->child[1], 0, out);  // child 1 is loop body
        break;
    
     case AST_IFTHEN:
         genCodeFromASTree(node->child[0], 0, out);  // child 0 is condition expr
+        
         genCodeFromASTree(node->child[1], 0, out);  // child 1 is if body
+        count++;
+        fprintf(out, "\tjmp\tLL%d\n", count);
         genCodeFromASTree(node->child[2], 0, out);  // child 2 is else body
        break;
    
@@ -267,6 +288,7 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
             default: instr = "unknown relop";
         }//end switch
         
+        count++;
         fprintf(out, "\t%s\tLL%d\n", instr, count);
         break;
     
@@ -274,6 +296,12 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
        fprintf(out,"Unknown AST node!\n");
    }
    genCodeFromASTree(node->next,level,out); // IMPORTANT: walks down sibling list*/
+}
+
+int getUniqueLabelID() {
+    int counter;
+    counter++;
+    return counter;
 }
 
 

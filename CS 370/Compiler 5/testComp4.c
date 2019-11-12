@@ -6,6 +6,8 @@ func(int a, char* b, char* s)
    puts("hello world!\n");
    x = 42+12;
    printf("x=%d\n",x);
+   if (20>10) { puts("poopy balls\n"); }
+   else { puts("barf\n"); }
 }
 
 main(int argc, char* argv)

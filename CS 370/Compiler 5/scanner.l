@@ -16,6 +16,8 @@ typedef union { int ival; char* str; } yystype;
 #define YYSTYPE yystype
 yystype yylval;
 
+int debug = 0;
+
 //Tokens
 #define KWINT 1
 #define KWCHAR 2
@@ -31,7 +33,7 @@ yystype yylval;
 #define SEMICOLON 12
 #define NUMBER 13
 #define COMMA 14
-#define PLUS 15
+#define ADDOP 15
 #define EQUALS 16
 #define RELOP 17
 #endif
@@ -42,92 +44,116 @@ yystype yylval;
 [ \t\n\r]* { /* skipping white space */ }
 
 int         {
-            //printf("KWINT: (%s)\n", yytext);
+            //if (debug) printf("KWINT: (%s)\n", yytext);
             yylval.ival = yytext[0];
             return(KWINT);
             }
             
 char\*     {
-            //printf("KWCHAR: (%s)\n", yytext);
+            //if (debug) printf("KWCHAR: (%s)\n", yytext);
             yylval.ival = yytext[0];
             return(KWCHAR);
             }
+
+if         {
+            //if (debug) printf("KWIF: (%s)\n", yytext);
+            yylval.ival = yytext[0];
+            return(KWIF);
+            }
+            
+else         {
+            //if (debug) printf("KWELSE: (%s)\n", yytext);
+            yylval.ival = yytext[0];
+            return(KWELSE);
+            }
+            
+while         {
+            //if (debug) printf("KWWHILE: (%s)\n", yytext);
+            yylval.ival = yytext[0];
+            return(KWWHILE);
+            }
             
 [a-zA-Z]+ 	{
-			//printf("ID: (%s)\n", yytext);
+			//if (debug) printf("ID: (%s)\n", yytext);
             yylval.str = strdup(yytext);
             return(ID);
           	}
           
 \"[^\"]*\"	{
-            //printf("STRING: (%s)\n", yytext);
+            //if (debug) printf("STRING: (%s)\n", yytext);
             yylval.str = strdup(yytext);
             return(STRING);
           	}
           
 \(        	{
-            //printf("LPAREN: (%s)\n", yytext);
+            //if (debug) printf("LPAREN: (%s)\n", yytext);
             yylval.ival = yytext[0];
             return(LPAREN);
           	}
           
 \)			{
-			//printf("RPAREN: (%s)\n", yytext);
+			//if (debug) printf("RPAREN: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(RPAREN);
 			}
 
 \{			{
-			//printf("LBRACE: (%s)\n", yytext);
+			//if (debug) printf("LBRACE: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(LBRACE);
 			}
           
 \}			{
-			//printf("RBRACE: (%s)\n", yytext);
+			//if (debug) printf("RBRACE: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(RBRACE);
 			}
           
 \;			{
-			//printf("SEMICOLON: (%s)\n", yytext);
+			//if (debug) printf("SEMICOLON: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(SEMICOLON);
 			}
 
 [0-9]+		{
-			//printf("NUMBER: (%s)\n", yytext);
+			//if (debug) printf("NUMBER: (%s)\n", yytext);
 			//use strtol to convert string to integer
 			yylval.ival = strtol(yytext, 0, 10);
 			return(NUMBER);
 			}
 
 \,			{
-			//printf("COMMA: (%s)\n", yytext);
+			//if (debug) printf("COMMA: (%s)\n", yytext);
 			yylval.ival = yytext[0];
 			return(COMMA);
 			}
 
 \+			{
-			////printff("PLUS: (%s)\n", yytext);
+			//if (debug) printf("ADDOP: PLUS: (%s)\n", yytext);
 			yylval.ival = yytext[0];
-			return(PLUS);
+			return(ADDOP);
+			}
+
+\-			{
+			//if (debug) printf("ADDOP: MINUS: (%s)\n", yytext);
+			yylval.ival = yytext[0];
+			return(ADDOP);
 			}
 			
 \=          {
-            ////printff("EQUALS: (%s)\n", yytext);
+            //if (debug) printf("EQUALS: (%s)\n", yytext);
             yylval.ival = yytext[0];
             return(EQUALS);
             }
             
 [=!]=       {
-            ////printff("RELOP: (%s)\n", yytext);
+            //if (debug) printf("RELOP: (%s)\n", yytext);
             yylval.ival = yytext[0];
             return(RELOP);
             }
 
 [><]        {
-            ////printff("RELOP: (%s)\n", yytext);
+            //if (debug) printf("RELOP: (%s)\n", yytext);
             yylval.ival = yytext[0];
             return(RELOP);
             }
@@ -139,6 +165,9 @@ char\*     {
 // this can be a main for standalone testing (uses just stdin)
 int main(int argc, char **argv) 
 {
+    if (strcmp(argv[1], "-l") == 0){
+        debug = 1;
+    }
    do {
       yylex();
    } while (1);
