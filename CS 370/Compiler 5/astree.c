@@ -235,18 +235,21 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
         break;
     
     case AST_WHILE:
-        genCodeFromASTree(node->child[0], 0, out);  // child 0 is condition expr
-        
+        fprintf(out, "\tjmp\tLL104\n");
+        fprintf(out, "LL103:\n");
         genCodeFromASTree(node->child[1], 0, out);  // child 1 is loop body
-       break;
+        fprintf(out, "LL104:\n");
+        genCodeFromASTree(node->child[0], 0, out);  // child 0 is condition expr
+        break;
    
     case AST_IFTHEN:
         genCodeFromASTree(node->child[0], 0, out);  // child 0 is condition expr
-        
         genCodeFromASTree(node->child[1], 0, out);  // child 1 is if body
         count++;
-        fprintf(out, "\tjmp\tLL%d\n", count);
+        fprintf(out, "\tjmp\tLL102\n");
+        fprintf(out, "LL101:\n", count);
         genCodeFromASTree(node->child[2], 0, out);  // child 2 is else body
+        fprintf(out, "LL102:", count);
        break;
    
     case AST_EXPRESSION:
