@@ -8,7 +8,7 @@ CC = gcc
 
 # default rule build and run the parser
 # run "make finalOut" to only build the parser
-all: run
+all: finalOut
 
 symtable.o: symtable.c symtable.h
 	gcc -c symtable.c
@@ -34,9 +34,10 @@ testComp4.s: compiler testComp4.c
 # compile assembly file into final executable finalOut
 finalOut: testComp4.s
 	gcc testComp4.s -o finalOut
+	./finalOut
 
 # run final executable
-run: finalOut
+rundebug: finalOut
 	@echo "";
 	@echo "	**********>Running ./finalOut<**********"
 	@echo "";

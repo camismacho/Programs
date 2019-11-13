@@ -1,5 +1,7 @@
 	.data
+#VARDECL
 x:	.word 0
+#VARDECL
 y:	.word 0
 	.section	.rodata
 .LC0:
@@ -11,115 +13,223 @@ y:	.word 0
 .LC3:
 	.string	"else works!\n"
 .LC4:
-	.string	"goodbye"
+	.string	"if works!\n"
 .LC5:
-	.string	"third arg"
+	.string	"else works!\n"
 .LC6:
-	.string	"goodbye %s %d\n"
+	.string	"goodbye"
 .LC7:
-	.string	"second"
+	.string	"third arg"
 .LC8:
-	.string	"Hello World!\n"
+	.string	"goodbye %s %d\n"
 .LC9:
+	.string	"second"
+.LC10:
+	.string	"Hello World!\n"
+.LC11:
 	.string	"loopy loop\n"
 	.text
+#FUNCTION
+#VARDECL
 a:	.word 0
+#VARDECL
 b:	.word 0
+#VARDECL
 s:	.word 0
 	.globl	func
 	.type	func, @function
 func:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	movq	$.LC0, %rdi
+#FUNCALL
+#ARGUMENT
+#CONSTANT
+	movq	$.LC0, %rax
+	movq	%rax, %rdi
 	movl	$0, %eax
 	call	puts
-	movl	$42, %edx
+# ASSIGN GEN RHS 
+#EXPRESSION
+#CONSTANT
+	movq	$42, %rdx
 	pushq	%rdx
-	movl	$12, %edx
+#CONSTANT
+	movq	$12, %rdx
 	popq	%rcx
-	addl	%ecx, %edx
-	movl	%eax, x
-	movl	x, %eax
-	movl	%eax, %esi	
-	movq	$.LC1, %rdi
-	movl	x, %edx
+	addq	%rcx, %rdx
+# final assignment to LHS 
+	movq	%rdx, x
+	movq	%rdx, %rdi
+#FUNCALL
+#ARGUMENT
+#CONSTANT
+	movq	$.LC1, %rax
+	movq	%rax, %rdi
+#ARGUMENT
+#VARREF
+	movq	x, %rdx
+	movq	%rax, %rsi
 	movl	$0, %eax
 	call	printf
-	movl	$20, %edx
-	pushq	%rax
-	movl	$10, %edx
+#IFTHEN
+#RELEXPR
+#CONSTANT
+	movq	$20, %rdx
+	pushq	%rdx
+#CONSTANT
+	movq	$10, %rdx
 	popq	%rcx
-	cmpl	%ecx, %eax
+	cmp	%rdx, %rcx
 	jg	LL101
-	movq	$.LC2, %rdi
+#FUNCALL
+#ARGUMENT
+#CONSTANT
+	movq	$.LC2, %rax
+	movq	%rax, %rdi
 	movl	$0, %eax
 	call	puts
 	jmp	LL102
 LL101:
-	movq	$.LC3, %rdi
+#FUNCALL
+#ARGUMENT
+#CONSTANT
+	movq	$.LC3, %rax
+	movq	%rax, %rdi
 	movl	$0, %eax
 	call	puts
-LL102:
+LL102:#IFTHEN
+#RELEXPR
+#CONSTANT
+	movq	$20, %rdx
+	pushq	%rdx
+#CONSTANT
+	movq	$10, %rdx
+	popq	%rcx
+	cmp	%rdx, %rcx
+	jl	LL103
+#FUNCALL
+#ARGUMENT
+#CONSTANT
+	movq	$.LC4, %rax
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	puts
+	jmp	LL104
+LL103:
+#FUNCALL
+#ARGUMENT
+#CONSTANT
+	movq	$.LC5, %rax
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	puts
+LL104:
 	popq	%rbp
 	movl	$0, %eax
 	ret
+#FUNCTION
+#VARDECL
 argc:	.word 0
+#VARDECL
 argv:	.word 0
 	.globl	main
 	.type	main, @function
 main:
 	pushq	%rbp
 	movq	%rsp, %rbp
-	movl	$42, %edx
-	movq	$.LC4, %rdi
-	movq	$.LC5, %rsi
+#FUNCALL
+#ARGUMENT
+#CONSTANT
+	movq	$42, %rdx
+	movq	%rax, %rdi
+#ARGUMENT
+#CONSTANT
+	movq	$.LC6, %rax
+	movq	%rax, %rsi
+#ARGUMENT
+#CONSTANT
+	movq	$.LC7, %rax
+	movq	%rax, %rdx
 	movl	$0, %eax
 	call	func
-	movq	$.LC6, %rdi
-	movq	$.LC7, %rsi
-	movl	$42, %edx
+#FUNCALL
+#ARGUMENT
+#CONSTANT
+	movq	$.LC8, %rax
+	movq	%rax, %rdi
+#ARGUMENT
+#CONSTANT
+	movq	$.LC9, %rax
+	movq	%rax, %rsi
+#ARGUMENT
+#EXPRESSION
+#CONSTANT
+	movq	$42, %rdx
 	pushq	%rdx
-	movl	$4, %edx
+#EXPRESSION
+#CONSTANT
+	movq	$4, %rdx
 	pushq	%rdx
-	movl	x, %edx
+#EXPRESSION
+#VARREF
+	movq	x, %rdx
 	pushq	%rdx
-	movl	$2, %edx
+#CONSTANT
+	movq	$2, %rdx
 	popq	%rcx
-	addl	%ecx, %edx
+	addq	%rcx, %rdx
 	popq	%rcx
-	addl	%ecx, %edx
+	addq	%rcx, %rdx
 	popq	%rcx
-	addl	%ecx, %edx
+	addq	%rcx, %rdx
+	movq	%rax, %rdx
 	movl	$0, %eax
 	call	printf
-	movq	$.LC8, %rdi
+#FUNCALL
+#ARGUMENT
+#CONSTANT
+	movq	$.LC10, %rax
+	movq	%rax, %rdi
 	movl	$0, %eax
 	call	puts
-	movl	$0, %edx
-	movl	%eax, x
-	movl	x, %eax
-	movl	%eax, %esi	
-	jmp	LL104
-LL103:
-	movq	$.LC9, %rdi
+# ASSIGN GEN RHS 
+#CONSTANT
+	movq	$0, %rdx
+# final assignment to LHS 
+	movq	%rdx, x
+	movq	%rdx, %rdi
+#WHILE
+	jmp	LL105
+LL106:
+#FUNCALL
+#ARGUMENT
+#CONSTANT
+	movq	$.LC11, %rax
+	movq	%rax, %rdi
 	movl	$0, %eax
 	call	puts
-	movl	x, %edx
+# ASSIGN GEN RHS 
+#EXPRESSION
+#VARREF
+	movq	x, %rdx
 	pushq	%rdx
-	movl	$1, %edx
+#CONSTANT
+	movq	$1, %rdx
 	popq	%rcx
-	addl	%ecx, %edx
-	movl	%eax, x
-	movl	x, %eax
-	movl	%eax, %esi	
-LL104:
-	movl	x, %edx
-	pushq	%rax
-	movl	$10, %edx
+	addq	%rcx, %rdx
+# final assignment to LHS 
+	movq	%rdx, x
+	movq	%rdx, %rdi
+LL105:
+#RELEXPR
+#VARREF
+	movq	x, %rdx
+	pushq	%rdx
+#CONSTANT
+	movq	$10, %rdx
 	popq	%rcx
-	cmpl	%ecx, %eax
-	jl	LL103
+	cmp	%rdx, %rcx
+	jl	LL106
 
 	popq	%rbp
 	movl	$0, %eax

@@ -8,6 +8,8 @@ func(int a, char* b, char* s)
    printf("x=%d\n",x);
    if (20>10) { puts("if works!\n"); }
    else { puts("else works!\n"); }
+   if (20<10) { puts("if works!\n"); }
+   else { puts("else works!\n"); }
 }
 
 main(int argc, char* argv)
@@ -16,8 +18,9 @@ main(int argc, char* argv)
    printf("goodbye %s %d\n","second",42+4+x+2);
    puts("Hello World!\n");
    x = 0;
-   while(x < 10) { 
+   while(x < 10) {
        puts("loopy loop\n");
        x = x + 1;
-   }
+    }
+
 }

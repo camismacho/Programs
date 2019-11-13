@@ -4,7 +4,7 @@
 	.comm	y,4,4
 	.section	.rodata
 .LC0:
-	.string	"Hello World!\n"
+	.string	"poopy nuts"
 	.text
 	.globl	func
 	.type	func, @function
@@ -30,7 +30,7 @@ func:
 	movl	%eax, x(%rip)
 .L2:
 	movl	x(%rip), %eax
-	cmpl	$4, %eax
+	cmpl	$9, %eax
 	jle	.L3
 	nop
 	leave
@@ -39,5 +39,5 @@ func:
 	.cfi_endproc
 .LFE0:
 	.size	func, .-func
-	.ident	"GCC: (SUSE Linux) 7.4.0"
+	.ident	"GCC: (SUSE Linux) 7.4.1 20190905 [gcc-7-branch revision 275407]"
 	.section	.note.GNU-stack,"",@progbits
