@@ -1,7 +1,7 @@
 	.data
-#VARDECL
+#VARDECL INT
 x:	.word 0
-#VARDECL
+#VARDECL INT
 y:	.word 0
 	.section	.rodata
 .LC0:
@@ -29,26 +29,26 @@ y:	.word 0
 .LC11:
 	.string	"loopy loop\n"
 	.text
-#FUNCTION
-#VARDECL
+#FUNCTION ARG LIST
+#VARDECL INT
 a:	.word 0
-#VARDECL
+#VARDECL STRING
 b:	.word 0
-#VARDECL
+#VARDECL STRING
 s:	.word 0
 	.globl	func
 	.type	func, @function
 func:
 	pushq	%rbp
 	movq	%rsp, %rbp
-#FUNCALL
+#FUNCALL puts
 #ARGUMENT
 #CONSTANT
 	movq	$.LC0, %rax
 	movq	%rax, %rdi
 	movl	$0, %eax
 	call	puts
-# ASSIGN GEN RHS 
+#ASSIGNMENT RHS 
 #EXPRESSION
 #CONSTANT
 	movq	$42, %rdx
@@ -57,10 +57,10 @@ func:
 	movq	$12, %rdx
 	popq	%rcx
 	addq	%rcx, %rdx
-# final assignment to LHS 
+#ASSIGNMENT TO x 
 	movq	%rdx, x
 	movq	%rdx, %rdi
-#FUNCALL
+#FUNCALL printf
 #ARGUMENT
 #CONSTANT
 	movq	$.LC1, %rax
@@ -81,7 +81,7 @@ func:
 	popq	%rcx
 	cmp	%rdx, %rcx
 	jg	LL101
-#FUNCALL
+#FUNCALL puts
 #ARGUMENT
 #CONSTANT
 	movq	$.LC2, %rax
@@ -90,7 +90,7 @@ func:
 	call	puts
 	jmp	LL102
 LL101:
-#FUNCALL
+#FUNCALL puts
 #ARGUMENT
 #CONSTANT
 	movq	$.LC3, %rax
@@ -107,7 +107,7 @@ LL102:#IFTHEN
 	popq	%rcx
 	cmp	%rdx, %rcx
 	jl	LL103
-#FUNCALL
+#FUNCALL puts
 #ARGUMENT
 #CONSTANT
 	movq	$.LC4, %rax
@@ -116,7 +116,7 @@ LL102:#IFTHEN
 	call	puts
 	jmp	LL104
 LL103:
-#FUNCALL
+#FUNCALL puts
 #ARGUMENT
 #CONSTANT
 	movq	$.LC5, %rax
@@ -127,17 +127,17 @@ LL104:
 	popq	%rbp
 	movl	$0, %eax
 	ret
-#FUNCTION
-#VARDECL
+#FUNCTION ARG LIST
+#VARDECL INT
 argc:	.word 0
-#VARDECL
+#VARDECL STRING
 argv:	.word 0
 	.globl	main
 	.type	main, @function
 main:
 	pushq	%rbp
 	movq	%rsp, %rbp
-#FUNCALL
+#FUNCALL func
 #ARGUMENT
 #CONSTANT
 	movq	$42, %rdx
@@ -152,7 +152,7 @@ main:
 	movq	%rax, %rdx
 	movl	$0, %eax
 	call	func
-#FUNCALL
+#FUNCALL printf
 #ARGUMENT
 #CONSTANT
 	movq	$.LC8, %rax
@@ -185,30 +185,30 @@ main:
 	movq	%rax, %rdx
 	movl	$0, %eax
 	call	printf
-#FUNCALL
+#FUNCALL puts
 #ARGUMENT
 #CONSTANT
 	movq	$.LC10, %rax
 	movq	%rax, %rdi
 	movl	$0, %eax
 	call	puts
-# ASSIGN GEN RHS 
+#ASSIGNMENT RHS 
 #CONSTANT
 	movq	$0, %rdx
-# final assignment to LHS 
+#ASSIGNMENT TO x 
 	movq	%rdx, x
 	movq	%rdx, %rdi
 #WHILE
 	jmp	LL105
 LL106:
-#FUNCALL
+#FUNCALL puts
 #ARGUMENT
 #CONSTANT
 	movq	$.LC11, %rax
 	movq	%rax, %rdi
 	movl	$0, %eax
 	call	puts
-# ASSIGN GEN RHS 
+#ASSIGNMENT RHS 
 #EXPRESSION
 #VARREF
 	movq	x, %rdx
@@ -217,7 +217,7 @@ LL106:
 	movq	$1, %rdx
 	popq	%rcx
 	addq	%rcx, %rdx
-# final assignment to LHS 
+#ASSIGNMENT TO x 
 	movq	%rdx, x
 	movq	%rdx, %rdi
 LL105:

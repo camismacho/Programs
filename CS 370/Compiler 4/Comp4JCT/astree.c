@@ -12,7 +12,7 @@ char *argRegStr[] = {"%rdi","%rsi","%rdx","%rcx","%r8","%r9"};
 int stringCounter = 0;
 extern stringArray stringStore;
 int ind = 0;
-int count = 100;
+
 // Create a new AST node 
 // - allocates space and initializes node type, zeros other stuff out
 // - returns pointer to node
@@ -125,22 +125,6 @@ void printASTree(ASTNode* node, int level, FILE *out)
        else 
           fprintf(out,"Unknown Constant\n");
        break;
-    case AST_RELEXPR:
-        printASTree(node -> child[0], 0, out); //child 0 is left side
-        fprintf(out, "Left Side\n");
-        printASTree(node -> child[1], 0, out); //child 1 is right side
-        fprintf(out, "Right Side\n");
-        
-        switch (node -> ival) {
-            case '<': fprintf(out, "Relop <\n"); break;
-            case '>': fprintf(out, "Relop >\n"); break;
-            case '!': fprintf(out, "Relop !\n"); break;
-            case '=': fprintf(out, "Relop =\n"); break;
-            default: ;
-        }//end switch
-        
-        break;
-    
     default:
        fprintf(out,"Unknown AST node!\n");
    }
@@ -177,8 +161,6 @@ void printASTree(ASTNode* node, int level, FILE *out)
 //   instead of printf(...); call it with "stdout" for terminal output
 void genCodeFromASTree(ASTNode* node, int level, FILE *out)
 {
-    char* instr = "";
-    
    if (!node)
       return;
    
@@ -199,20 +181,15 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
         break;
     
     case AST_VARDECL:
-       if (node->valtype == T_INT){
-          fprintf(out, "#VARDECL INT\n");
+       if (node->valtype == T_INT)
           fprintf(out, "%s:\t.word 0\n", node -> strval);
-       }
-       else if (node->valtype == T_STRING){
-           fprintf(out, "#VARDECL STRING\n");
-           fprintf(out, "%s:\t.word 0\n", node -> strval);
-       }
+       else if (node->valtype == T_STRING)
+          fprintf(out, "%s:\t.word 0\n", node -> strval);
        else
           fprintf(out," type unknown\n");
        break;
     
     case AST_FUNCTION:
-        fprintf(out, "#FUNCTION ARG LIST\n");
         genCodeFromASTree(node->child[0], 0, out); // child 0 is arg list
         fprintf(out,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n", node -> strval, node -> strval, node -> strval);
         genCodeFromASTree(node->child[1], 0, out); // child 1 is body (stmt list)
@@ -226,106 +203,58 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
     
     case AST_FUNCALL:
         argNum = 0;
-        fprintf(out, "#FUNCALL %s\n", node -> strval);
         genCodeFromASTree(node->child[0], 0, out);  // child 0 is argument list
         fprintf(out, "\tmovl\t$0, %%eax\n\tcall\t%s\n", node -> strval);
         break;
     
     case AST_ARGUMENT:
-        fprintf(out, "#ARGUMENT\n");
         genCodeFromASTree(node->child[0], 0, out);  // child 0 is argument expr
-        fprintf(out, "\tmovq\t%%rax, %s\n", argRegStr[argNum]);
-        argNum++;
         break;
     
     case AST_ASSIGNMENT:
-        fprintf(out,"#ASSIGNMENT RHS \n");
         genCodeFromASTree(node->child[0], 0, out);  // child 1 is right hand side
-        fprintf(out,"#ASSIGNMENT TO %s \n", node -> strval);
-        fprintf(out, "\tmovq\t%%rdx, %s\n\tmovq\t%%rdx, %%rdi\n", node -> strval);
+        fprintf(out, "\tmovl\t%%eax, %s\n\tmovl\t%s, %%eax\n\tmovl\t%%eax, %%esi\t\n", node -> strval, node -> strval);
         break;
     
     case AST_WHILE:
-        fprintf(out, "#WHILE\n");
-        count++;
-        fprintf(out, "\tjmp\tLL%d\n", count);
-        count++;
-        fprintf(out, "LL%d:\n", count);
-        genCodeFromASTree(node->child[1], 0, out);  // child 1 is loop body
-        count--;
-        fprintf(out, "LL%d:\n", count);
         genCodeFromASTree(node->child[0], 0, out);  // child 0 is condition expr
-        break;
+        genCodeFromASTree(node->child[1], 0, out);  // child 1 is loop body
+       break;
    
     case AST_IFTHEN:
-        fprintf(out, "#IFTHEN\n");
         genCodeFromASTree(node->child[0], 0, out);  // child 0 is condition expr
         genCodeFromASTree(node->child[1], 0, out);  // child 1 is if body
-        count++;
-        fprintf(out, "\tjmp\tLL%d\n", count);
-        count--;
-        fprintf(out, "LL%d:\n", count);
         genCodeFromASTree(node->child[2], 0, out);  // child 2 is else body
-        count++;
-        fprintf(out, "LL%d:", count);
        break;
    
     case AST_EXPRESSION:
-        fprintf(out, "#EXPRESSION\n");
         genCodeFromASTree(node->child[0], 0, out);  // child 0 is left side
         fprintf(out, "\tpushq\t%%rdx\n");
         genCodeFromASTree(node->child[1], 0, out);  // child 1 is right side
-        fprintf(out, "\tpopq\t%%rcx\n\taddq\t%%rcx, %%rdx\n");
+        fprintf(out, "\tpopq\t%%rcx\n\taddl\t%%ecx, %%edx\n");
         break;
    
     case AST_VARREF:
-        fprintf(out, "#VARREF\n");
-       fprintf(out, "\tmovq\t%s, %%rdx\n", node->strval);
+       fprintf(out, "\tmovl\t%s, %%edx\n", node->strval);
        break;
    
     case AST_CONSTANT:
-        fprintf(out, "#CONSTANT\n");
         //use ival to create string id's
         if (node->valtype == T_INT)
-            fprintf(out, "\tmovq\t$%d, %%rdx\n", node -> ival);
+            fprintf(out, "\tmovl\t$%d, %%edx\n", node -> ival);
         else if (node->valtype == T_STRING){
-            fprintf(out, "\tmovq\t$.LC%d, %%rax\n", stringCounter);
+            fprintf(out, "\tmovq\t$.LC%d, %s\n", stringCounter, argRegStr[argNum]);
             stringCounter++;
+            argNum++;
         }
         else 
             fprintf(out,"Unknown Constant\n");
-        break;
-        
-    case AST_RELEXPR:
-        fprintf(out, "#RELEXPR\n");
-        genCodeFromASTree(node -> child[0], 0, out); //child 0 is left side
-        fprintf(out, "\tpushq\t%%rdx\n");
-        genCodeFromASTree(node -> child[1], 0, out); //child 1 is right side
-        fprintf(out, "\tpopq\t%%rcx\n");
-        fprintf(out, "\tcmp\t%%rdx, %%rcx\n");
-        
-        switch (node -> ival) {
-            case '<': instr = "jl"; break;
-            case '>': instr = "jg"; break;
-            case '!': instr = "jne"; break;
-            case '=': instr = "je"; break;
-            default: instr = "unknown relop";
-        }//end switch
-        
-        count++;
-        fprintf(out, "\t%s\tLL%d\n", instr, count);
         break;
     
     default:
        fprintf(out,"Unknown AST node!\n");
    }
    genCodeFromASTree(node->next,level,out); // IMPORTANT: walks down sibling list*/
-}
-
-int getUniqueLabelID() {
-    int counter;
-    counter++;
-    return counter;
 }
 
 
