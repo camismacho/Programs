@@ -80,4 +80,8 @@ ltest: scanner.l
 clean: 
 	rm -f lex.yy.c a.out y.tab.c y.tab.h *.o compiler finalOut ltest y.output *.s
 	clear
+	
+cleanandtest:
+	make clean
+	make
 
