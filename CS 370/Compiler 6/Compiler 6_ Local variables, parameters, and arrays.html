@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)https://nmsu.instructure.com/courses/1244710/assignments/8248122 -->
+<html class="" dir="ltr" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="./Compiler 6_ Local variables, parameters, and arrays_files/css" rel="stylesheet">
+    <script type="text/javascript" async="" src="./Compiler 6_ Local variables, parameters, and arrays_files/analytics.js"></script><script async="" src="./Compiler 6_ Local variables, parameters, and arrays_files/gtm.js"></script><script type="text/javascript" async="" src="./Compiler 6_ Local variables, parameters, and arrays_files/analytics.js"></script><script async="" src="./Compiler 6_ Local variables, parameters, and arrays_files/analytics.js"></script><script async="" src="./Compiler 6_ Local variables, parameters, and arrays_files/analytics.js"></script><script async="" src="./Compiler 6_ Local variables, parameters, and arrays_files/gtm(1).js"></script><script>if (navigator.userAgent.match(/(MSIE|Trident\/)/)) location.replace('/ie-is-not-supported.html')</script>
+  <script>
+//<![CDATA[
+
+!function(){
+  function get(u){document.write('<scr'+'ipt src="'+ u +'"></sc'+'ript>')}
+  var o,s,v;
+  if (!(window.Promise && Object.assign && Object.values && [].find && [].includes && (o={},s=Symbol(),v={},o[s]=v,o[s]===v) && (function f(){}).bind().name==='bound f')) {
+    get("https://du11hjcvx0uqb.cloudfront.net/br/dist/ie11-polyfill-5cf07f7aab.js");
+  }
+  if (!window.fetch) get("https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.4/fetch.min.js");
+}();
+      
+//]]>
+</script>
+  
+  <link rel="shortcut icon" type="image/x-icon" href="https://du11hjcvx0uqb.cloudfront.net/br/dist/images/favicon-e10d657a73.ico">
+  <link rel="apple-touch-icon" href="https://du11hjcvx0uqb.cloudfront.net/br/dist/images/apple-touch-icon-585e5d997d.png">
+  <link rel="stylesheet" media="all" href="./Compiler 6_ Local variables, parameters, and arrays_files/variables-8391c84da435c9cfceea2b2b3317ff66.css">
+  <link rel="stylesheet" media="all" href="./Compiler 6_ Local variables, parameters, and arrays_files/common-7ff2aced75.css">
+  <meta name="apple-itunes-app" content="app-id=480883488">
+<link rel="manifest" href="https://nmsu.instructure.com/web-app-manifest/manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#882345">
+  <link rel="stylesheet" media="all" href="./Compiler 6_ Local variables, parameters, and arrays_files/assignments-f5bc12342d.css">
+<link rel="stylesheet" media="all" href="./Compiler 6_ Local variables, parameters, and arrays_files/tinymce-0c01433900.css">
+<link rel="stylesheet" media="all" href="./Compiler 6_ Local variables, parameters, and arrays_files/learning_outcomes-cbba6e8c1e.css">
+  <link rel="stylesheet" media="all" href="./Compiler 6_ Local variables, parameters, and arrays_files/evaluation_kit.css">
+  <script>
+    function _earlyClick(e){
+      var c = e.target
+      while (c && c.ownerDocument) {
+        if (c.getAttribute('href') == '#' || c.getAttribute('data-method')) {
+          e.preventDefault()
+          (_earlyClick.clicks = _earlyClick.clicks || []).push(c)
+          break
+        }
+        c = c.parentNode
+      }
+    }
+    document.addEventListener('click', _earlyClick)
+  </script>
+  <script>
+//<![CDATA[
+
+      ;["https://du11hjcvx0uqb.cloudfront.net/br/dist/brandable_css/ab848e3eb2e13c61d196e3d6746d99b5/variables-8391c84da435c9cfceea2b2b3317ff66.js"].forEach(function(src) {
+        var s = document.createElement('script')
+        s.src = src
+        s.async = false
+        document.head.appendChild(s)
+      });
+//]]>
+</script><script src="./Compiler 6_ Local variables, parameters, and arrays_files/variables-8391c84da435c9cfceea2b2b3317ff66.js"></script>
+
+
+  <script>
+    INST = {"environment":"production","allowMediaComments":true,"kalturaSettings":{"domain":"nv.instructuremedia.com","resource_domain":"nv.instructuremedia.com","rtmp_domain":"iad.rtmp.instructuremedia.com","partner_id":"9","subpartner_id":"0","player_ui_conf":"0","kcw_ui_conf":"0","upload_ui_conf":"0","max_file_size_bytes":534773760,"do_analytics":false,"hide_rte_button":false,"js_uploader":true},"logPageViews":true,"maxVisibleEditorButtons":3,"editorButtons":[{"name":"YouTube","id":23382,"url":"https://www.edu-apps.org/lti_public_resources/?tool_id=youtube","icon_url":"https://www.edu-apps.org/assets/lti_public_resources/youtube_icon.png","canvas_icon_class":null,"width":560,"height":600,"use_tray":false,"description":"\u003cp\u003eSearch publicly available YouTube videos. A new icon will show up in your course rich editor letting you search YouTube and click to embed videos in your course material.\u003c/p\u003e\n"},{"name":"Flat World Knowledge","id":23383,"url":"https://www.edu-apps.org/tool_redirect?id=flat_world_knowledge","icon_url":"https://www.edu-apps.org/tools/flat_world_knowledge/icon.png","canvas_icon_class":null,"width":690,"height":530,"use_tray":false,"description":"\u003cp\u003eFree, open online textbooks\u003c/p\u003e\n"},{"name":"Khan Academy","id":23384,"url":"https://www.edu-apps.org/lti_public_resources/?tool_id=khan_academy","icon_url":"https://www.edu-apps.org/assets/lti_public_resources/khan_academy_icon.png","canvas_icon_class":null,"width":560,"height":600,"use_tray":false,"description":"\u003cp\u003eSearch for and embed Khan Academy lessons and exercise into course material. Khan Academy focuses on short lessons on math, science, etc. Uses the embedded player so students earn points for watching videos.\u003c/p\u003e\n"},{"name":"TED Ed","id":23386,"url":"https://www.edu-apps.org/tool_redirect?id=ted_ed","icon_url":"https://www.edu-apps.org/tools/ted_ed/icon.png","canvas_icon_class":null,"width":690,"height":530,"use_tray":false,"description":"\u003cp\u003eOnline instructional videos\u003c/p\u003e\n"},{"name":"Wikipedia","id":23387,"url":"https://www.edu-apps.org/tool_redirect?id=wikipedia","icon_url":"https://www.edu-apps.org/tools/wikipedia/icon.png","canvas_icon_class":null,"width":590,"height":450,"use_tray":false,"description":"\u003cp\u003eArticles from The Free Encyclopedia\u003c/p\u003e\n"},{"name":"Microsoft Office 365","id":44460,"url":"https://office365-iad-prod.instructure.com/lti/rce-content-item","icon_url":"https://office365-iad-prod.instructure.com/images/office365_icon.png","canvas_icon_class":null,"width":900,"height":600,"use_tray":false,"description":"\u003cp\u003eAllows you to pull in documents from Office 365 to Canvas\u003c/p\u003e\n"},{"name":"Public Resources","id":51975,"url":"https://www.edu-apps.org/lti_public_resources","icon_url":"https://www.edu-apps.org/assets/lti_public_resources/public_resources_icon.png","canvas_icon_class":null,"width":560,"height":600,"use_tray":false,"description":"\u003cp\u003eCollection of public resources\u003c/p\u003e\n"},{"name":"Panopto","id":59051,"url":"https://nmsu.hosted.panopto.com/Panopto/Pages/Sessions/embeddedupload.aspx","icon_url":"https://nmsu.hosted.panopto.com/Panopto/images/panopto_logo_globe.png","canvas_icon_class":null,"width":900,"height":700,"use_tray":false,"description":""},{"name":"Google Apps","id":80054,"url":"https://google-drive-lti-iad-prod.instructure.com/lti/rce-content-selection","icon_url":"https://google-drive-lti-iad-prod.instructure.com/assets/google_drive_icon-ba12a17e3e3d7f70f910b17f1b4c0500ff0298ad087a93a6c133ca623c40f0f8.png","canvas_icon_class":null,"width":700,"height":600,"use_tray":false,"description":"\u003cp\u003eAllows you to pull in documents from Google Drive to Canvas\u003c/p\u003e\n"},{"name":"Commons Favorites","id":83141,"url":"https://lor.instructure.com/api/lti/favorite-resources","icon_url":"https://lor.instructure.com/img/icon_commons.png","canvas_icon_class":null,"width":800,"height":400,"use_tray":true,"description":"\u003cp\u003eFind and share course content\u003c/p\u003e\n"}]};
+    ENV = {"ASSET_HOST":"https://du11hjcvx0uqb.cloudfront.net/br","active_brand_config_json_url":"https://du11hjcvx0uqb.cloudfront.net/br/dist/brandable_css/ab848e3eb2e13c61d196e3d6746d99b5/variables-8391c84da435c9cfceea2b2b3317ff66.json","url_to_what_gets_loaded_inside_the_tinymce_editor_css":["https://du11hjcvx0uqb.cloudfront.net/br/dist/brandable_css/ab848e3eb2e13c61d196e3d6746d99b5/variables-8391c84da435c9cfceea2b2b3317ff66.css","https://du11hjcvx0uqb.cloudfront.net/br/dist/brandable_css/new_styles_normal_contrast/bundles/what_gets_loaded_inside_the_tinymce_editor-b728856d48.css"],"url_for_high_contrast_tinymce_editor_css":["https://du11hjcvx0uqb.cloudfront.net/br/dist/brandable_css/default/variables-high_contrast-8391c84da435c9cfceea2b2b3317ff66.css","https://du11hjcvx0uqb.cloudfront.net/br/dist/brandable_css/new_styles_high_contrast/bundles/what_gets_loaded_inside_the_tinymce_editor-49f3a864d7.css"],"current_user_id":"3198995","current_user_roles":["user","student"],"current_user_disabled_inbox":false,"files_domain":"cluster4.canvas-user-content.com","DOMAIN_ROOT_ACCOUNT_ID":40000000082189,"k12":false,"use_responsive_layout":false,"use_rce_enhancements":false,"DIRECT_SHARE_ENABLED":false,"help_link_name":"Help","help_link_icon":"help","use_high_contrast":false,"LTI_LAUNCH_FRAME_ALLOWANCES":["geolocation *","microphone *","camera *","midi *","encrypted-media *","autoplay *"],"DEEP_LINKING_POST_MESSAGE_ORIGIN":"https://nmsu.instructure.com","DEEP_LINKING_LOGGING":null,"SETTINGS":{"open_registration":false,"collapse_global_nav":false,"show_feedback_link":true,"filter_speed_grader_by_student_group":false},"current_user":{"id":"3198995","display_name":"Joseph Camacho-Terrazas","avatar_image_url":"https://nmsu.instructure.com/images/thumbnails/59390295/mRGjMUDKIGxQKXJyFtdidAqir74rhuJYhKZb05WT","html_url":"https://nmsu.instructure.com/about/3198995","pronouns":null,"avatar_is_fallback":false},"page_view_update_url":"/page_views/86de329b-4849-45f7-ade6-e438ae651969?page_view_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpIjoiODZkZTMyOWItNDg0OS00NWY3LWFkZTYtZTQzOGFlNjUxOTY5IiwidSI6NDAwMDAwMDMxOTg5OTUsImMiOiIyMDE5LTExLTE5VDE1OjE1OjQ1LjU1WiJ9.uw5ZAS9uv1cRM5rg8EyJsnBydHzNuJqrbsvaP70wA-Y","context_asset_string":"course_1244710","ping_url":"https://nmsu.instructure.com/api/v1/courses/1244710/ping","TIMEZONE":"America/Denver","CONTEXT_TIMEZONE":"America/Denver","LOCALE":"en","BIGEASY_LOCALE":"en_US","FULLCALENDAR_LOCALE":"en","MOMENT_LOCALE":"en","COURSE_ID":1244710,"RICH_CONTENT_APP_HOST":"rich-content-iad.inscloudgate.net","RICH_CONTENT_SKIP_SIDEBAR":null,"JWT":"ZXlKaGJHY2lPaUprYVhJaUxDSmxibU1pT2lKQk1qVTJSME5OSW4wLi5Kaldfa2xqZ3kwa1o4cUJLLlZLbmtDWkJ3TGNwMzlaQnFQb2xjZURLTXJMbGFUQTVMUFdmOWFuRjEwRVJEb2VBUDFLUWo0VnBQUzZ6aUUwdHRLWXVsSzRRTmdOd1RabmVXdVdGcUJ3UkJ3U1MwX1U1SGZJTjU5ZlR6ekI1VmJZSjdmQzhObzZBQXhyRG1KZm5KN0t1bUExbnhoeFRYeW4wbFdpMi1XWVlSdmtZZUpCSVVnbjI2UWd1Zlotd1dVYmNKbC1tZUpuWUs0UTRCOEVxVnR2bkN1N2hGOWZUbTFmZzV4ZWFROW44YVpnLVhHTmVXVWduYzRTQ3l6RHBSQnhJUWdpSHIwS1kwbTlZMm01MFZLclg5aWpqOHgwcloxbXhVaUtVbUI1ZTdrQWJCSVZnX2FIc3paR2VrTmxVTjYxdVMyOWloNUQ5bXFzeG11WkNybF9OWWszZnQ1NmVUNXdneGViWF9EZUQ5OG5oOWtOZ2hPZ1ZqMlNWY0NTcjRRLXU5bXdQQWNzam9PMS12UmdUdEIxRGMxZXVnNTNORXBkZnctTnFDYU1LVENJTE0yWmNqaWx5MXNweF8tNENPY095cU5FempZRFUwMVhQeUtmdkMydl9NRm9rLXRjX1dVRzRGdk5vQU5WZm5MbWliamNZa1g3eGdjZW9Nb0Q1YWZrS2JCS1RDTThzYzF5cXprdGtSZ0NYLUZuSC1IMWliaWFjZXZFRXBMcEpOQ2NBZzVMWWdlb2JxTS01bWdZWnlrYVpNSWZlRTYyX1lmVElLdkNiWEdreWoxUFNxZVM0SEhNT2pMR2w2YU11bV9CZFFlZFZVMURuMlA5dFc1a3VkYXJfNUh6ZDJWMl9FVGJJVTVNRmF5anhvQmxhOS1xTWNUYTdlS19NNHhNT2U0ZFlmbGVLTGRfcDdXOVJ5ZU5rMlg0NEZCSTNJbHdjSms2TWg3WUpmODJrQ0xiZ0VkSkxjZVF5LXpsSjY4a0k5YUg3V1RKa1hGeFlncTJOUVRBODF2TllYSDVBeFhVeTRmNGhTUHhUWGltYTJCQ3llVHVNdDdycl8yQWpsd2ZrenR3b0lqRDdFT2RheFMxQS5RYkR6MU01Q0tPNVdOeVFubC1ZQ3Fn","RICH_CONTENT_CAN_UPLOAD_FILES":false,"RICH_CONTENT_FILES_TAB_DISABLED":false,"ASSIGNMENT_ID":8248122,"PREREQS":{},"EULA_URL":null,"EXTERNAL_TOOLS":[{"id":"80054","domain":"google-drive-lti-iad-prod.instructure.com","url":"https://google-drive-lti-iad-prod.instructure.com/lti/course-navigation","consumer_key":"970b3614-2ffd-4e13-8c01-40c7a87f9a2e","name":"Google Apps","description":"Allows you to pull in documents from Google Drive to Canvas","created_at":"2018-04-12T17:01:51Z","updated_at":"2018-04-12T17:01:51Z","privacy_level":"name_only","custom_fields":{"account_id":"$Canvas.account.id","assignment_title":"$Canvas.assignment.title","base_url":"$Canvas.api.baseUrl","collaboration_members_url":"$Canvas.api.collaborationMembers.url","domain":"$Canvas.api.domain","group_context_ids":"$Canvas.group.contextIds","masquerading_user_id":"$Canvas.masqueradingUser.userId","membership_service_url":"$ToolProxyBinding.memberships.url","previous_context_ids":"$Canvas.course.previousContextIds","previous_context_ids_recursive":"$Canvas.course.previousContextIds.recursive","time_zone":"$Person.address.timezone","user_id":"$Canvas.user.id"},"workflow_state":"name_only","vendor_help_link":null,"account_navigation":null,"similarity_detection":null,"assignment_edit":null,"assignment_menu":null,"assignment_selection":{"message_type":"ContentItemSelectionRequest","text":"Google Docs Cloud Assignment","url":"https://google-drive-lti-iad-prod.instructure.com/lti/cloud-template-selection","label":"Google Docs Cloud Assignment","selection_width":800,"selection_height":400,"icon_url":"https://google-drive-lti-iad-prod.instructure.com/assets/google_drive_icon-ba12a17e3e3d7f70f910b17f1b4c0500ff0298ad087a93a6c133ca623c40f0f8.png"},"assignment_view":null,"collaboration":{"canvas_icon_class":"icon-lti","icon_url":"https://google-drive-lti-iad-prod.instructure.com/assets/google_drive_icon-ba12a17e3e3d7f70f910b17f1b4c0500ff0298ad087a93a6c133ca623c40f0f8.png","message_type":"ContentItemSelectionRequest","text":"Google Drive","url":"https://google-drive-lti-iad-prod.instructure.com/lti/collaboration-content-selection","label":"Google Drive","selection_width":800,"selection_height":400},"course_assignments_menu":null,"course_home_sub_navigation":null,"course_navigation":{"text":"Google Drive","url":"https://google-drive-lti-iad-prod.instructure.com/lti/course-navigation","label":"Google Drive","selection_width":800,"selection_height":400,"icon_url":"https://google-drive-lti-iad-prod.instructure.com/assets/google_drive_icon-ba12a17e3e3d7f70f910b17f1b4c0500ff0298ad087a93a6c133ca623c40f0f8.png"},"course_settings_sub_navigation":null,"discussion_topic_menu":null,"editor_button":{"icon_url":"https://google-drive-lti-iad-prod.instructure.com/assets/google_drive_icon-ba12a17e3e3d7f70f910b17f1b4c0500ff0298ad087a93a6c133ca623c40f0f8.png","message_type":"ContentItemSelectionRequest","selection_height":600,"selection_width":700,"url":"https://google-drive-lti-iad-prod.instructure.com/lti/rce-content-selection","label":"Google Apps"},"file_menu":null,"global_navigation":null,"homework_submission":{"canvas_icon_class":"icon-lti","icon_url":"https://google-drive-lti-iad-prod.instructure.com/assets/google_drive_icon-ba12a17e3e3d7f70f910b17f1b4c0500ff0298ad087a93a6c133ca623c40f0f8.png","message_type":"ContentItemSelectionRequest","text":"Google Drive","url":"https://google-drive-lti-iad-prod.instructure.com/lti/homework-content-selection","label":"Google Drive","selection_width":800,"selection_height":400},"link_selection":{"enabled":"true","message_type":"ContentItemSelectionRequest","selection_height":600,"selection_width":700,"text":"Google Drive","url":"https://google-drive-lti-iad-prod.instructure.com/lti/module-content-selection","label":"Google Drive","icon_url":"https://google-drive-lti-iad-prod.instructure.com/assets/google_drive_icon-ba12a17e3e3d7f70f910b17f1b4c0500ff0298ad087a93a6c133ca623c40f0f8.png"},"migration_selection":null,"module_menu":null,"post_grades":null,"quiz_menu":null,"resource_selection":null,"student_context_card":null,"tool_configuration":null,"user_navigation":null,"wiki_index_menu":null,"wiki_page_menu":null,"icon_url":"https://google-drive-lti-iad-prod.instructure.com/assets/google_drive_icon-ba12a17e3e3d7f70f910b17f1b4c0500ff0298ad087a93a6c133ca623c40f0f8.png","not_selectable":false,"version":"1.1"},{"id":"44460","domain":"office365-iad-prod.instructure.com","url":"https://office365-iad-prod.instructure.com/lti/course-navigation","consumer_key":"bf4e15ca-beff-48d6-bda6-f268837ba39f","name":"Microsoft Office 365","description":"Allows you to pull in documents from Office 365 to Canvas","created_at":"2016-12-13T15:40:56Z","updated_at":"2018-03-20T21:53:58Z","privacy_level":"name_only","custom_fields":{"account_id":"$Canvas.account.id","assignment_title":"$Canvas.assignment.title","base_url":"$Canvas.api.baseUrl","collaboration_members_url":"$Canvas.api.collaborationMembers.url","course_id":"$Canvas.course.id","domain":"$Canvas.api.domain","group_context_ids":"$Canvas.group.contextIds","masquerading_user_id":"$Canvas.masqueradingUser.userId","membership_service_url":"$ToolProxyBinding.memberships.url","time_zone":"$Person.address.timezone","user_id":"$Canvas.user.id","previous_context_ids":"$Canvas.course.previousContextIds","previous_context_ids_recursive":"$Canvas.course.previousContextIds.recursive"},"workflow_state":"name_only","vendor_help_link":null,"account_navigation":null,"similarity_detection":null,"assignment_edit":null,"assignment_menu":null,"assignment_selection":{"message_type":"ContentItemSelectionRequest","text":"Office 365 Cloud Assignment","url":"https://office365-iad-prod.instructure.com/lti/cloud-assignment-template","label":"Office 365 Cloud Assignment","selection_width":800,"selection_height":400,"icon_url":"https://office365-iad-prod.instructure.com/images/office365_icon.png"},"assignment_view":null,"collaboration":{"canvas_icon_class":"icon-lti","icon_url":"https://office365-iad-prod.instructure.com/images/office365_icon.png","message_type":"ContentItemSelectionRequest","text":"Office 365","url":"https://office365-iad-prod.instructure.com/lti/collaboration-content-item","label":"Office 365","selection_width":800,"selection_height":400},"course_assignments_menu":null,"course_home_sub_navigation":null,"course_navigation":{"text":"Office 365","url":"https://office365-iad-prod.instructure.com/lti/course-navigation","label":"Office 365","selection_width":800,"selection_height":400,"icon_url":"https://office365-iad-prod.instructure.com/images/office365_icon.png"},"course_settings_sub_navigation":null,"discussion_topic_menu":null,"editor_button":{"icon_url":"https://office365-iad-prod.instructure.com/images/office365_icon.png","message_type":"ContentItemSelectionRequest","selection_height":600,"selection_width":900,"url":"https://office365-iad-prod.instructure.com/lti/rce-content-item","label":"Microsoft Office 365"},"file_menu":null,"global_navigation":null,"homework_submission":{"canvas_icon_class":"icon-lti","icon_url":"https://office365-iad-prod.instructure.com/images/office365_icon.png","message_type":"ContentItemSelectionRequest","text":"Office 365","url":"https://office365-iad-prod.instructure.com/lti/homework-submission-content-item","label":"Office 365","selection_width":800,"selection_height":400},"link_selection":{"enabled":"true","message_type":"ContentItemSelectionRequest","selection_height":600,"selection_width":900,"text":"Office 365","url":"https://office365-iad-prod.instructure.com/lti/module-content-item","label":"Office 365","icon_url":"https://office365-iad-prod.instructure.com/images/office365_icon.png"},"migration_selection":null,"module_menu":null,"post_grades":null,"quiz_menu":null,"resource_selection":null,"student_context_card":null,"tool_configuration":null,"user_navigation":null,"wiki_index_menu":null,"wiki_page_menu":null,"icon_url":"https://office365-iad-prod.instructure.com/images/office365_icon.png","not_selectable":false,"version":"1.1"}],"PERMISSIONS":{"context":{"read_as_admin":false,"manage_assignments":false},"assignment":{"update":false,"submit":true}},"ROOT_OUTCOME_GROUP":{"id":"391650","title":"2019 Fall - C S-370-M01-COMPILERS \u0026 AUTOMATA","vendor_guid":null,"url":"/api/v1/courses/1244710/outcome_groups/391650","subgroups_url":"/api/v1/courses/1244710/outcome_groups/391650/subgroups","outcomes_url":"/api/v1/courses/1244710/outcome_groups/391650/outcomes","can_edit":false,"import_url":"/api/v1/courses/1244710/outcome_groups/391650/import","context_id":"1244710","context_type":"Course","description":null},"SIMILARITY_PLEDGE":null,"SUBMIT_ASSIGNMENT":{"ALLOWED_EXTENSIONS":["zip"],"ID":8248122,"GROUP_ID_FOR_USER":null},"badge_counts":{"submissions":1},"notices":[],"active_context_tab":"assignments"};
+  </script>
+
+  <link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/Denver-40670c6af7.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/Denver-40670c6af7.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/en_US-80a0ce259b.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/main-e-2fda03fcc3.js" as="script" type="text/javascript"><script>
+//<![CDATA[
+
+      ;["https://du11hjcvx0uqb.cloudfront.net/br/dist/timezone/America/Denver-40670c6af7.js", "https://du11hjcvx0uqb.cloudfront.net/br/dist/timezone/America/Denver-40670c6af7.js", "https://du11hjcvx0uqb.cloudfront.net/br/dist/timezone/en_US-80a0ce259b.js", "https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/main-e-2fda03fcc3.js"].forEach(function(src) {
+        var s = document.createElement('script')
+        s.src = src
+        s.async = false
+        document.head.appendChild(s)
+      });
+//]]>
+</script><script src="./Compiler 6_ Local variables, parameters, and arrays_files/Denver-40670c6af7.js"></script><script src="./Compiler 6_ Local variables, parameters, and arrays_files/Denver-40670c6af7.js"></script><script src="./Compiler 6_ Local variables, parameters, and arrays_files/en_US-80a0ce259b.js"></script><script src="./Compiler 6_ Local variables, parameters, and arrays_files/main-e-2fda03fcc3.js"></script><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/0-c-4e3664802e.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/1-c-bc25e11701.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/2-c-392f3f9a7e.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/3-c-5622527691.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/4-c-b7f7834935.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/5-c-2a6efb3b7a.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/7-c-cedfd9c91b.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/6-c-76e6420813.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/8-c-621085fa31.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/9-c-7489284585.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/10-c-f6acf35591.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/11-c-bde04f7dbc.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/12-c-5be75fecea.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/14-c-09c47521f2.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/21-c-bd1a5aa7c8.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/20-c-9f986cbca1.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/26-c-31b553cd8e.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/33-c-aaf86243de.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/46-c-d73a193809.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/58-c-17406fe3fa.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/65-c-5bb036d687.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/60-c-c71e3a83bc.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/79-c-ed4760def4.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/104-c-157a39789e.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/assignment_show-c-d841254837.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/15-c-dd172de225.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/16-c-f4f6456afe.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/19-c-8d66b1ffdd.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/22-c-a54cd3347a.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/23-c-9c0a6c0d4d.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/25-c-0fdc981354.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/30-c-947d491df0.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/37-c-d615e173ff.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/42-c-dd993d2ab8.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/91-c-e522d0f82f.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/102-c-c49e7c21ac.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/128-c-47eb592224.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/125-c-ccf3f8b840.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/submit_assignment-c-0a52e0ec0d.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/13-c-718627db33.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/17-c-81beb237dc.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/27-c-3f9e0046e4.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/34-c-4d06f4693b.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/36-c-50f281a759.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/39-c-73d87d0c91.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/63-c-6addf26af1.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/61-c-12f1d138d2.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/68-c-d6e87d4883.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/77-c-4355848201.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/88-c-887cee0344.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/106-c-73087fc3a6.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/edit_rubric-c-09f0344ca7.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/213-c-eedfcd0a93.js" as="script" type="text/javascript"><link rel="preload" href="./Compiler 6_ Local variables, parameters, and arrays_files/navigation_header-c-0257fbcc17.js" as="script" type="text/javascript"><script>
+//<![CDATA[
+(window.bundles || (window.bundles = [])).push('assignment_show');
+(window.bundles || (window.bundles = [])).push('submit_assignment');
+(window.bundles || (window.bundles = [])).push('edit_rubric');
+(window.bundles || (window.bundles = [])).push('navigation_header');
+//]]>
+</script>
+  <title>Compiler 6: Local variables, parameters, and arrays</title>
+    <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    ga('create', "UA-9138420-1", 'auto');
+    ga('send', 'pageview');
+    (window.requestIdleCallback || window.setTimeout)(function(){
+      var s=document.createElement('script'), m=document.getElementsByTagName('script')[0]
+      s.async=1; s.src='https://www.google-analytics.com/analytics.js'
+      m.parentNode.insertBefore(s,m)
+    });
+  </script>
+
+<script src="./Compiler 6_ Local variables, parameters, and arrays_files/google_analytics_11072019.js"></script><style type="text/css"></style><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/0-c-4e3664802e.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/1-c-bc25e11701.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/2-c-392f3f9a7e.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/3-c-5622527691.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/4-c-b7f7834935.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/5-c-2a6efb3b7a.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/7-c-cedfd9c91b.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/6-c-76e6420813.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/8-c-621085fa31.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/9-c-7489284585.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/10-c-f6acf35591.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/11-c-bde04f7dbc.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/12-c-5be75fecea.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/14-c-09c47521f2.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/21-c-bd1a5aa7c8.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/20-c-9f986cbca1.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/26-c-31b553cd8e.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/33-c-aaf86243de.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/46-c-d73a193809.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/58-c-17406fe3fa.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/65-c-5bb036d687.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/60-c-c71e3a83bc.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/79-c-ed4760def4.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/104-c-157a39789e.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/assignment_show-c-d841254837.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/15-c-dd172de225.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/16-c-f4f6456afe.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/19-c-8d66b1ffdd.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/22-c-a54cd3347a.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/23-c-9c0a6c0d4d.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/25-c-0fdc981354.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/30-c-947d491df0.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/37-c-d615e173ff.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/42-c-dd993d2ab8.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/91-c-e522d0f82f.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/102-c-c49e7c21ac.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/128-c-47eb592224.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/125-c-ccf3f8b840.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/submit_assignment-c-0a52e0ec0d.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/13-c-718627db33.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/17-c-81beb237dc.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/27-c-3f9e0046e4.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/34-c-4d06f4693b.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/36-c-50f281a759.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/39-c-73d87d0c91.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/63-c-6addf26af1.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/61-c-12f1d138d2.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/68-c-d6e87d4883.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/77-c-4355848201.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/88-c-887cee0344.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/106-c-73087fc3a6.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/edit_rubric-c-09f0344ca7.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/213-c-eedfcd0a93.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/navigation_header-c-0257fbcc17.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/29-c-fddc32f0e0.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/64-c-6e90787473.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/565-c-e31c33ed17.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/591-c-0915df5969.js"></script><link rel="stylesheet" href="./Compiler 6_ Local variables, parameters, and arrays_files/googleDocsTreeView-a7a061ea35.css" data-loaded-by-brandablecss="true"><link rel="stylesheet" href="./Compiler 6_ Local variables, parameters, and arrays_files/KeyboardShortcuts-f4493af988.css" data-loaded-by-brandablecss="true"><style type="text/css">.mejs-offscreen{clip:rect(1px 1px 1px 1px);clip:rect(1px,1px,1px,1px);clip-path:polygon(0px 0,0 0,0 0,0 0);position:absolute!important;height:1px;width:1px;overflow:hidden}.mejs-container{position:relative;background:#000;font-family:Helvetica,Arial,serif;text-align:left;vertical-align:top;text-indent:0}.mejs-fill-container,.mejs-fill-container .mejs-container{width:100%;height:100%}.mejs-fill-container{overflow:hidden}.mejs-container:focus{outline:0}.me-plugin{position:absolute}.mejs-embed,.mejs-embed body{width:100%;height:100%;margin:0;padding:0;background:#000;overflow:hidden}.mejs-fullscreen{overflow:hidden!important}.mejs-container-fullscreen{position:fixed;left:0;top:0;right:0;bottom:0;overflow:hidden;z-index:1000}.mejs-container-fullscreen .mejs-mediaelement,.mejs-container-fullscreen video{width:100%;height:100%}.mejs-clear{clear:both}.mejs-background{position:absolute;top:0;left:0}.mejs-mediaelement{position:absolute;top:0;left:0;width:100%;height:100%}.mejs-poster{position:absolute;top:0;left:0;background-size:contain;background-position:50% 50%;background-repeat:no-repeat}:root .mejs-poster img{display:none}.mejs-poster img{border:0;padding:0}.mejs-overlay{position:absolute;top:0;left:0}.mejs-overlay-play{cursor:pointer}.mejs-overlay-button{position:absolute;top:50%;left:50%;width:100px;height:100px;margin:-50px 0 0 -50px;background:url(https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/746c3af7a145a09239a36e5ef61cfea0.svg) no-repeat}.no-svg .mejs-overlay-button{background-image:url(https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/716436fb3df0d29e6b37dd62d952676a.png)}.mejs-overlay:hover .mejs-overlay-button{background-position:0 -100px}.mejs-overlay-loading{position:absolute;top:50%;left:50%;width:80px;height:80px;margin:-40px 0 0 -40px;background:#333;background:url(https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/703c659e4bf563a05c6338a1727e006c.png);background:rgba(0,0,0,.9);background:-webkit-gradient(linear,0 0,0 100%,from(rgba(50,50,50,.9)),to(rgba(0,0,0,.9)));background:-webkit-linear-gradient(top,rgba(50,50,50,.9),rgba(0,0,0,.9));background:-moz-linear-gradient(top,rgba(50,50,50,.9),rgba(0,0,0,.9));background:-o-linear-gradient(top,rgba(50,50,50,.9),rgba(0,0,0,.9));background:-ms-linear-gradient(top,rgba(50,50,50,.9),rgba(0,0,0,.9));background:linear-gradient(rgba(50,50,50,.9),rgba(0,0,0,.9))}.mejs-overlay-loading span{display:block;width:80px;height:80px;background:transparent url(https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/76b326f4d44222126fee21076595bef5.gif) 50% 50% no-repeat}.mejs-container .mejs-controls{position:absolute;list-style-type:none;margin:0;padding:0;bottom:0;left:0;background:url(https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/703c659e4bf563a05c6338a1727e006c.png);background:rgba(0,0,0,.7);background:-webkit-gradient(linear,0 0,0 100%,from(rgba(50,50,50,.7)),to(rgba(0,0,0,.7)));background:-webkit-linear-gradient(top,rgba(50,50,50,.7),rgba(0,0,0,.7));background:-moz-linear-gradient(top,rgba(50,50,50,.7),rgba(0,0,0,.7));background:-o-linear-gradient(top,rgba(50,50,50,.7),rgba(0,0,0,.7));background:-ms-linear-gradient(top,rgba(50,50,50,.7),rgba(0,0,0,.7));background:linear-gradient(rgba(50,50,50,.7),rgba(0,0,0,.7));height:30px;width:100%}.mejs-container .mejs-controls div{list-style-type:none;background-image:none;display:block;float:left;margin:0;padding:0;width:26px;height:26px;font-size:11px;line-height:11px;font-family:Helvetica,Arial,serif;border:0}.mejs-controls .mejs-button button{cursor:pointer;display:block;font-size:0;line-height:0;text-decoration:none;margin:7px 5px;padding:0;position:absolute;height:16px;width:16px;border:0;background:transparent url(https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/40f56f5a736da4effeb790cedb8a52f0.svg) no-repeat}.no-svg .mejs-controls .mejs-button button{background-image:url(https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/24a0227fbdd3acfd86ff03fc3fc6c8a4.png)}.mejs-controls .mejs-button button:focus{outline:dotted 1px #999}.mejs-container .mejs-controls .mejs-time{color:#fff;display:block;height:17px;width:auto;padding:10px 3px 0;overflow:hidden;text-align:center;-moz-box-sizing:content-box;-webkit-box-sizing:content-box;box-sizing:content-box}.mejs-container .mejs-controls .mejs-time a{color:#fff;font-size:11px;line-height:12px;display:block;float:left;margin:1px 2px 0 0;width:auto}.mejs-controls .mejs-play button{background-position:0 0}.mejs-controls .mejs-pause button{background-position:0 -16px}.mejs-controls .mejs-stop button{background-position:-112px 0}.mejs-controls div.mejs-time-rail{direction:ltr;width:200px;padding-top:5px}.mejs-controls .mejs-time-rail span,.mejs-controls .mejs-time-rail a{display:block;position:absolute;width:180px;height:10px;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;cursor:pointer}.mejs-controls .mejs-time-rail .mejs-time-total{margin:5px;background:#333;background:rgba(50,50,50,.8);background:-webkit-gradient(linear,0 0,0 100%,from(rgba(30,30,30,.8)),to(rgba(60,60,60,.8)));background:-webkit-linear-gradient(top,rgba(30,30,30,.8),rgba(60,60,60,.8));background:-moz-linear-gradient(top,rgba(30,30,30,.8),rgba(60,60,60,.8));background:-o-linear-gradient(top,rgba(30,30,30,.8),rgba(60,60,60,.8));background:-ms-linear-gradient(top,rgba(30,30,30,.8),rgba(60,60,60,.8));background:linear-gradient(rgba(30,30,30,.8),rgba(60,60,60,.8))}.mejs-controls .mejs-time-rail .mejs-time-buffering{width:100%;background-image:-o-linear-gradient(-45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);background-image:-webkit-gradient(linear,0 100%,100% 0,color-stop(0.25,rgba(255,255,255,.15)),color-stop(0.25,transparent),color-stop(0.5,transparent),color-stop(0.5,rgba(255,255,255,.15)),color-stop(0.75,rgba(255,255,255,.15)),color-stop(0.75,transparent),to(transparent));background-image:-webkit-linear-gradient(-45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);background-image:-moz-linear-gradient(-45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);background-image:-ms-linear-gradient(-45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);background-image:linear-gradient(-45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);-webkit-background-size:15px 15px;-moz-background-size:15px 15px;-o-background-size:15px 15px;background-size:15px 15px;-webkit-animation:buffering-stripes 2s linear infinite;-moz-animation:buffering-stripes 2s linear infinite;-ms-animation:buffering-stripes 2s linear infinite;-o-animation:buffering-stripes 2s linear infinite;animation:buffering-stripes 2s linear infinite}@-webkit-keyframes buffering-stripes{from{background-position:0 0}to{background-position:30px 0}}@-moz-keyframes buffering-stripes{from{background-position:0 0}to{background-position:30px 0}}@-ms-keyframes buffering-stripes{from{background-position:0 0}to{background-position:30px 0}}@-o-keyframes buffering-stripes{from{background-position:0 0}to{background-position:30px 0}}@keyframes buffering-stripes{from{background-position:0 0}to{background-position:30px 0}}.mejs-controls .mejs-time-rail .mejs-time-loaded{background:#3caac8;background:rgba(60,170,200,.8);background:-webkit-gradient(linear,0 0,0 100%,from(rgba(44,124,145,.8)),to(rgba(78,183,212,.8)));background:-webkit-linear-gradient(top,rgba(44,124,145,.8),rgba(78,183,212,.8));background:-moz-linear-gradient(top,rgba(44,124,145,.8),rgba(78,183,212,.8));background:-o-linear-gradient(top,rgba(44,124,145,.8),rgba(78,183,212,.8));background:-ms-linear-gradient(top,rgba(44,124,145,.8),rgba(78,183,212,.8));background:linear-gradient(rgba(44,124,145,.8),rgba(78,183,212,.8));width:0}.mejs-controls .mejs-time-rail .mejs-time-current{background:#fff;background:rgba(255,255,255,.8);background:-webkit-gradient(linear,0 0,0 100%,from(rgba(255,255,255,.9)),to(rgba(200,200,200,.8)));background:-webkit-linear-gradient(top,rgba(255,255,255,.9),rgba(200,200,200,.8));background:-moz-linear-gradient(top,rgba(255,255,255,.9),rgba(200,200,200,.8));background:-o-linear-gradient(top,rgba(255,255,255,.9),rgba(200,200,200,.8));background:-ms-linear-gradient(top,rgba(255,255,255,.9),rgba(200,200,200,.8));background:linear-gradient(rgba(255,255,255,.9),rgba(200,200,200,.8));width:0}.mejs-controls .mejs-time-rail .mejs-time-handle{display:none;position:absolute;margin:0;width:10px;background:#fff;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;cursor:pointer;border:solid 2px #333;top:-2px;text-align:center}.mejs-controls .mejs-time-rail .mejs-time-float{position:absolute;display:none;background:#eee;width:36px;height:17px;border:solid 1px #333;top:-26px;margin-left:-18px;text-align:center;color:#111}.mejs-controls .mejs-time-rail .mejs-time-float-current{margin:2px;width:30px;display:block;text-align:center;left:0}.mejs-controls .mejs-time-rail .mejs-time-float-corner{position:absolute;display:block;width:0;height:0;line-height:0;border:solid 5px #eee;border-color:#eee transparent transparent;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;top:15px;left:13px}.mejs-long-video .mejs-controls .mejs-time-rail .mejs-time-float{width:48px}.mejs-long-video .mejs-controls .mejs-time-rail .mejs-time-float-current{width:44px}.mejs-long-video .mejs-controls .mejs-time-rail .mejs-time-float-corner{left:18px}.mejs-controls .mejs-fullscreen-button button{background-position:-32px 0}.mejs-controls .mejs-unfullscreen button{background-position:-32px -16px}.mejs-controls .mejs-volume-button{}.mejs-controls .mejs-mute button{background-position:-16px -16px}.mejs-controls .mejs-unmute button{background-position:-16px 0}.mejs-controls .mejs-volume-button{position:relative}.mejs-controls .mejs-volume-button .mejs-volume-slider{height:115px;width:25px;background:url(https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/703c659e4bf563a05c6338a1727e006c.png);background:rgba(50,50,50,.7);-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;top:-115px;left:0;z-index:1;position:absolute;margin:0}.mejs-controls .mejs-volume-button:hover{-webkit-border-radius:0 0 4px 4px;-moz-border-radius:0 0 4px 4px;border-radius:0 0 4px 4px}.mejs-controls .mejs-volume-button .mejs-volume-slider .mejs-volume-total{position:absolute;left:11px;top:8px;width:2px;height:100px;background:#ddd;background:rgba(255,255,255,.5);margin:0}.mejs-controls .mejs-volume-button .mejs-volume-slider .mejs-volume-current{position:absolute;left:11px;top:8px;width:2px;height:100px;background:#ddd;background:rgba(255,255,255,.9);margin:0}.mejs-controls .mejs-volume-button .mejs-volume-slider .mejs-volume-handle{position:absolute;left:4px;top:-3px;width:16px;height:6px;background:#ddd;background:rgba(255,255,255,.9);cursor:N-resize;-webkit-border-radius:1px;-moz-border-radius:1px;border-radius:1px;margin:0}.mejs-controls a.mejs-horizontal-volume-slider{height:26px;width:56px;position:relative;display:block;float:left;vertical-align:middle}.mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-total{position:absolute;left:0;top:11px;width:50px;height:8px;margin:0;padding:0;font-size:1px;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;background:#333;background:rgba(50,50,50,.8);background:-webkit-gradient(linear,0 0,0 100%,from(rgba(30,30,30,.8)),to(rgba(60,60,60,.8)));background:-webkit-linear-gradient(top,rgba(30,30,30,.8),rgba(60,60,60,.8));background:-moz-linear-gradient(top,rgba(30,30,30,.8),rgba(60,60,60,.8));background:-o-linear-gradient(top,rgba(30,30,30,.8),rgba(60,60,60,.8));background:-ms-linear-gradient(top,rgba(30,30,30,.8),rgba(60,60,60,.8));background:linear-gradient(rgba(30,30,30,.8),rgba(60,60,60,.8))}.mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-current{position:absolute;left:0;top:11px;width:50px;height:8px;margin:0;padding:0;font-size:1px;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;background:#fff;background:rgba(255,255,255,.8);background:-webkit-gradient(linear,0 0,0 100%,from(rgba(255,255,255,.9)),to(rgba(200,200,200,.8)));background:-webkit-linear-gradient(top,rgba(255,255,255,.9),rgba(200,200,200,.8));background:-moz-linear-gradient(top,rgba(255,255,255,.9),rgba(200,200,200,.8));background:-o-linear-gradient(top,rgba(255,255,255,.9),rgba(200,200,200,.8));background:-ms-linear-gradient(top,rgba(255,255,255,.9),rgba(200,200,200,.8));background:linear-gradient(rgba(255,255,255,.9),rgba(200,200,200,.8))}.mejs-controls .mejs-horizontal-volume-slider .mejs-horizontal-volume-handle{display:none}.mejs-controls .mejs-captions-button{position:relative}.mejs-controls .mejs-captions-button button{background-position:-48px 0}.mejs-controls .mejs-captions-button .mejs-captions-selector{position:absolute;bottom:26px;right:-51px;width:85px;height:100px;background:url(https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/703c659e4bf563a05c6338a1727e006c.png);background:rgba(50,50,50,.7);border:solid 1px transparent;padding:10px 10px 0;overflow:hidden;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}.mejs-controls .mejs-captions-button .mejs-captions-selector ul{margin:0;padding:0;display:block;list-style-type:none!important;overflow:hidden}.mejs-controls .mejs-captions-button .mejs-captions-selector ul li{margin:0 0 6px;padding:0;list-style-type:none!important;display:block;color:#fff;overflow:hidden}.mejs-controls .mejs-captions-button .mejs-captions-selector ul li input{clear:both;float:left;margin:3px 3px 0 5px}.mejs-controls .mejs-captions-button .mejs-captions-selector ul li label{width:55px;float:left;padding:4px 0 0;line-height:15px;font-family:Helvetica,Arial,serif;font-size:10px}.mejs-controls .mejs-captions-button .mejs-captions-translations{font-size:10px;margin:0 0 5px}.mejs-chapters{position:absolute;top:0;left:0;border-right:solid 1px #fff;width:10000px;z-index:1}.mejs-chapters .mejs-chapter{position:absolute;float:left;background:#222;background:rgba(0,0,0,.7);background:-webkit-gradient(linear,0 0,0 100%,from(rgba(50,50,50,.7)),to(rgba(0,0,0,.7)));background:-webkit-linear-gradient(top,rgba(50,50,50,.7),rgba(0,0,0,.7));background:-moz-linear-gradient(top,rgba(50,50,50,.7),rgba(0,0,0,.7));background:-o-linear-gradient(top,rgba(50,50,50,.7),rgba(0,0,0,.7));background:-ms-linear-gradient(top,rgba(50,50,50,.7),rgba(0,0,0,.7));background:linear-gradient(rgba(50,50,50,.7),rgba(0,0,0,.7));filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr=#323232, endColorstr=#000000);overflow:hidden;border:0}.mejs-chapters .mejs-chapter .mejs-chapter-block{font-size:11px;color:#fff;padding:5px;display:block;border-right:solid 1px #333;border-bottom:solid 1px #333;cursor:pointer}.mejs-chapters .mejs-chapter .mejs-chapter-block-last{border-right:0}.mejs-chapters .mejs-chapter .mejs-chapter-block:hover{background:#666;background:rgba(102,102,102,.7);background:-webkit-gradient(linear,0 0,0 100%,from(rgba(102,102,102,.7)),to(rgba(50,50,50,.6)));background:-webkit-linear-gradient(top,rgba(102,102,102,.7),rgba(50,50,50,.6));background:-moz-linear-gradient(top,rgba(102,102,102,.7),rgba(50,50,50,.6));background:-o-linear-gradient(top,rgba(102,102,102,.7),rgba(50,50,50,.6));background:-ms-linear-gradient(top,rgba(102,102,102,.7),rgba(50,50,50,.6));background:linear-gradient(rgba(102,102,102,.7),rgba(50,50,50,.6));filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr=#666666, endColorstr=#323232)}.mejs-chapters .mejs-chapter .mejs-chapter-block .ch-title{font-size:12px;font-weight:700;display:block;white-space:nowrap;text-overflow:ellipsis;margin:0 0 3px;line-height:12px}.mejs-chapters .mejs-chapter .mejs-chapter-block .ch-timespan{font-size:12px;line-height:12px;margin:3px 0 4px;display:block;white-space:nowrap;text-overflow:ellipsis}.mejs-captions-layer{position:absolute;bottom:0;left:0;text-align:center;line-height:20px;font-size:16px;color:#fff}.mejs-captions-layer a{color:#fff;text-decoration:underline}.mejs-captions-layer[lang=ar]{font-size:20px;font-weight:400}.mejs-captions-position{position:absolute;width:100%;bottom:15px;left:0}.mejs-captions-position-hover{bottom:35px}.mejs-captions-text,.mejs__captions-text *{padding:0;background:url(https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/703c659e4bf563a05c6338a1727e006c.png);background:rgba(20,20,20,.5);white-space:pre-wrap;-webkit-box-shadow:5px 0 0 rgba(20,20,20,.5),-5px 0 0 rgba(20,20,20,.5);box-shadow:5px 0 0 rgba(20,20,20,.5),-5px 0 0 rgba(20,20,20,.5)}.me-cannotplay{}.me-cannotplay a{color:#fff;font-weight:700}.me-cannotplay span{padding:15px;display:block}.mejs-controls .mejs-loop-off button{background-position:-64px -16px}.mejs-controls .mejs-loop-on button{background-position:-64px 0}.mejs-controls .mejs-backlight-off button{background-position:-80px -16px}.mejs-controls .mejs-backlight-on button{background-position:-80px 0}.mejs-controls .mejs-picturecontrols-button{background-position:-96px 0}.mejs-contextmenu{position:absolute;width:150px;padding:10px;border-radius:4px;top:0;left:0;background:#fff;border:solid 1px #999;z-index:1001}.mejs-contextmenu .mejs-contextmenu-separator{height:1px;font-size:0;margin:5px 6px;background:#333}.mejs-contextmenu .mejs-contextmenu-item{font-family:Helvetica,Arial,serif;font-size:12px;padding:4px 6px;cursor:pointer;color:#333}.mejs-contextmenu .mejs-contextmenu-item:hover{background:#2C7C91;color:#fff}.mejs-controls .mejs-sourcechooser-button{position:relative}.mejs-controls .mejs-sourcechooser-button button{background-position:-128px 0}.mejs-controls .mejs-sourcechooser-button .mejs-sourcechooser-selector{position:absolute;bottom:26px;right:-10px;width:130px;height:100px;background:url(https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/703c659e4bf563a05c6338a1727e006c.png);background:rgba(50,50,50,.7);border:solid 1px transparent;padding:10px;overflow:hidden;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}.mejs-controls .mejs-sourcechooser-button .mejs-sourcechooser-selector ul{margin:0;padding:0;display:block;list-style-type:none!important;overflow:hidden}.mejs-controls .mejs-sourcechooser-button .mejs-sourcechooser-selector ul li{margin:0 0 6px;padding:0;list-style-type:none!important;display:block;color:#fff;overflow:hidden}.mejs-controls .mejs-sourcechooser-button .mejs-sourcechooser-selector ul li input{clear:both;float:left;margin:3px 3px 0 5px}.mejs-controls .mejs-sourcechooser-button .mejs-sourcechooser-selector ul li label{width:100px;float:left;padding:4px 0 0;line-height:15px;font-family:Helvetica,Arial,serif;font-size:10px}.mejs-postroll-layer{position:absolute;bottom:0;left:0;width:100%;height:100%;background:url(https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/703c659e4bf563a05c6338a1727e006c.png);background:rgba(50,50,50,.7);z-index:1000;overflow:hidden}.mejs-postroll-layer-content{width:100%;height:100%}.mejs-postroll-close{position:absolute;right:0;top:0;background:url(https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/703c659e4bf563a05c6338a1727e006c.png);background:rgba(50,50,50,.7);color:#fff;padding:4px;z-index:100;cursor:pointer}div.mejs-speed-button{width:46px!important;position:relative}.mejs-controls .mejs-button.mejs-speed-button button{background:transparent;width:36px;font-size:11px;line-height:normal;color:#fff}.mejs-controls .mejs-speed-button .mejs-speed-selector{position:absolute;top:-100px;left:-10px;width:60px;height:100px;background:url(https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/703c659e4bf563a05c6338a1727e006c.png);background:rgba(50,50,50,.7);border:solid 1px transparent;padding:0;overflow:hidden;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0}.mejs-controls .mejs-speed-button .mejs-speed-selector ul li label.mejs-speed-selected{color:rgba(33,248,248,1)}.mejs-controls .mejs-speed-button .mejs-speed-selector ul{margin:0;padding:0;display:block;list-style-type:none!important;overflow:hidden}.mejs-controls .mejs-speed-button .mejs-speed-selector ul li{margin:0 0 6px;padding:0 10px;list-style-type:none!important;display:block;color:#fff;overflow:hidden}.mejs-controls .mejs-speed-button .mejs-speed-selector ul li input{clear:both;float:left;margin:3px 3px 0 5px}.mejs-controls .mejs-speed-button .mejs-speed-selector ul li label{width:60px;float:left;padding:4px 0 0;line-height:15px;font-family:Helvetica,Arial,serif;font-size:11px;color:#fff;margin-left:5px;cursor:pointer}.mejs-controls .mejs-speed-button .mejs-speed-selector ul li:hover{background-color:#c8c8c8!important;background-color:rgba(255,255,255,.4)!important}.mejs-controls .mejs-button.mejs-jump-forward-button{background:transparent url(https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/15e1ac8cbacc2efdf1ac2677de48a253.png) no-repeat 3px 3px}.mejs-controls .mejs-button.mejs-jump-forward-button button{background:transparent;font-size:9px;line-height:normal;color:#fff}.mejs-controls .mejs-button.mejs-skip-back-button{background:transparent url(https://du11hjcvx0uqb.cloudfront.net/br/dist/webpack-production/cd6dc830eb45b3a5a96bbc936ff54846.png) no-repeat 3px 3px}.mejs-controls .mejs-button.mejs-skip-back-button button{background:transparent;font-size:9px;line-height:normal;color:#fff}</style><style type="text/css">/*
+ * Copyright (C) 2014 - present Instructure, Inc.
+ *
+ * This file is part of Canvas.
+ *
+ * Canvas is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License as published by the Free
+ * Software Foundation, version 3 of the License.
+ *
+ * Canvas is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License along
+ * with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/* customizations to mediaelementplayer css */
+
+/*
+  Because this file is not proccessed by our brandable_css sass pipeline,
+  it cannot use our sass-direction helpers. So we have to handle RTL manually
+  by putting direction-specific styles in [dir="ltr"] or [dir="rtl"] blocks.
+*/
+/* stylelint-disable property-blacklist, declaration-property-value-blacklist */
+
+/* good menu widths */
+.mejs-sourcechooser-selector {
+  width: 160px;
+}
+.mejs-sourcechooser-selector label {
+  width: 160px !important;
+}
+
+.mejs-captions-selector {
+  width: 105px;
+}
+[dir="ltr"]  .mejs-captions-selector { text-align: left }
+[dir="rtl"]  .mejs-captions-selector { text-align: right }
+
+.mejs-captions-selector label {
+  width: 70px !important;
+}
+
+/* Subtitile upload link */
+.mejs-captions-selector .upload-track {
+  color: white;
+  margin-top: 3px;
+  margin-bottom: 5px;
+}
+[dir="ltr"] .mejs-captions-selector .upload-track {
+  margin-right: 0px;
+  margin-left: 5px;
+  float: left;
+}
+[dir="rtl"] .mejs-captions-selector .upload-track {
+  margin-left: 0px;
+  margin-right: 5px;
+  float: right;
+}
+
+/* "x" button to remove a subtitle */
+.mejs-captions-selector a[data-remove] {
+  position: absolute;
+  top: 0;
+  color: white;
+}
+[dir="ltr"] .mejs-captions-selector a[data-remove] { right: 0 }
+[dir="rtl"] .mejs-captions-selector a[data-remove] { left: 0 }
+
+
+/* style menu items without a radio button */
+.mejs-button [role="menu"] {
+  padding: 0 !important;
+}
+ /* compensate for above 0 padding */
+ .mejs-button [role="menu"] ul li {
+  position: relative;
+  padding: 0 10px !important;
+}
+/* add a hover effect */
+.mejs-button [role="menu"] ul li:hover {
+  background-color: #c8c8c8 !important;
+  background-color: rgba(255, 255, 255, 0.4) !important;
+}
+.mejs-button [role="menu"] ul li input {
+  border: 0;
+  clip: rect(0 0 0 0);
+  position: absolute;
+  overflow: hidden;
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+}
+.mejs-button [role="menu"] ul li label {
+  cursor: pointer;
+}
+[dir="ltr"] .mejs-button [role="menu"] ul li label { margin-left: 5px }
+[dir="rtl"] .mejs-button [role="menu"] ul li label { margin-right: 5px }
+
+
+.mejs-button [role="menu"] label.mejs-selected {
+  color: #21f8f8 !important;
+}
+
+/* stylelint-enable property-blacklist, declaration-property-value-blacklist */
+</style><link rel="stylesheet" href="./Compiler 6_ Local variables, parameters, and arrays_files/PaginatedView-bf30c3a7d1.css" data-loaded-by-brandablecss="true"><link rel="stylesheet" href="./Compiler 6_ Local variables, parameters, and arrays_files/TreeBrowser-486bca8feb.css" data-loaded-by-brandablecss="true"><link rel="stylesheet" href="./Compiler 6_ Local variables, parameters, and arrays_files/MoveOutcomeDialog-9d1c3f4686.css" data-loaded-by-brandablecss="true"><style type="text/css" data-glamor=""></style><script type="text/javascript" src="./Compiler 6_ Local variables, parameters, and arrays_files/nmsu.js"></script><script type="text/javascript">var proHelpConfig = {siteUrl:"https://nmsu.instructure.com",users:"admin,teacher"};</script><script type="text/javascript" src="./Compiler 6_ Local variables, parameters, and arrays_files/prohelp-canvas-auto.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/605-c-d1c8d45332.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/18-c-54132531db.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/24-c-af2ea752c1.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/38-c-37d66c57c2.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/43-c-eadd4794f6.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/50-c-43a4c541fb.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/67-c-978e3f8a38.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/66-c-385bebbede.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/97-c-8951b3ff29.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/96-c-d5f9bb04e5.js"></script><script charset="utf-8" src="./Compiler 6_ Local variables, parameters, and arrays_files/canvas-rce-old-async-chunk-c-36f8e822c6.js"></script><script type="text/javascript" src="./Compiler 6_ Local variables, parameters, and arrays_files/evalkit.min.js"></script><script type="text/javascript" src="./Compiler 6_ Local variables, parameters, and arrays_files/js"></script><script type="text/javascript" async="">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','phDataLayer','GTM-K7SS2BB');</script></head>
+
+<body class="with-left-side course-menu-expanded with-right-side assignments primary-nav-expanded full-width context-course_1244710 webkit chrome no-touch"><!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TGLBWGM" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) -->
+
+<noscript>
+  <div role="alert" class="ic-flash-static ic-flash-error">
+    <div class="ic-flash__icon" aria-hidden="true">
+      <i class="icon-warning"></i>
+    </div>
+    <h1>You need to have JavaScript enabled in order to access this site.</h1>
+  </div>
+</noscript>
+
+
+
+
+<ul id="flash_message_holder"></ul>
+<div id="flash_screenreader_holder" role="alert" aria-live="assertive" aria-relevant="additions" class="screenreader-only" aria-atomic="false"></div>
+
+<div id="application" class="ic-app">
+  
+  <header id="header" class="ic-app-header no-print ">
+    <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#content" id="skip_navigation_link">Skip To Content</a>
+      <div role="region" class="ic-app-header__main-navigation" aria-label="Global Navigation">
+        <div class="ic-app-header__logomark-container">
+          <a href="https://nmsu.instructure.com/" class="ic-app-header__logomark">
+            <span class="screenreader-only">Dashboard</span>
+          </a>
+        </div>
+        <ul id="menu" class="ic-app-header__menu-list">
+            <li class="menu-item ic-app-header__menu-list-item ">
+              <a id="global_nav_profile_link" role="button" href="https://nmsu.instructure.com/profile" class="ic-app-header__menu-list-link">
+                <div class="menu-item-icon-container" aria-hidden="true">
+                  <div class="ic-avatar ">
+                    <img src="./Compiler 6_ Local variables, parameters, and arrays_files/mRGjMUDKIGxQKXJyFtdidAqir74rhuJYhKZb05WT" alt="Joseph Camacho-Terrazas">
+                  </div>
+                </div>
+                <div class="menu-item__text">
+                  Account
+                </div>
+              </a>
+            </li>
+          <li class="ic-app-header__menu-list-item ">
+            <a id="global_nav_dashboard_link" href="https://nmsu.instructure.com/" class="ic-app-header__menu-list-link">
+              <div class="menu-item-icon-container" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ic-icon-svg ic-icon-svg--dashboard" version="1.1" x="0" y="0" viewBox="0 0 280 200" enable-background="new 0 0 280 200" xml:space="preserve"><path d="M273.09,180.75H197.47V164.47h62.62A122.16,122.16,0,1,0,17.85,142a124,124,0,0,0,2,22.51H90.18v16.29H6.89l-1.5-6.22A138.51,138.51,0,0,1,1.57,142C1.57,65.64,63.67,3.53,140,3.53S278.43,65.64,278.43,142a137.67,137.67,0,0,1-3.84,32.57ZM66.49,87.63,50.24,71.38,61.75,59.86,78,76.12Zm147,0L202,76.12l16.25-16.25,11.51,11.51ZM131.85,53.82v-23h16.29v23Zm15.63,142.3a31.71,31.71,0,0,1-28-16.81c-6.4-12.08-15.73-72.29-17.54-84.25a8.15,8.15,0,0,1,13.58-7.2c8.88,8.21,53.48,49.72,59.88,61.81a31.61,31.61,0,0,1-27.9,46.45ZM121.81,116.2c4.17,24.56,9.23,50.21,12,55.49A15.35,15.35,0,1,0,161,157.3C158.18,152,139.79,133.44,121.81,116.2Z"></path></svg>
+
+              </div>
+              <div class="menu-item__text">Dashboard</div>
+            </a>
+          </li>
+          <li class="menu-item ic-app-header__menu-list-item ic-app-header__menu-list-item--active">
+            <a id="global_nav_courses_link" role="button" href="https://nmsu.instructure.com/courses" class="ic-app-header__menu-list-link">
+              <div class="menu-item-icon-container" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ic-icon-svg ic-icon-svg--courses" version="1.1" x="0" y="0" viewBox="0 0 280 259" enable-background="new 0 0 280 259" xml:space="preserve"><path d="M73.31,198c-11.93,0-22.22,8-24,18.73a26.67,26.67,0,0,0-.3,3.63v.3a22,22,0,0,0,5.44,14.65,22.47,22.47,0,0,0,17.22,8H200V228.19h-134V213.08H200V198Zm21-105.74h90.64V62H94.3ZM79.19,107.34V46.92H200v60.42Zm7.55,30.21V122.45H192.49v15.11ZM71.65,16.71A22.72,22.72,0,0,0,49,39.36V190.88a41.12,41.12,0,0,1,24.32-8h157V16.71ZM33.88,39.36A37.78,37.78,0,0,1,71.65,1.6H245.36V198H215.15v45.32h22.66V258.4H71.65a37.85,37.85,0,0,1-37.76-37.76Z"></path></svg>
+
+              </div>
+              <div class="menu-item__text">
+                Courses
+              </div>
+            </a>
+          </li>
+            <li class="menu-item ic-app-header__menu-list-item ">
+              <a id="global_nav_groups_link" role="button" href="https://nmsu.instructure.com/groups" class="ic-app-header__menu-list-link">
+                <div class="menu-item-icon-container" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ic-icon-svg ic-icon-svg--groups" viewBox="0 0 200 135"><path d="M134.5 129.4c0-1.1 0-19.8-6.2-31.1-4.5-8.5-16.4-12.4-35-19.2-1.7-.6-3.4-1.1-5.1-1.7v-8.5c5.6-5.1 8.5-12.4 8.5-20.3V29.4C96.6 13 83.6 0 67.2 0S37.9 13 37.9 29.4v19.2c0 7.3 3.4 14.7 8.5 20.3v8.5c-1.7.6-3.4 1.1-5.1 1.7-18.6 6.2-30.5 10.7-35 19.2C0 109.6 0 128.8 0 129.4c0 3.4 2.3 5.6 5.6 5.6h123.7c3.5 0 5.7-2.3 5.2-5.6zm-123.2-5.7c.6-5.6 1.7-14.7 3.4-19.8C17 98.8 30 94.3 43.5 89.8c2.8-1.1 5.6-2.3 9-3.4 2.3-.6 4-2.8 4-5.1V66.7c0-1.7-.6-3.4-1.7-4.5-4-3.4-6.2-8.5-6.2-13.6V29.4c0-10.2 7.9-18.1 18.1-18.1s18.1 7.9 18.1 18.1v19.2c0 5.1-2.3 10.2-6.2 13.6-1.1 1.1-1.7 2.8-1.7 4.5v14.7c0 2.3 1.7 4.5 4 5.1 2.8 1.1 6.2 2.3 9 3.4 13.6 5.1 26.6 9.6 28.8 14.1 2.8 5.1 4 13.6 4.5 19.8H11.3zM196 79.1c-2.8-6.2-11.3-9.6-22.6-13.6l-1.7-.6v-3.4c4.5-4 6.8-9.6 6.8-15.8V35c0-12.4-9.6-22-22-22s-22 10.2-22 22v10.7c0 6.2 2.3 11.9 6.8 15.8V65l-1.7.6c-7.3 2.8-13 4.5-16.9 7.3-1.7 1.1-2.3 2.8-2.3 5.1.6 1.7 1.7 3.4 3.4 4.5 7.9 4 12.4 7.3 14.1 10.7 2.3 4.5 4 10.2 5.1 18.1.6 2.3 2.8 4.5 5.6 4.5h45.8c3.4 0 5.6-2.8 5.6-5.1 0-3.9 0-24.3-4-31.6zm-42.9 25.4c-1.1-6.8-2.8-12.4-5.1-16.9-1.7-4-5.1-6.8-9.6-10.2 1.7-1.1 3.4-1.7 5.1-2.3l5.6-2.3c1.7-.6 3.4-2.8 3.4-5.1v-9.6c0-1.7-.6-3.4-2.3-4.5-2.8-1.7-4.5-5.1-4.5-8.5V34.5c0-6.2 4.5-10.7 10.7-10.7s10.7 5.1 10.7 10.7v10.7c0 3.4-1.7 6.2-4.5 8.5-1.1 1.1-2.3 2.8-2.3 4.5v10.2c0 2.3 1.1 4.5 3.4 5.1l5.6 2.3c6.8 2.3 15.3 5.6 16.4 7.9 1.7 2.8 2.8 12.4 2.8 20.9h-35.4z"></path></svg>
+
+                </div>
+                <div class="menu-item__text">
+                  Groups
+                </div>
+              </a>
+            </li>
+          <li class="menu-item ic-app-header__menu-list-item ">
+            <a id="global_nav_calendar_link" href="https://nmsu.instructure.com/calendar" class="ic-app-header__menu-list-link">
+              <div class="menu-item-icon-container" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ic-icon-svg ic-icon-svg--calendar" version="1.1" x="0" y="0" viewBox="0 0 280 280" enable-background="new 0 0 280 280" xml:space="preserve"><path d="M197.07,213.38h16.31V197.07H197.07Zm-16.31,16.31V180.76h48.92v48.92Zm-48.92-16.31h16.31V197.07H131.85Zm-16.31,16.31V180.76h48.92v48.92ZM66.62,213.38H82.93V197.07H66.62ZM50.32,229.68V180.76H99.24v48.92Zm146.75-81.53h16.31V131.85H197.07Zm-16.31,16.31V115.54h48.92v48.92Zm-48.92-16.31h16.31V131.85H131.85Zm-16.31,16.31V115.54h48.92v48.92ZM66.62,148.15H82.93V131.85H66.62ZM50.32,164.46V115.54H99.24v48.92ZM34,262.29H246V82.93H34ZM246,66.62V42.16A8.17,8.17,0,0,0,237.84,34H213.38v8.15a8.15,8.15,0,1,1-16.31,0V34H82.93v8.15a8.15,8.15,0,0,1-16.31,0V34H42.16A8.17,8.17,0,0,0,34,42.16V66.62Zm-8.15-48.92a24.49,24.49,0,0,1,24.46,24.46V278.6H17.71V42.16A24.49,24.49,0,0,1,42.16,17.71H66.62V9.55a8.15,8.15,0,0,1,16.31,0v8.15H197.07V9.55a8.15,8.15,0,1,1,16.31,0v8.15Z"></path></svg>
+
+              </div>
+              <div class="menu-item__text">
+                Calendar
+              </div>
+            </a>
+          </li>
+          <li class="menu-item ic-app-header__menu-list-item ">
+            <a id="global_nav_conversations_link" href="https://nmsu.instructure.com/conversations" class="ic-app-header__menu-list-link">
+              <div class="menu-item-icon-container">
+                <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" class="ic-icon-svg ic-icon-svg--inbox" version="1.1" x="0" y="0" viewBox="0 0 280 280" enable-background="new 0 0 280 280" xml:space="preserve"><path d="M91.72,120.75h96.56V104.65H91.72Zm0,48.28h80.47V152.94H91.72Zm0-96.56h80.47V56.37H91.72Zm160.94,34.88H228.52V10.78h-177v96.56H27.34A24.17,24.17,0,0,0,3.2,131.48V244.14a24.17,24.17,0,0,0,24.14,24.14H252.66a24.17,24.17,0,0,0,24.14-24.14V131.48A24.17,24.17,0,0,0,252.66,107.34Zm0,16.09a8.06,8.06,0,0,1,8,8v51.77l-32.19,19.31V123.44ZM67.58,203.91v-177H212.42v177ZM27.34,123.44H51.48v79.13L19.29,183.26V131.48A8.06,8.06,0,0,1,27.34,123.44ZM252.66,252.19H27.34a8.06,8.06,0,0,1-8-8V202l30,18H230.75l30-18v42.12A8.06,8.06,0,0,1,252.66,252.19Z"></path></svg>
+</span>
+                <span class="menu-item__badge"></span>
+              </div>
+              <div class="menu-item__text">
+                Inbox
+              </div>
+            </a>
+          </li>
+            
+
+
+          <li class="ic-app-header__menu-list-item">
+           <a id="global_nav_help_link" role="button" class="ic-app-header__menu-list-link" data-track-category="help system" data-track-label="help button" href="http://help.instructure.com/">
+              <div class="menu-item-icon-container" role="presentation">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="ic-icon-svg menu-item__icon svg-icon-help" version="1.1" x="0" y="0" viewBox="0 0 200 200" enable-background="new 0 0 200 200" xml:space="preserve" fill="currentColor"><path d="M100,127.88A11.15,11.15,0,1,0,111.16,139,11.16,11.16,0,0,0,100,127.88Zm8.82-88.08a33.19,33.19,0,0,1,23.5,23.5,33.54,33.54,0,0,1-24,41.23,3.4,3.4,0,0,0-2.74,3.15v9.06H94.42v-9.06a14.57,14.57,0,0,1,11.13-14,22.43,22.43,0,0,0,13.66-10.27,22.73,22.73,0,0,0,2.31-17.37A21.92,21.92,0,0,0,106,50.59a22.67,22.67,0,0,0-19.68,3.88,22.18,22.18,0,0,0-8.65,17.64H66.54a33.25,33.25,0,0,1,13-26.47A33.72,33.72,0,0,1,108.82,39.8ZM100,5.2A94.8,94.8,0,1,0,194.8,100,94.91,94.91,0,0,0,100,5.2m0,178.45A83.65,83.65,0,1,1,183.65,100,83.73,83.73,0,0,1,100,183.65" transform="translate(-5.2 -5.2)"></path></svg>
+
+              </div>
+              <div class="menu-item__text">
+                Help
+              </div>
+</a>          </li>
+        </ul>
+      </div>
+      <div class="ic-app-header__secondary-navigation">
+        <ul class="ic-app-header__menu-list">
+          <li class="menu-item ic-app-header__menu-list-item">
+            <button id="primaryNavToggle" class="ic-app-header__menu-list-link ic-app-header__menu-list-link--nav-toggle" aria-label="Minimize global navigation" title="Minimize global navigation">
+              <div class="menu-item-icon-container" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" class="ic-icon-svg ic-icon-svg--navtoggle" version="1.1" x="0" y="0" width="40" height="32" viewBox="0 0 40 32" xml:space="preserve">
+  <path d="M39.5,30.28V2.48H37.18v27.8Zm-4.93-13.9L22.17,4,20.53,5.61l9.61,9.61H.5v2.31H30.14l-9.61,9.61,1.64,1.64Z"></path>
+</svg>
+
+              </div>
+            </button>
+          </li>
+        </ul>
+      </div>
+    <div id="global_nav_tray_container"></div>
+  </header>
+
+
+  <div id="instructure_ajax_error_box">
+    <div style="text-align: right; background-color: #fff;"><a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="close_instructure_ajax_error_box_link">Close</a></div>
+    <iframe id="instructure_ajax_error_result" src="./Compiler 6_ Local variables, parameters, and arrays_files/saved_resource.html" style="border: 0;" title="Error"></iframe>
+  </div>
+
+  <div id="wrapper" class="ic-Layout-wrapper">
+      <div class="ic-app-nav-toggle-and-crumbs no-print">
+          <button type="button" id="courseMenuToggle" class="Button Button--link ic-app-course-nav-toggle" aria-live="polite" aria-label="Hide Courses Navigation Menu" title="Hide Courses Navigation Menu">
+            <i class="icon-hamburger" aria-hidden="true"></i>
+          </button>
+          <div class="ic-app-crumbs">
+        <nav id="breadcrumbs" role="navigation" aria-label="breadcrumbs"><ul><li class="home"><a href="https://nmsu.instructure.com/"><span class="ellipsible">      <i class="icon-home" title="My Dashboard">
+        <span class="screenreader-only">My Dashboard</span>
+      </i>
+</span></a></li><li><a href="https://nmsu.instructure.com/courses/1244710"><span class="ellipsible">CS 370 Compilers</span></a></li><li><a href="https://nmsu.instructure.com/courses/1244710/assignments"><span class="ellipsible">Assignments</span></a></li><li><a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122"><span class="ellipsible">Compiler 6: Local variables, parameters, and arrays</span></a></li></ul></nav>
+        </div>
+      </div>
+    <div id="main" class="ic-Layout-columns">
+        <div class="ic-Layout-watermark"></div>
+        <div id="left-side" class="ic-app-course-menu list-view-a11y-left-menu-flag" style="display: block">
+              <span id="section-tabs-header-subtitle" class="ellipsis">Fall 2019</span>
+            <nav role="navigation" aria-label="Courses Navigation Menu"><ul id="section-tabs"><li class="section"><a href="https://nmsu.instructure.com/courses/1244710" title="Home" class="home" tabindex="0">Home</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/announcements" title="Announcements" class="announcements" tabindex="0">Announcements</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/assignments" title="Assignments" aria-current="page" class="assignments active" tabindex="0">Assignments</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/discussion_topics" title="Discussions" class="discussions" tabindex="0">Discussions</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/grades" title="Grades" class="grades" tabindex="0">Grades<b class="nav-badge">1</b></a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/users" title="People" class="people" tabindex="0">People</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/wiki" title="Pages" class="pages" tabindex="0">Pages</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/files" title="Files" class="files" tabindex="0">Files</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/assignments/syllabus" title="Syllabus" class="syllabus" tabindex="0">Syllabus</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/quizzes" title="Quizzes" class="quizzes" tabindex="0">Quizzes</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/collaborations" title="Collaborations" class="collaborations" tabindex="0">Collaborations</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/external_tools/9047" title="Chat" class="context_external_tool_9047" tabindex="0">Chat</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/external_tools/14365" title="Student Course Evaluations" class="context_external_tool_14365" tabindex="0">Student Course Evaluations</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/external_tools/14366" title="Instructor Course Evaluations" class="context_external_tool_14366" tabindex="0">Instructor Course Evaluations</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/external_tools/14367" title="Admin Course Evaluations" class="context_external_tool_14367" tabindex="0">Admin Course Evaluations</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/external_tools/21912" title="Purchase Course Materials" class="context_external_tool_21912" tabindex="0">Purchase Course Materials</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/external_tools/35750" title="Getting Started with Research" class="context_external_tool_35750" tabindex="0">Getting Started with Research</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/external_tools/35751" title="Finding Books &amp; Articles" class="context_external_tool_35751" tabindex="0">Finding Books &amp; Articles</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/external_tools/35752" title="Citing Your Sources" class="context_external_tool_35752" tabindex="0">Citing Your Sources</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/external_tools/36052" title="Student Help" class="context_external_tool_36052" tabindex="0">Student Help</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/external_tools/44460" title="Office 365" class="context_external_tool_44460" tabindex="0">Office 365</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/external_tools/54902" title="Adobe Connect" class="context_external_tool_54902" tabindex="0">Adobe Connect</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/external_tools/80054" title="Google Drive" class="context_external_tool_80054" tabindex="0">Google Drive</a></li><li class="section"><a href="https://nmsu.instructure.com/courses/1244710/external_tools/98649" title="QuickConnect" class="context_external_tool_98649" tabindex="0">QuickConnect</a></li></ul></nav>
+        </div>
+      <div id="not_right_side" class="ic-app-main-content">
+        <div id="content-wrapper" class="ic-Layout-contentWrapper">
+          
+          <div id="content" class="ic-Layout-contentMain" role="main">
+            
+<style>
+  #right-side-wrapper {
+    height: 100%;
+  }
+</style>
+
+
+
+<div id="assignment_show" class="assignment content_underline_links">
+    <!--Student View-->
+    <div class="assignment-title">
+      <div class="title-content">
+        <h1 class="title">
+          Compiler 6: Local variables, parameters, and arrays
+        </h1>
+      </div>
+      <div class="assignment-buttons">
+        
+
+        <a role="button" class="Button Button--primary submit_assignment_link " href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#">Submit Assignment</a>
+      </div>
+    </div>
+    <ul class="student-assignment-overview">
+      <li>
+        <span class="title">Due</span>
+        <span class="value">
+          <span class="date_text">
+                <span class="display_date">Dec 6</span> by 
+                <span class="display_time">11:59pm</span>
+          </span>
+        </span>
+      </li>
+      <li>
+        <span class="title">Points</span>
+        <span class="value">30</span>
+      </li>
+        <li>
+          <span class="title">Submitting</span>
+          <span class="value">a file upload</span>
+        </li>
+          <li>
+            <span class="title">File Types</span>
+            <span class="value">zip</span>
+          </li>
+      
+
+      <div class="clear"></div>
+    </ul>
+
+  <div class="clear"></div>
+
+
+  <div class="clear"></div>
+
+  <div class="description user_content student-version enhanced"><p>In this last iteration of our compiler project, we implement managing and accessing parameters, local variables, and array variables (global only).</p>
+<h3>Short Description of Needed Functionality</h3>
+<p>Local variables: store their stack offset (negative) in the AST_VARREF "ival" field, and then generate code using a "%d(%%rpb)" format for accessing (or writing to) them; be sure to make space on the stack for your variables.</p>
+<p>Arrays (global only): store their size in the AST_VARDECL "ival" field, then use this when generating your ".comm" declarations. When accessing, expression that is used as index will be in EAX, first do "cltq" and then use Intel indirect addressing form of "movl A(,%rax,4), %eax" can be used (notes: A is array name; 4 is the multiply factor for %rax (i.e., the size of array elements); indirect addressing must use %rax and so the "cltq" instruction converts the int in %eax (the result of the index expression) into a long in %rax). For assigning to an array, it's all very similar BUT you must use push and pop to save the value of the assignment right-hand-side expression while you compute the index expression. Kind of like the two subexpressions of a binary operator, but different uses of them.</p>
+<p>Parameters (up to six): store the parameter position (starting with 1) in the AST_VARREF "ival" field, then generate code that accesses the correct position register from your "argregstr" array. It would be convenient to start the parameters at 0 since our argregstr array starts at 0, but we've been using an "ival" field of 0 to indicate a simple global variable, so we should reserve 0 for that. Now, 0 means simple global variable, positive means a parameter position, and negative means a local variable offset.</p>
+<h3>New Grammar</h3>
+<pre>prog: declarations functions
+functions: /* empty */  | function functions
+function: ID LPAREN parameters RPAREN LBRACE <strong>localdecls</strong> statements RBRACE
+statements: /* empty */  | statement statements
+statement: funcall SEMICOLON  | assignment SEMICOLON  | whileloop  | ifthen  | ifthenelse
+assignment: ID EQUALS expression | <strong>ID LBRACKET expression RBRACKET EQUALS expression</strong> 
+funcall: ID LPAREN arguments RPAREN
+whileloop: KWWHILE LPAREN relexpr RPAREN LBRACE statements RBRACE
+ifthen: KWIF LPAREN relexpr RPAREN LBRACE statements RBRACE
+ifthenelse: KWIF LPAREN relexpr RPAREN LBRACE statements RBRACE KWELSE LBRACE statements RBRACE
+arguments: /* empty */  | argument  | argument COMMA arguments
+argument: expression
+expression: NUMBER  | STRING  | ID  | <strong>ID LBRACKET expression RBRACKET</strong>  | expression ADDOP expression
+relexpr: expression RELOP expression
+parameters: /* empty */  | vardecl  | vardecl COMMA parameters
+declarations: /* empty */  | vardecl SEMICOLON declarations
+<strong>localdecls: /* empty */  | vardecl SEMICOLON localdecls</strong>
+vardecl: KWINT ID  | KWSTRING ID  | <strong>KWINT ID LBRACKET NUMBER RBRACKET
+</strong></pre>
+<p>The new parts are in bold -- don't miss the "localdecls" in the function declaration! (also, this will move the positional value of the statements from $6 to $7). The global variable declarations, parameter declarations, and local variable declarations all use the same "vardecl" sub-rule. The rest of the new grammar is for recognizing array usage, in declarations, expressions, and on the left hand side of an assignment. You will need to add LBRACKET and RBRACKET to your scanner, and to the intval token types, and add "localdecls" to your "astree" nonterminal types.</p>
+<h3>Local Variables</h3>
+<p>Local variables are far different than global variables; only one copy of a global variable exists, and it exists for the lifetime of the program. Local variables only exist during the lifetime of a <strong>function call</strong>, and if the function is recursive, each call must have its own versions of the local variables. By this point in your studies, you should know that local variables are created and exist on <strong>the stack</strong>. CPUs have direct support for maintaining the function call stack, with an SP (stack pointer) register, and with push, pop, and other stack manipulation instructions.</p>
+<p>If you look at the assembly code that gcc generates for the beginning of a function call, it looks like:</p>
+<pre>	.globl	func<br>	.type	func, @function<br>func:<br>	pushq	%rbp<br>	movq	%rsp, %rbp<br>	subq	$32, %rsp<br><br></pre>
+<p>We can see from the above that on the x86_64 CPU architecture (i.e., 64-bit Intel X86), there are two registers involved, RSP and RBP. RSP is the stack pointer -- it always points to the top element on the stack. RBP is used as the pointer into the current functions' stack frame (it's called the "base pointer"). The <strong>stack grows down towards lower (smaller) addresses</strong>. The first thing the function does is that it pushes the current value in RBP onto the stack. This saves the caller's RBP value so that when we return we can restore this value and the caller function will still work. Then it copies the current RSP over to RBP. This sets up RBP as this function's frame (base) pointer. So RBP now "points to" the top element on the stack, which means it contains the address of the memory location(s) that contains the old value of RBP (since that was the last push onto the stack). The function then subtracts 32 from RSP; think of this as "pushing" 32 bytes of empty space onto the stack, which this function can now use -- for local variables or temporary variables or whatever.</p>
+<p>If you remember from CS 278, CPUs use various addressing modes for accessing memory. For global variables we have used <strong>direct addressing</strong>, where the instruction has the exact (direct) address that needs to be accessed. For accessing elements of an array, where the index is computed from an expression, we need to generate the address during execution; this requires <strong>indirect addressing</strong>. On the x86_64 architecture, indirect addressing looks like:</p>
+<pre>	movl	%eax, -4(%rbp)</pre>
+<p>The way to interpret this is: store the value in EAX into the memory address formed by subtracting 4 from the value in RBP. Since RBP was initialized by copying RSP into it, and since (RBP-0) is the address for the saved old value of RBP on the stack, then storing EAX (4 bytes) at (RBP-4) means that we are storing it on the stack, right on top of the saved old value of RBP. This is because the 4 bytes of RBP are stored at (RBP-4), (RBP-3), (RBP-2), and (RBP-1), little end first (x86 is little endian).</p>
+<p>So, for each local variable, you need to create a new offset (-4, -8, -12, ...) and save it in the</p>
+<h3>Arrays</h3>
+<p>Arrays...are not variables. What?!? Well, an array is a <strong>collection</strong> of variables. Each element in the array is a variable (a box that can hold a value of a certain type). Each variable in the array has a specific <strong>name</strong> -- its name just happens to include an integer that we call an <strong>index</strong>. In our programming languages, the elements in an array are stored contiguously in memory, so that the index acts as an <strong>address offset</strong> from the address of the beginning of the array.</p>
+<p>When an array is declared, the size of the array is given. You may be using the ".word" directive to reserve space for single integer variables, or you may have switched to the ".comm" directive. The ".comm" directive is more general, and it's format and parameters are ".comm varname, size, alignment". So a directive linex such as</p>
+<pre>.comm&nbsp;&nbsp;&nbsp; x, 4, 4<br>.comm&nbsp;&nbsp;&nbsp; a, 12, 8</pre>
+<p>means the following: the symbol name "x" refers to space in memory for 4 bytes and it is aligned to a 4-byte address boundary; the symbol name "a" refers to space in memory for 12 bytes that is aligned to an 8-byte address boundary. In assembly, we don't actually know what kind of variables they are, but one possibility is: x is an "int" variable, and a is an array of 3 "int" variables.</p>
+<h3>Parameters</h3>
+<p>Recall that we are already correctly passing (up to six) arguments in a function call, so we just need to do "the reverse" to access them in the function. Since we are only handling up to six arguments, the parameters are all in the specific registers that are used for argument passing. Your compiler just needs a way to keep track of the parameter position, and then use the correct register when that parameter is referred to.</p>
+<h3>Symbol Table Upgrades and New Usage</h3>
+<p>In our parsing rules, currently we are only checking to see if the symbol exists in the symbol table in order to continue compiling; now we need to store and retrieve some information on that symbol. The information is a new "unsigned int size" data field and a new "int offset" data field on the Symbol struct. The size field will be 0 for regular variables, and the number of elements for an array variable. The offset data field will be 0 for global variables, a negative stack offset for a local variable (e.g., -4, -8, -12, ...), and a positive parameter position for parameters. These also cause two more arguments to the "addSymbol()" function, and so a new header file can be found here: <span class="instructure_file_holder link_holder"><a class="instructure_file_link" title="symtable.h" href="https://nmsu.instructure.com/courses/1244710/files/154857740/download?wrap=1" data-api-endpoint="https://nmsu.instructure.com/api/v1/courses/1244710/files/154857740" data-api-returntype="File">symtable.h</a><a class="file_preview_link" aria-hidden="true" href="https://nmsu.instructure.com/courses/1244710/files/154857740/download?wrap=1" title="Preview the document" style="padding-left: 5px;"><img src="./Compiler 6_ Local variables, parameters, and arrays_files/preview.png" alt="Preview the document"></a></span>. We also need a function to delete entire scope levels, and this can be found here: <span class="instructure_file_holder link_holder"><a class="instructure_file_link" title="symtable.c" href="https://nmsu.instructure.com/courses/1244710/files/154857874/download?wrap=1" data-api-endpoint="https://nmsu.instructure.com/api/v1/courses/1244710/files/154857874" data-api-returntype="File">symtable.c</a><a class="file_preview_link" aria-hidden="true" href="https://nmsu.instructure.com/courses/1244710/files/154857874/download?wrap=1" title="Preview the document" style="padding-left: 5px;"><img src="./Compiler 6_ Local variables, parameters, and arrays_files/preview.png" alt="Preview the document"></a></span>.</p>
+<p>We must also now correctly use the "scopeLevel" symbol data field. Our rule is: set scopeLevel to 0 for globals, 1 for parameters and local variables.</p>
+<p><strong>NOTE</strong>: if you are currently invoking "addSymbol()" in your action blocks for the "vardecl" production rules, you should move this up to the "parameters", "declarations", and "localdecls" action blocks. This way you can correctly set the scopeLevel and other stuff. The AST node coming from the vardecl action has all the information in it that you need to call "addSymbol" in the higher level scope.</p>
+<h3>Managing Parameter Positions and Local Variable Offsets</h3>
+<p>The easiest way to do this is to create two new global variables at the top of your parser source file, and initialize them with the correct first value (-4 for the local var offset, and 1 for the parameter position). Then increment these in their respective parameter and localdecl action blocks (by -4 for locals, and +1 for parameters). Then, <strong>(important!), reset</strong> them back to their initial values at the bottom of the function declaration action block; this way, they are back to the beginning for the next function declaration. <strong>Also</strong>, at the bottom of the function action, invoke "deleteScopeLevel()" with a scope argument of 1. This will remove all symbols associated with this function.</p>
+<h3>Requirements</h3>
+<p>1. All requirements from prior compiler iterations must still be working, unless superceded here.</p>
+<p>2. Global arrays must work: declaring, reading, and writing.</p>
+<p>3. Local integer variables must work; declaring, reading, and writing.</p>
+<p>4. Parameters (up to six) must work; declaring, and reading and writing for integer parameters.</p>
+<h3>More Help and Hints</h3>
+<p>more here...</p></div>
+
+
+  <div style="display: none;">
+    <span class="timestamp">1575701999</span>
+    <span class="due_date_string">12/06/2019</span>
+    <span class="due_time_string">11:59pm</span>
+  </div>
+</div>
+
+
+  
+<div style="display: none;" id="submit_assignment" data-context_code="course_1244710" data-asset_string="assignment_8248122">
+  <div class="content" id="submit_assignment_tabs">
+    <ul>
+        <li><a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#submit_online_upload_form" class="submit_online_upload_option">File Upload</a></li>
+        <li><a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#submit_google_doc_form" class="submit_online_url_option">Google Doc</a></li>
+        <li><a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#submit_from_external_tool_form_80054" class="external-tool" data-id="80054" data-name="Google Apps">Google Drive</a></li>
+        <li><a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#submit_from_external_tool_form_44460" class="external-tool" data-id="44460" data-name="Microsoft Office 365">Office 365</a></li>
+    </ul>
+      
+<form id="submit_online_upload_form" class="submit_assignment_form" enctype="multipart/form-data" action="https://nmsu.instructure.com/courses/1244710/assignments/8248122/submissions" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="5LZ2lAxsksv+EJ3+8YrN3V0TwW84BK2Ke54sewUpkQqSxQDZYRzXqbJ61cm1z/uWKFSOAXdy28I4zVRCdl3wWw==">
+    <input value="online_upload" type="hidden" name="submission[submission_type]" id="submission_submission_type">
+    <input value="" id="submission_attachment_ids" type="hidden" name="submission[attachment_ids]">
+    <input id="eula_agreement_timestamp" type="hidden" name="submission[eula_agreement_timestamp]">
+    <table class="formtable" style="width: 100%;">
+      <tbody><tr>
+        <td colspan="2">
+          Upload a file, or choose a file you've already uploaded.
+            
+        </td>
+      </tr><tr>
+        <td><label id="attachmentLabel" for="attachment_uploaded_data">File:</label></td>
+        <td>
+          <div class="submission_attachment" style="display: block;">
+            <input aria-labelledby="attachmentLabel" type="file" name="attachments[0][uploaded_data]" class="input-file">
+            <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="remove_attachment_link no-hover" style="display: none;"><i class="icon-end" aria-hidden="true"></i><span class="screenreader-only">remove empty attachment</span></a>
+              <div class="bad_ext_msg error_message" style="display: none">
+                This file type is not allowed. Accepted file types are: zip
+              </div>
+          </div><button class="Button Button--link add_another_file_link">
+            <i class="icon-add" aria-hidden="true"></i>
+            Add Another File
+          </button>
+          <div id="submission_attachment_blank" class="submission_attachment" style="display: none;">
+            <input aria-labelledby="attachmentLabel" type="file" name="attachments[-1][uploaded_data]" class="input-file">
+            <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="remove_attachment_link no-hover" style="display: none;"><i class="icon-end" aria-hidden="true"></i><span class="screenreader-only">remove empty attachment</span></a>
+              <div class="bad_ext_msg error_message" style="display: none">
+                This file type is not allowed. Accepted file types are: zip
+              </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td style="font-size: 0.8em;">
+          <button class="Button Button--link toggle_uploaded_files_link">Click here to find a file you've already uploaded</button><br>
+          <div id="uploaded_files" style="display: none;">
+        </div></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <textarea class="submission_comment_textarea" placeholder="Comments..." title="Additional comments" name="submission[comment]" id="submission_comment"></textarea>
+        </td>
+      </tr>
+      
+
+      
+
+      <tr>
+        <td colspan="2" class="button-container">
+          <button type="button" class="cancel_button btn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="submit_file_button">Submit Assignment</button>
+        </td>
+      </tr><tr style="display: none;">
+        <td colspan="2" style="text-align: center;">
+          Submitting... <img src="https://nmsu.instructure.com/courses/1244710/assignments/8248122">
+        </td>
+      </tr>
+    </tbody></table>
+</form>
+
+
+
+    <style>
+    #google_docs_tree li.folder {
+      cursor: pointer;
+    }
+    #google_docs_tree li.file {
+      cursor: pointer;
+      -moz-border-radius: 3px;
+      width: 80%;
+      padding-right: 20px;
+    }
+    #google_docs_tree li.file:hover {
+      background-color: #eee;
+    }
+    ul.instTree li span.active {
+      background: none;
+    }
+    #google_docs_tree li.file.leaf.active {
+      background-color: #ddd;
+    }
+    #google_docs_tree li.file .filename {
+      float: left;
+      max-width: 98%;
+    }
+    #google_docs_tree li.file .popout {
+      float: right;
+    }
+    </style>
+        <div id="submit_google_doc_form">
+          Before you can submit assignments directly from Google Drive you need to authorize Canvas to access your Google Drive account:
+          <div style="font-size: 1.1em; text-align: center; margin: 10px;">
+            <a class="btn" href="https://nmsu.instructure.com/oauth?return_to=https%3A%2F%2Fnmsu.instructure.com%2Fcourses%2F1244710%2Fassignments%2F8248122%23submit_google_doc_form&amp;service=google_drive">Authorize Google Drive Access</a>
+          </div>
+        </div>
+
+
+      <div id="submit_from_external_tool_form_80054" style="padding: 5px 5px 0 5px;"></div>
+      <div id="submit_from_external_tool_form_44460" style="padding: 5px 5px 0 5px;"></div>
+
+  </div>
+</div>
+
+
+
+
+
+  <div id="rubrics" style="margin-bottom: 10px;">
+    <div style="display: none;" id="rubric_parameters">
+      <input type="hidden" name="rubric_association[association_type]" value="Assignment">
+      <input type="hidden" name="rubric_association[association_id]" value="8248122">
+      <input type="hidden" name="rubric_association[purpose]" value="grading">
+    </div>
+    
+<div id="rubric_long_description_dialog" style="display: none;">
+  <div class="editing">
+    <form id="edit_criterion_form" class="no-margin-bottom">
+      <div>
+        <label class="rating_form_label">Description
+          <textarea class="description" rows="1" name="description"></textarea>
+        </label>
+      </div>
+      <div>
+        <label class="rating_form_label">Long Description
+          <textarea class="long_description" rows="4" name="long_description"></textarea>
+        </label>
+      </div>
+      <div class="button-container">
+        <button type="button" class="btn btn button-secondary cancel_button">Cancel</button>
+        <button type="button" class="btn save_button btn-primary">Update Criterion</button>
+      </div>
+    </form>
+  </div>
+  <div class="displaying">
+    <div class="long_description">
+    </div>
+  </div>
+</div>
+<div id="rubric_criterion_comments_dialog" style="display: none;">
+  <div class="criterion_description" style="border-bottom: 1px solid #ccc; padding: 5px 0; font-size: 1.2em; font-weight: bold; margin-bottom: 5px;" tabindex="-1"></div>
+  <div class="editing">
+    <label for="criterion_comments_textarea">
+      Additional Comments:
+    </label>
+    <textarea id="criterion_comments_textarea" class="criterion_comments" name="criterion_comments" style="width: 370px;"></textarea>
+    <div class="button-container">
+      <button type="button" class="btn btn button-secondary cancel_button">Cancel</button>
+      <button type="button" class="btn save_button">Update Comments</button>
+    </div>
+  </div>
+  <div class="displaying">
+    Additional Comments:
+    <div class="criterion_comments" style="margin-top: 10px;">
+    </div>
+  </div>
+</div>
+<div id="rubric_rating_dialog" style="display: none;">
+  <div class="description" style="border-bottom: 1px solid #ccc; padding: 5px 0; font-size: 1.2em; font-weight: bold; margin-bottom: 5px;">
+    <span id="edit_rating_form_criterion_description"></span>
+  </div>
+  <div class="editing">
+    <form id="edit_rating_form" class="no-margin-bottom">
+      <div class="toggle_for_hide_points">
+        <div><label id="rating_form_score_label" class="rating_form_label">Rating Score</label></div>
+        <span id="rating_form_max_score_label" hidden="">Rating max score</span>
+        <input id="points" aria-labelledby="rating_form_score_label" type="text" size="2" name="points" class="no-margin-bottom span1">
+        <span class="range_rating">to &gt;
+          <input aria-label="Rating min score" type="text" size="2" name="min_points" class="no-margin-bottom span1 min_points" placeholder="min">
+        </span>pts
+      </div>
+      <div>
+        <label for="rating_form_title" class="rating_form_label">Rating Title</label>
+        <input id="rating_form_title" type="text" class="rating_description" style="width: 90%;" name="description">
+      </div>
+      <div>
+        <label for="rating_form_description" class="rating_form_label">Rating Description</label>
+        <textarea id="rating_form_description" rows="4" style="width: 90%;" class="rating_long_description" name="rating_long_description" form="edit_rating_form"></textarea>
+      </div>
+      <div class="button-container">
+        <button type="button" class="btn button-secondary cancel_button">Cancel</button>
+        <button type="button" class="btn btn-primary save_button ok_button">Update Rating</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+  </div>
+  
+<div class="rubric_container rubric  " id="default_rubric" style="display: none;">
+  <div class="screenreader-only"><h2>Rubric</h2></div>
+  <div class="rubric_title">
+    <div style="display: none;" class="links displaying pull-right">
+      <a href="https://nmsu.instructure.com/courses/1244710/rubrics/%7B%7B%20id%20%7D%7D" class=" edit_rubric_link no-print no-hover" style="" title="Edit Rubric" aria-label="Edit Rubric" role="button"><i class="icon-edit standalone-icon"></i></a>
+      <a href="https://nmsu.instructure.com/search/rubrics?q=" class="find_rubric_link no-print no-hover" style="" title="Find Another Rubric" aria-label="Find Another Rubric" role="button"><i class="icon-search standalone-icon"></i></a>
+        <a href="https://nmsu.instructure.com/courses/1244710/rubric_associations/%7B%7B%20rubric_association_id%20%7D%7D" class="delete_rubric_link no-print no-hover" style="" title="Delete Rubric" aria-label="Delete Rubric" role="button"><i class="icon-trash standalone-icon"></i></a>
+      <div style="display: none;">
+        <div class="use_for_grading">&nbsp;</div>
+        <div class="free_form_criterion_comments">&nbsp;</div>
+        <div class="hide_score_total">&nbsp;</div>
+        <div class="hide_outcome_results">&nbsp;</div>
+        <div class="hide_points">&nbsp;</div>
+        <div class="rubric_association_id">&nbsp;</div>
+          <div class="user_id">&nbsp;</div>
+        <div class="assessment_type"></div>
+        <a href="https://nmsu.instructure.com/courses/1244710/rubric_associations/%7B%7B%20rubric_association_id%20%7D%7D/assessments/%7B%7B%20assessment_id%20%7D%7D" rel="nofollow" class="edit_assessment_link">&nbsp;</a>
+        <a href="https://nmsu.instructure.com/courses/1244710/rubrics/%7B%7B%20rubric_id%20%7D%7D" class="edit_rubric_url">&nbsp;</a>
+          <a href="https://nmsu.instructure.com/courses/1244710/rubric_associations/%7B%7B%20association_id%20%7D%7D" class="delete_rubric_url">&nbsp;</a>
+      </div>
+    </div>
+    <div style="float: right; font-size: 0.8em; display: none;" class="links displaying locked">
+      <span style="">Can't change a rubric once you've started using it.</span>
+        <a href="https://nmsu.instructure.com/courses/1244710/rubric_associations/%7B%7B%20association_id%20%7D%7D" class="delete_rubric_url" style="display: none;">&nbsp;</a>
+    </div>
+
+    <div class="editing" style="float: right;">
+      <a href="https://nmsu.instructure.com/search/rubrics?q=" class="find_rubric_link icon-search" style="" title="Find Existing Rubric">Find a Rubric</a>
+    </div>
+    <div class="editing" style="text-align: left">
+      <label for="rubric-title">Title:</label>
+      <input id="rubric-title" type="text" class="no-margin-bottom" name="title" value="Some Rubric" style="width: 200px;" maxlength="255" aria-label="Title:">
+      <a href="https://nmsu.instructure.com/search/rubrics?q=" style="display: none;"><img alt="" src="./Compiler 6_ Local variables, parameters, and arrays_files/find-6164443e2a.png"> Find Rubric</a>
+    </div>
+    <div class="displaying">
+      <span class="title" tabindex="-1">Title</span>
+    </div>
+    <div class="has-assessments-warning" style="display: none;">
+      You've already rated students with this rubric.  Any major changes could affect their assessment results.
+    </div>
+  </div>
+<table class="rubric_table">
+<caption>
+  <div class="screenreader-only">
+    <span class="title">Title</span>
+  </div>
+</caption>
+<thead>
+  <tr>
+    <th scope="col">Criteria</th>
+    <th scope="col">Ratings</th>
+    <th scope="col" class="toggle_for_hide_points ">
+      Pts
+    </th>
+  </tr>
+</thead>
+<tbody>
+  
+<tr id="criterion_blank" class="criterion blank" style="display: none;">
+  <td class="criterion_description hover-container pad-box-micro">
+    <div class="container">
+      <div class="links editing">
+          <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="edit_criterion_link"><i class="icon-edit standalone-icon"></i><span class="screenreader-only">Edit criterion description</span></a>
+        <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="delete_criterion_link"><i class="icon-trash standalone-icon"></i><span class="screenreader-only">Delete criterion row</span></a>
+      </div>
+      <div class="description_content">
+        <span class="outcome_sr_content" aria-hidden="true">
+          <i class="learning_outcome_flag icon-outcomes" aria-hidden="true"></i>
+          <span class="screenreader-only">This criterion is linked to a Learning Outcome</span>
+        </span>
+        <span class="description description_title">Description of criterion</span>
+        <span class="learning_outcome_id" style="display: none;"></span>
+        <span class="criterion_id" style="display: none;"></span>
+          <div class="long_description small_description"></div>
+        <div style="display: none;" class="long_description_holder editing empty">
+          <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="long_description_link hidden">view longer description</a>
+          <textarea class="long_description" aria-label="Long Description" style="display: none;"></textarea>
+        </div>
+        <div class="hide_when_learning_outcome ">
+          <div class="criterion_use_range_div editing toggle_for_hide_points ">
+            <label>Range
+              <input type="checkbox" class="criterion_use_range"></label>
+          </div>
+        </div>
+        <div class="threshold toggle_for_hide_points ">
+          threshold:
+          <span class="mastery_points">5</span> pts
+        </div>
+      </div>
+
+    </div>
+  </td>
+  <td style="padding: 0;">
+      <table class="ratings" style=""><tbody><tr>
+          <td id="rating_blank" class="rating edge_rating
+                
+                ">
+            <div class="container">
+              <div class="rating-main">
+                  <div class="editing links">
+                    <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="edit_rating_link"><i class="icon-edit standalone-icon"></i><span class="screenreader-only">Edit rating</span></a>
+                    <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="delete_rating_link"><i class="icon-trash standalone-icon"></i><span class="screenreader-only">Delete rating</span></a>
+                  </div>
+                  <div class="clear"></div>
+                <span class="nobr toggle_for_hide_points ">
+                  <span class="points">5</span>
+                  <span class="range_rating" style="display: none;">to &gt;<span class="min_points">0</span></span> pts
+                </span>
+                <div class="description rating_description_value">Full Marks</div>
+                <div class="rating_long_description small_description"></div>
+                <span class="rating_id" style="display: none;">blank</span>
+              </div>
+                <div class="editing links add_rating_link">
+                  <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="add_rating_link_after" aria-label="Add rating"><i class="icon-add icon-Solid"></i></a>
+                </div>
+            </div>
+          </td>
+          <td id="rating_blank_2" class="rating edge_rating
+                infinitesimal
+                ">
+            <div class="container">
+              <div class="rating-main">
+                  <div class="editing links">
+                    <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="edit_rating_link"><i class="icon-edit standalone-icon"></i><span class="screenreader-only">Edit rating</span></a>
+                    <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="delete_rating_link"><i class="icon-trash standalone-icon"></i><span class="screenreader-only">Delete rating</span></a>
+                  </div>
+                  <div class="clear"></div>
+                <span class="nobr toggle_for_hide_points ">
+                  <span class="points">0</span>
+                  <span class="range_rating" style="display: none;">to &gt;<span class="min_points">0</span></span> pts
+                </span>
+                <div class="description rating_description_value">No Marks</div>
+                <div class="rating_long_description small_description"></div>
+                <span class="rating_id" style="display: none;">blank_2</span>
+              </div>
+            </div>
+          </td>
+      </tr></tbody></table>
+      <div style="display: none; font-size: 0.8em; margin: 5px;" class="custom_ratings">
+        This area will be used by the assessor to leave comments related to this criterion.
+      </div>
+  </td>
+  <td class="nobr points_form toggle_for_hide_points ">
+    <div class="editing" style="white-space: normal">
+      <span style="white-space: nowrap; font-size: 0.8em">
+          
+            <input type="text" aria-label="Points" value="5" class="criterion_points span1 no-margin-bottom">
+           pts
+      </span><br>
+    </div>
+    <div class="displaying">
+      <span style="white-space: nowrap;">
+        <span class="criterion_rating_points_holder" style="display: none;">
+          <span class="criterion_rating_points">&nbsp;</span> /
+        </span>
+        <span class="display_criterion_points">5</span> pts<br>
+      </span>
+    </div>
+    <div class="ignoring">
+      <span> -- </span>
+    </div>
+    <div class="criterion_comments">
+        <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="no-hover criterion_comments_link" title="Additional Comments">
+          <img alt="Additional Comments" src="./Compiler 6_ Local variables, parameters, and arrays_files/rubric_comment-ddae8546ab.png">
+        </a>
+        <div class="custom_rating" style="display: none;"></div>
+    </div>
+  </td>
+</tr>
+
+  <tr id="criterion_1" class="criterion" style="display: table-row;">
+  <td class="criterion_description hover-container pad-box-micro">
+    <div class="container">
+      <div class="links editing">
+          <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="edit_criterion_link"><i class="icon-edit standalone-icon"></i><span class="screenreader-only">Edit criterion description</span></a>
+        <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="delete_criterion_link"><i class="icon-trash standalone-icon"></i><span class="screenreader-only">Delete criterion row</span></a>
+      </div>
+      <div class="description_content">
+        <span class="outcome_sr_content" aria-hidden="true">
+          <i class="learning_outcome_flag icon-outcomes" aria-hidden="true"></i>
+          <span class="screenreader-only">This criterion is linked to a Learning Outcome</span>
+        </span>
+        <span class="description description_title">Description of criterion</span>
+        <span class="learning_outcome_id" style="display: none;"></span>
+        <span class="criterion_id" style="display: none;"></span>
+          <div class="long_description small_description"></div>
+        <div style="display: none;" class="long_description_holder editing empty">
+          <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="long_description_link hidden">view longer description</a>
+          <textarea class="long_description" aria-label="Long Description" style="display: none;"></textarea>
+        </div>
+        <div class="hide_when_learning_outcome ">
+          <div class="criterion_use_range_div editing toggle_for_hide_points ">
+            <label>Range
+              <input type="checkbox" class="criterion_use_range"></label>
+          </div>
+        </div>
+        <div class="threshold toggle_for_hide_points ">
+          threshold:
+          <span class="mastery_points">5</span> pts
+        </div>
+      </div>
+
+    </div>
+  </td>
+  <td style="padding: 0;">
+      <table class="ratings" style=""><tbody><tr>
+          <td id="rating_blank" class="rating edge_rating
+                
+                ">
+            <div class="container">
+              <div class="rating-main">
+                  <div class="editing links">
+                    <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="edit_rating_link"><i class="icon-edit standalone-icon"></i><span class="screenreader-only">Edit rating</span></a>
+                    <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="delete_rating_link"><i class="icon-trash standalone-icon"></i><span class="screenreader-only">Delete rating</span></a>
+                  </div>
+                  <div class="clear"></div>
+                <span class="nobr toggle_for_hide_points ">
+                  <span class="points">5</span>
+                  <span class="range_rating" style="display: none;">to &gt;<span class="min_points">0</span></span> pts
+                </span>
+                <div class="description rating_description_value">Full Marks</div>
+                <div class="rating_long_description small_description"></div>
+                <span class="rating_id" style="display: none;">blank</span>
+              </div>
+                <div class="editing links add_rating_link">
+                  <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="add_rating_link_after" aria-label="Add rating"><i class="icon-add icon-Solid"></i></a>
+                </div>
+            </div>
+          </td>
+          <td id="rating_blank_2" class="rating edge_rating
+                infinitesimal
+                ">
+            <div class="container">
+              <div class="rating-main">
+                  <div class="editing links">
+                    <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="edit_rating_link"><i class="icon-edit standalone-icon"></i><span class="screenreader-only">Edit rating</span></a>
+                    <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="delete_rating_link"><i class="icon-trash standalone-icon"></i><span class="screenreader-only">Delete rating</span></a>
+                  </div>
+                  <div class="clear"></div>
+                <span class="nobr toggle_for_hide_points ">
+                  <span class="points">0</span>
+                  <span class="range_rating" style="display: none;">to &gt;<span class="min_points">0</span></span> pts
+                </span>
+                <div class="description rating_description_value">No Marks</div>
+                <div class="rating_long_description small_description"></div>
+                <span class="rating_id" style="display: none;">blank_2</span>
+              </div>
+            </div>
+          </td>
+      </tr></tbody></table>
+      <div style="display: none; font-size: 0.8em; margin: 5px;" class="custom_ratings">
+        This area will be used by the assessor to leave comments related to this criterion.
+      </div>
+  </td>
+  <td class="nobr points_form toggle_for_hide_points ">
+    <div class="editing" style="white-space: normal">
+      <span style="white-space: nowrap; font-size: 0.8em">
+          
+            <input type="text" aria-label="Points" value="5" class="criterion_points span1 no-margin-bottom">
+           pts
+      </span><br>
+    </div>
+    <div class="displaying">
+      <span style="white-space: nowrap;">
+        <span class="criterion_rating_points_holder" style="display: none;">
+          <span class="criterion_rating_points">&nbsp;</span> /
+        </span>
+        <span class="display_criterion_points">5</span> pts<br>
+      </span>
+    </div>
+    <div class="ignoring">
+      <span> -- </span>
+    </div>
+    <div class="criterion_comments">
+        <a href="https://nmsu.instructure.com/courses/1244710/assignments/8248122#" class="no-hover criterion_comments_link" title="Additional Comments">
+          <img alt="Additional Comments" src="./Compiler 6_ Local variables, parameters, and arrays_files/rubric_comment-ddae8546ab.png">
+        </a>
+        <div class="custom_rating" style="display: none;"></div>
+    </div>
+  </td>
+</tr><tr class="summary">
+    <td colspan="4">
+      <div class="total_points_holder toggle_for_hide_points " style="float: right; ">
+        <span>Total Points:
+            <span class="rubric_total">
+              5
+            </span>
+ <span class="assessing">out of 5</span>        </span>
+      </div>
+      <div class="editing pull-left">
+        <span id="add_criterion_holder" class="criterion_link"></span>
+      </div>
+      <div class="clear"></div>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<table style="display: none;">
+  <tbody><tr id="edit_rubric">
+    <td colspan="4">
+      <form id="edit_rubric_form" class="edit-rubric-form no-margin-bottom">
+        <div class="rubric_custom_ratings" style="">
+          <input type="checkbox" id="rubric_custom_rating" class="rubric_custom_rating">
+          <label for="rubric_custom_rating">I'll write free-form comments when assessing students</label>
+        </div>
+          <div class="hide_points" style="">
+            <input type="checkbox" id="hide_points" class="hide_points_checkbox">
+            <label for="hide_points">Remove points from rubric</label>
+          </div>
+          <div class="hide_outcome_results" style="">
+            <input type="checkbox" id="hide_outcome_results" class="hide_outcome_results_checkbox">
+            <label for="hide_outcome_results">Don't post Outcomes results to Learning Mastery Gradebook</label>
+          </div>
+          <div class="rubric_grading" style="">
+            <input type="checkbox" id="grading_rubric" class="grading_rubric_checkbox">
+            <label for="grading_rubric">Use this rubric for assignment grading</label>
+          </div>
+        <div class="totalling_rubric" style="">
+          <input type="checkbox" id="totalling_rubric" class="totalling_rubric_checkbox">
+          <label for="totalling_rubric">Hide score total for assessment results</label>
+        </div>
+        <div class="ic-Action-header ic-Action-header--half-margin">
+          <div class="ic-Action-header__Primary">
+            <button type="button" class="Button cancel_button">Cancel</button>
+            <button type="submit" class="Button Button--primary save_button">Create Rubric</button>
+          </div>
+        </div>
+      </form>
+    </td>
+  </tr>
+</tbody></table>
+
+
+  <div id="assignment_external_tools"><div></div></div>
+
+  
+
+
+          </div>
+        </div>
+        <div id="right-side-wrapper" class="ic-app-main-content__secondary">
+          <aside id="right-side" role="complementary">
+            
+<div id="sidebar_content">
+
+
+</div>
+
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+    <div style="display:none;"><!-- Everything inside of this should always stay hidden -->
+        <div id="page_view_id">86de329b-4849-45f7-ade6-e438ae651969</div>
+    </div>
+  <div id="aria_alerts" class="hide-text affix" role="alert" aria-live="assertive"></div>
+  <div id="StudentTray__Container"></div>
+  
+
+
+
+<script>
+//<![CDATA[
+
+      ;["https://instructure-uploads.s3.amazonaws.com/account_40000000082189/attachments/154502256/google_analytics_11072019.js"].forEach(function(src) {
+        var s = document.createElement('script')
+        s.src = src
+        s.async = false
+        document.head.appendChild(s)
+      });
+//]]>
+</script>
+
+</div> <!-- #application -->
+
+
+<div id="nav-tray-portal" style="position: relative; z-index: 99;"></div><div class="tinymce-a11y-checker-container"></div><div id="ek-overlay" style="display: none;"></div><div id="ek-modal" role="dialog" tabindex="-1" aria-live="assertive" aria-labelledby="ek-modal-header" style="display: none;"><div class="ek-modal-content"><h2 class="ek-modal-header" id="ek-modal-header"></h2><a id="ek-modal-close"></a><div class="ek-modal-body" id="ek-modal-body"></div><div class="ek-modal-footer"></div></div></div><div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable ui-resizable" tabindex="-1" style="display: none; outline: 0px; z-index: 1000; position: absolute;"><div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"><span id="ui-id-1" class="ui-dialog-title" role="heading" aria-level="2">Keyboard Shortcuts</span><button class="ui-dialog-titlebar-close ui-corner-all"><span class="ui-icon ui-icon-closethick">close</span></button></div><ul class="tinymce-keyboard-shortcuts ui-dialog-content ui-widget-content" id="ui-id-2" style="display: block;">
+  
+    <li>
+      <code>ALT+F9</code>
+      <span>Open the editor's menubar</span>
+    </li>
+  
+    <li>
+      <code>ALT+F10</code>
+      <span>Open the editor's toolbar</span>
+    </li>
+  
+    <li>
+      <code>ESC</code>
+      <span>Close menu or dialog, also gets you back to editor area</span>
+    </li>
+  
+    <li>
+      <code>TAB/Arrows</code>
+      <span>Navigate left/right through menu/toolbar</span>
+    </li>
+  
+    <li>
+      <code>ALT+F8</code>
+      <span>Open this keyboard shortcuts dialog</span>
+    </li>
+  
+</ul><div class="ui-resizable-handle ui-resizable-n" style="z-index: 1000;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 1000;"></div><div class="ui-resizable-handle ui-resizable-s" style="z-index: 1000;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 1000;"></div><div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se ui-icon-grip-diagonal-se" style="z-index: 1000;"></div><div class="ui-resizable-handle ui-resizable-sw" style="z-index: 1000;"></div><div class="ui-resizable-handle ui-resizable-ne" style="z-index: 1000;"></div><div class="ui-resizable-handle ui-resizable-nw" style="z-index: 1000;"></div></div></body></html>

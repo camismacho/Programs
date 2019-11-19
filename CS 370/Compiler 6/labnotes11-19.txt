@@ -1,0 +1,86 @@
+expr + expr-|
+|           |
+V           |
+pushq %rax  |
+expr <------|
+cltq (must come directly after the index expression)
+popq %rcx
+
+A[i+2] = x+y;
+expr     expr
+         push
+pop<-------
+mov.....
+
+for the .comm A,4,{4}<-- alignment, just hard code print "4" for simple local variables, and "32" for arrays
+
+in parser:
+created global variable for local offset and initialize to correct first number
+int localOffset = -4;
+int paramPosition = 1;
+
+localdecls: /*empty*/ | vardecl SEMICOLON localdecls
+    {
+        //add symbol to symbol table, setting offset to localOffset
+        //probably add data to VARDECL node here
+        ...
+        localOffset += -4;
+    }
+    
+declarations: /* empty */  | vardecl SEMICOLON declarations
+    {
+        ///add symbol to symbol table
+    }
+    
+vardecl: KWINT ID  | KWSTRING ID  | KWINT ID LBRACKET NUMBER RBRACKET
+    {
+        //still create VARDECL AST node
+    }
+    
+parameters: /* empty */  | vardecl  | vardecl COMMA parameters
+    {
+        //add symbol to symbol table, setting offset to paramPosition
+        //probably add data to VARDECL node here
+        ...
+        paramPosition++;
+    }
+    
+function: ID LPAREN parameters RPAREN LBRACE localdecls statements RBRACE
+    {
+        //stuff we already have (child[0] is params, child[1] is statements)
+        //put localdecls AST as child[2]
+        //reset back to starting values for next function
+        localOffset = -4;
+        paramPosition = 1;
+        delScopeLevel(symtable,1); //remove local and param decls
+    }
+    
+expression: NUMBER  | STRING  
+    | ID
+        {
+            Symbol* sym = findSymbol(symtable, $1);
+            if (!sym) //print not defined
+            //create an AST_VARREF node and put offset in the ival field
+            //may not need to do the below until code generation (check ival for the following in astree)
+            if (sym->offset == 0) { //global variable access }
+            else if {sym->offset < 0) {// local variable access}
+            else if {sym->offset > 0) {// parameter access}
+        }
+    | ID LBRACKET expression RBRACKET  
+        {
+            //create a AST_VARREF node with child[0] being the expr AST tree (indicates an array reference)
+        }
+    | expression ADDOP expression
+
+assignment: ID EQUALS expression | ID LBRACKET expression(child[1]) RBRACKET EQUALS expression(child[0])
+    {
+        //current AST_ASSIGNMENT node has child[0] as RHS expression
+        //so assign to array will use child[1] as LHS index expression
+    }
+    
+    
+    
+    
+    
+    
+    
