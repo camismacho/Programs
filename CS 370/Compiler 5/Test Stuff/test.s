@@ -1,43 +1,156 @@
-	.file	"test.c"
-	.text
-	.comm	x,4,4
-	.comm	y,4,4
+	.data
+x:	.word 0
+y:	.word 0
 	.section	.rodata
 .LC0:
-	.string	"poopy nuts"
+	.string 	"hello world!\n"
+.LC1:
+	.string 	"x=%d\n"
+.LC2:
+	.string 	"if wins!"
+.LC3:
+	.string 	"else wins!"
+.LC4:
+	.string 	"if wins!"
+.LC5:
+	.string 	"else wins!"
+.LC6:
+	.string 	"goodbye"
+.LC7:
+	.string 	"third arg"
+.LC8:
+	.string 	"goodbye %s %d\n"
+.LC9:
+	.string 	"second"
+.LC10:
+	.string 	"Hello World!\n"
+.LC11:
+	.string 	"I cry every day\n"
 	.text
+a:	.word 0
+b:	.word 0
+s:	.word 0
 	.globl	func
-	.type	func, @function
+	.type	func,@function
 func:
-.LFB0:
-	.cfi_startproc
 	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
 	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	subq	$32, %rsp
-	movl	%edi, -4(%rbp)
-	movq	%rsi, -16(%rbp)
-	movq	%rdx, -24(%rbp)
-	movl	$0, x(%rip)
-	jmp	.L2
-.L3:
-	movl	$.LC0, %edi
+	movq	$.LC0, %rdx
+	movq	%rdx, %rdi
+	movl	$0, %eax
 	call	puts
-	movl	x(%rip), %eax
-	addl	$1, %eax
-	movl	%eax, x(%rip)
-.L2:
-	movl	x(%rip), %eax
-	cmpl	$9, %eax
-	jle	.L3
-	nop
-	leave
-	.cfi_def_cfa 7, 8
+	movq	$42, %rdx
+	pushq	%rdx
+	movq	$12, %rdx
+	popq	%rcx
+	addq	%rcx, %rdx
+	movq	%rdx, x
+	movq	%rdx, %rdi
+	movq	$.LC1, %rdx
+	movq	%rdx, %rdi
+	movq	x, %rdx
+	movq	%rdx, %rsi
+	movl	$0, %eax
+	call	printf
+	movq	$6, %rdx
+	pushq	%rdx
+	movq	$10, %rdx
+	popq	%rcx
+	cmp	%rdx,%rcx
+	jl	LL101
+	movq	$.LC2, %rdx
+	movq	%rdx, %rdi
+	movl	$0, %eax
+	call	printf
+	jmp	LL102
+LL101:
+	movq	$.LC3, %rdx
+	movq	%rdx, %rdi
+	movl	$0, %eax
+	call	printf
+LL102:	movq	$6, %rdx
+	pushq	%rdx
+	movq	$10, %rdx
+	popq	%rcx
+	cmp	%rdx,%rcx
+	jg	LL103
+	movq	$.LC4, %rdx
+	movq	%rdx, %rdi
+	movl	$0, %eax
+	call	printf
+	jmp	LL104
+LL103:
+	movq	$.LC5, %rdx
+	movq	%rdx, %rdi
+	movl	$0, %eax
+	call	printf
+LL104:
+	popq	%rbp
+	movl	$0, %eax
 	ret
-	.cfi_endproc
-.LFE0:
-	.size	func, .-func
-	.ident	"GCC: (SUSE Linux) 7.4.1 20190905 [gcc-7-branch revision 275407]"
-	.section	.note.GNU-stack,"",@progbits
+argc:	.word 0
+argv:	.word 0
+	.globl	main
+	.type	main,@function
+main:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movq	$42, %rdx
+	movq	%rdx, %rdi
+	movq	$.LC6, %rdx
+	movq	%rdx, %rsi
+	movq	$.LC7, %rdx
+	movq	%rdx, %rdx
+	movl	$0, %eax
+	call	func
+	movq	$.LC8, %rdx
+	movq	%rdx, %rdi
+	movq	$.LC9, %rdx
+	movq	%rdx, %rsi
+	movq	$42, %rdx
+	pushq	%rdx
+	movq	$4, %rdx
+	pushq	%rdx
+	movq	x, %rdx
+	pushq	%rdx
+	movq	$2, %rdx
+	popq	%rcx
+	addq	%rcx, %rdx
+	popq	%rcx
+	addq	%rcx, %rdx
+	popq	%rcx
+	addq	%rcx, %rdx
+	movq	%rdx, %rdx
+	movl	$0, %eax
+	call	printf
+	movq	$.LC10, %rdx
+	movq	%rdx, %rdi
+	movl	$0, %eax
+	call	puts
+	movq	$0, %rdx
+	movq	%rdx, x
+	movq	%rdx, %rdi
+	jmp	LL105
+LL106:
+	movq	$.LC11, %rdx
+	movq	%rdx, %rdi
+	movl	$0, %eax
+	call	puts
+	movq	x, %rdx
+	pushq	%rdx
+	movq	$1, %rdx
+	popq	%rcx
+	addq	%rcx, %rdx
+	movq	%rdx, x
+	movq	%rdx, %rdi
+LL105:
+	movq	x, %rdx
+	pushq	%rdx
+	movq	$5, %rdx
+	popq	%rcx
+	cmp	%rdx,%rcx
+	jne	LL106
+
+	popq	%rbp
+	movl	$0, %eax
+	ret

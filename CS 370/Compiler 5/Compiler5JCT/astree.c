@@ -177,7 +177,6 @@ void printASTree(ASTNode* node, int level, FILE *out)
 void genCodeFromASTree(ASTNode* node, int level, FILE *out)
 {
     char* instr = "";
-    int llnum = level;
     
    if (!node)
       return;
@@ -269,12 +268,12 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
     case AST_IFTHEN:
         fprintf(out, "#IFTHEN JEC\n");
         genCodeFromASTree(node->child[0], 0, out);  // child 0 is condition expr
-        fprintf(out, "#--ELSEBODY\n");
+        fprintf(out, "#--IFBODY\n");
         genCodeFromASTree(node->child[2], 0, out);  // child 1 is if body
         count++;
         fprintf(out, "\tjmp\tLL%d\n", count);
         count--; 
-        fprintf(out, "#--IFBODY\n");
+        fprintf(out, "#--ELSEBODY\n");
         fprintf(out, "LL%d:\n", count);
         genCodeFromASTree(node->child[1], 0, out);  // child 2 is else body
         fprintf(out, "#--CONTINUE PROGRAM\n");
@@ -344,10 +343,5 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
    genCodeFromASTree(node->next,level,out); // IMPORTANT: walks down sibling list*/
 }
 
-int getUniqueID(int num){
-    int counter = num;
-    counter ++;
-    return counter;
-}
 
 

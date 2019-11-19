@@ -48,7 +48,6 @@ void printASTree(ASTNode* tree, int level, FILE *out);
 void genCodeFromASTree(ASTNode* tree, int count, FILE *out);
 int addString(char* input);
 int isCFile(char* file);
-int getUniqueID(int num);
 
 #endif
 
