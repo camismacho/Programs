@@ -1,5 +1,6 @@
 <!-- Sample Ant build file for running IglooScore under JaCoCo -->
 <!-- Jonathan Cook, 17 Sep 2015 -->
+<!-- program 3 by Joseph Camacho-Terrazas-->
 <project name="iglooscore" default="jacocoreport" xmlns:jacoco="antlib:org.jacoco.ant">
 
    <!-- property to allow ant to find jacoco: CHANGE THE PATH to point to yours -->
