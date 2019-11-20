@@ -93,5 +93,5 @@ cleanassembly:
 pushgit:
 	git status
 	git add -A
-	git commit -m 
-
+	git commit -m "comp 6 progress"
+	git push
