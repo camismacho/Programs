@@ -1,8 +1,10 @@
 int x;
 int y;
+int arr[5];
 
 func(int a, char* b, char* s)
 {
+   int localtest;
    puts("hello world!\n");
    x = 42+12;
    printf("x=%d\n",x);
@@ -24,3 +26,5 @@ main(int argc, char* argv)
     }
 
 }
+
+test (int one, int two, int three, int four){}

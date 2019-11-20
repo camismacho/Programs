@@ -200,9 +200,17 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
         break;
     
     case AST_VARDECL:
-       if (node->valtype == T_INT){
+       if (node->valtype == T_INT && node -> ival == 0){
           fprintf(out, "#VARDECL INT\n");
-          fprintf(out, "%s:\t.word 0\n", node -> strval);
+          fprintf(out, ".comm %s, 4, 4\n", node -> strval);
+       }
+       else if (node -> valtype == T_INT && node -> ival > 0){
+            fprintf(out, "#PARAMETER VARDECL ival = %d\n", node -> ival);
+            fprintf(out, ".comm %s, 4, 4\n", node -> strval);
+       }
+       else if (node -> valtype == T_INT && node -> ival < 0){
+            fprintf(out, "#LOCAL VARDECL ival = %d\n", node -> ival);
+            fprintf(out, ".comm %s, 4, 4\n", node -> strval);
        }
        else if (node->valtype == T_STRING){
            fprintf(out, "#VARDECL STRING\n");
@@ -216,6 +224,8 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
         fprintf(out,"\t\t#*****-----FUNCTION %s-----*****\n", node -> strval);
         fprintf(out, "#--FUNCTION ARG LIST\n");
         genCodeFromASTree(node->child[0], 0, out); // child 0 is arg list
+        fprintf(out, "#--LOCAL DECLARATIONS\n");
+        genCodeFromASTree(node->child[2], 0, out); // child 2 is localdecls
         fprintf(out,"#--FUNCTION BODY\n");
         fprintf(out,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n", node -> strval, node -> strval, node -> strval);
         genCodeFromASTree(node->child[1], 0, out); // child 1 is body (stmt list)

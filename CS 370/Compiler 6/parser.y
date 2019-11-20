@@ -12,13 +12,21 @@
 // function prototypes from lex
 int yyerror(char *s);
 int yylex(void);
-
+//global variables for stack offset and param position
 int localOffset = -4;
 int paramPosition = 1;
+//debug switch
 int debug = 0;
+//astree
 ASTNode* tree;
-
+//string struct
 stringArray stringStore = {0,0};
+
+//global variables for SymbolTable
+Symbol** symTable;
+SymbolTableIter iter;
+Symbol* tempSym;
+Symbol* findSym;
 
 %}  
 
@@ -51,6 +59,7 @@ prog: declarations functions
      
 declarations: vardecl SEMICOLON declarations
     {
+        addSymbol(symTable, $1 -> strval, 0, $1 -> valtype, $1 -> ival, localOffset);   //comp 6
         $1 -> next = $3;
         $$ = $1;
     }
@@ -63,6 +72,7 @@ vardecl: KWINT ID
         $$ = newASTNode(AST_VARDECL);
         $$ -> strval = $2;
         $$ -> valtype = T_INT;
+        $$ -> ival = 0;     //comp 6
     }
         
 | KWCHAR ID
@@ -71,15 +81,22 @@ vardecl: KWINT ID
         $$ = newASTNode(AST_VARDECL);
         $$ -> strval = $2;
         $$ -> valtype = T_STRING;
+        $$ -> ival = 0;     //comp 6
     }
     
-| KWINT ID LBRACKET NUMBER RBRACKET
+| KWINT ID LBRACKET NUMBER RBRACKET     //comp 6
     {
+        $$ = newASTNode(AST_VARDECL);
+        $$ -> strval = $2;
+        $$ -> valtype = T_INT;
+        $$ -> ival = $4;
     }
 
-localdecls: vardecl SEMICOLON localdecls
+localdecls: vardecl SEMICOLON localdecls //comp 6
     {
-        
+        addSymbol(symTable, $1 -> strval, 1, $1 -> valtype, 0, localOffset);
+        $1 -> ival = localOffset;
+        localOffset += -4;
     }
     //empty
 |       {$$ = 0;}
@@ -101,6 +118,10 @@ function: ID LPAREN parameters RPAREN LBRACE localdecls statements RBRACE
 		$$ -> strval = $1;
 		$$ -> child[0] = $3;
 		$$ -> child[1] = $7;
+		$$ -> child[2] = $6;      //comp 6
+		localOffset = -4;         //comp 6
+		paramPosition = 1;        //comp 6
+		delScopeLevel(symTable, 1); //remove local and param decls - comp 6
 	}
 	
 statements: statement statements
@@ -145,8 +166,12 @@ assignment: ID EQUALS expression
         $$ -> child[0] = $3;
     }
     
-| ID LBRACKET expression RBRACKET EQUALS expression
+| ID LBRACKET expression RBRACKET EQUALS expression     //comp 6
     {
+        $$ = newASTNode(AST_ASSIGNMENT);
+        $$ -> strval = $1;
+        $$ -> child[0] = $6;
+        $$ -> child[1] = $3; 
     }
     
 funcall: ID LPAREN arguments RPAREN
@@ -208,8 +233,12 @@ expression: expression ADDOP expression
         $$ -> ival = $2;
         $$ -> child[1] = $3;
 	}
-| ID LBRACKET expression RBRACKET
+| ID LBRACKET expression RBRACKET   //comp 6
     {
+        $$ = newASTNode(AST_VARREF);
+        $$ -> child[0] = $3;
+        $$ -> strval = $1;
+        $$ -> valtype = T_INT;
     }
 |	NUMBER
 	{
@@ -221,9 +250,11 @@ expression: expression ADDOP expression
 |   ID
     {
         if (debug) fprintf(stderr, "\t---ID (%s)---\n", $1);
+        Symbol* sym = findSymbol(symTable, $1);                         //comp 6
+        if (!sym) fprintf(stderr, "Symbol (%s) not defined!\n", $1);    //comp 6
         $$ = newASTNode(AST_VARREF);
         $$ -> strval = $1;
-        //we don't need ival atm
+        $$ -> ival = localOffset; //need to ask about this              -comp 6
         $$ -> valtype = T_STRING;
     }
 |   STRING
@@ -245,13 +276,21 @@ relexpr: expression RELOP expression
         $$ -> child[1] = $3;
     }
     
-parameters: vardecl COMMA parameters
-        {
+parameters: vardecl COMMA parameters //comp 6
+    {
+        addSymbol(symTable, $1 -> strval, 1, $1 -> valtype, 0, paramPosition);
+        $1 -> ival = paramPosition;
+        paramPosition++;
         $1 -> next = $3;
         $$ = $1;
-        }
-| vardecl
-        {$$ = $1;}
+    }
+| vardecl       //comp 6
+    {
+        addSymbol(symTable, $1 -> strval, 1, $1 -> valtype, 0, paramPosition);
+        $1 -> ival = paramPosition;
+        paramPosition++;
+        $$ = $1;
+    }
 //empty
 |       {$$ = 0;}
 %%
@@ -261,6 +300,7 @@ extern FILE *yyin; // from lex
 
 int main(int argc, char **argv)
 { 
+    symTable = newSymbolTable();
     if (argc == 1) {
         fprintf(stderr, "Please enter the .c file name: ");
         char fileName[100];
