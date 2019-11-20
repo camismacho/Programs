@@ -90,3 +90,8 @@ cleanassembly:
 	make
 	cat testComp4.s
 
+pushgit:
+	git status
+	git add -A
+	git commit -m 
+

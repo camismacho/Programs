@@ -42,8 +42,10 @@ b:	.word 0
 #VARDECL STRING
 s:	.word 0
 #--LOCAL DECLARATIONS
-#LOCAL VARDECL ival = -4
+#LOCAL VARDECL ival = -8
 .comm localtest, 4, 4
+#LOCAL VARDECL ival = -4
+.comm localtwo, 4, 4
 #--FUNCTION BODY
 	.globl	func
 	.type	func, @function

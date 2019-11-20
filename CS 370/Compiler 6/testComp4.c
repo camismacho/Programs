@@ -5,6 +5,8 @@ int arr[5];
 func(int a, char* b, char* s)
 {
    int localtest;
+   int localtwo;
+
    puts("hello world!\n");
    x = 42+12;
    printf("x=%d\n",x);

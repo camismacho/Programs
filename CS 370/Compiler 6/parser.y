@@ -72,7 +72,7 @@ vardecl: KWINT ID
         $$ = newASTNode(AST_VARDECL);
         $$ -> strval = $2;
         $$ -> valtype = T_INT;
-        $$ -> ival = 0;     //comp 6
+        //$$ -> ival = 0;     //comp 6
     }
         
 | KWCHAR ID
@@ -97,6 +97,7 @@ localdecls: vardecl SEMICOLON localdecls //comp 6
         addSymbol(symTable, $1 -> strval, 1, $1 -> valtype, 0, localOffset);
         $1 -> ival = localOffset;
         localOffset += -4;
+        $1 -> next = $3;
     }
     //empty
 |       {$$ = 0;}
