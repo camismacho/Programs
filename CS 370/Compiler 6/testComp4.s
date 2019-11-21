@@ -62,7 +62,7 @@ func:
 	movq	%rdx, %rdi
 #ARGUMENT
 #VARREF (localtest) ival = -8
-	movq	localtest, %rdx
+	movq	-8(%rbp), %rdx
 	movq	%rdx, %rsi
 	movl	$0, %eax
 	call	printf
@@ -126,7 +126,7 @@ main:
 #EXPRESSION
 #--EXPRESSION LHS
 #VARREF (anothertest) ival = -8
-	movq	anothertest, %rdx
+	movq	-8(%rbp), %rdx
 	pushq	%rdx
 #--EXPRESSION RHS
 #CONSTANT INT 2
@@ -171,7 +171,7 @@ LL102:
 #EXPRESSION
 #--EXPRESSION LHS
 #VARREF (yayanother) ival = -4
-	movq	yayanother, %rdx
+	movq	-4(%rbp), %rdx
 	pushq	%rdx
 #--EXPRESSION RHS
 #CONSTANT INT 1
@@ -186,7 +186,7 @@ LL102:
 LL101:
 #RELEXPR
 #VARREF (yayanother) ival = -4
-	movq	yayanother, %rdx
+	movq	-4(%rbp), %rdx
 #--RELEXPR LHS
 	pushq	%rdx
 #CONSTANT INT 10

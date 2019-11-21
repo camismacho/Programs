@@ -325,7 +325,13 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
    
     case AST_VARREF:
         fprintf(out, "#VARREF (%s) ival = %d\n",node -> strval, node -> ival);
-       fprintf(out, "\tmovq\t%s, %%rdx\n", node->strval);
+        if (node -> ival == 0)
+            fprintf(out, "\tmovq\t%s, %%rdx\n", node->strval);
+        else if (node -> ival < 0)
+            fprintf(out, "\tmovq\t%d(%%rbp), %%rdx\n", node -> ival);
+        else if (node -> ival > 0)
+            fprintf(out, "\tmovq\t%s, %%rdx\n", argRegStr[node -> ival]);
+       //if else based on ival. if 0, genereate the global reference, neg generate offset code, positive generate argument register
        break;
    
     case AST_CONSTANT:

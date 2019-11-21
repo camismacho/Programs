@@ -85,7 +85,7 @@ cleanandtest:
 	make clean
 	make
 	
-cleanassembly:
+assembly:
 	make clean
 	make
 	cat testComp4.s
