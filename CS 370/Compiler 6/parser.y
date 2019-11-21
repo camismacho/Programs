@@ -88,7 +88,7 @@ vardecl: KWINT ID
     {
         $$ = newASTNode(AST_VARDECL);
         $$ -> strval = $2;
-        $$ -> valtype = T_INT;
+        $$ -> valtype = T_INTARR;
         $$ -> ival = $4;
     }
 
@@ -255,7 +255,7 @@ expression: expression ADDOP expression
         if (!sym) fprintf(stderr, "Symbol (%s) not defined!\n", $1);    //comp 6
         $$ = newASTNode(AST_VARREF);
         $$ -> strval = $1;
-        $$ -> ival = localOffset; //need to ask about this              -comp 6
+        $$ -> ival = sym  -> offset; //need to ask about this              -comp 6
         $$ -> valtype = T_STRING;
     }
 |   STRING

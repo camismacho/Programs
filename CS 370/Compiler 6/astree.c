@@ -10,6 +10,7 @@
 int argNum = 0;
 char *argRegStr[] = {"%rdi","%rsi","%rdx","%rcx","%r8","%r9"};
 extern stringArray stringStore;
+extern Symbol** symTable;
 int ind = 0;
 int count = 100;
 Symbol* findSym;
@@ -205,7 +206,7 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
           fprintf(out, "#GLOBAL VARDECL INT\n");
           fprintf(out, ".comm %s, 4, 4\n", node -> strval);
        }
-       else if (node -> valtype == T_INT && node -> ival > 0){
+       /*else if (node -> valtype == T_INT && node -> ival > 0){
             //fprintf(out, "#PARAMETER VARDECL ival = %d\n", node -> ival);
             findSym = findSymbol(symTable, node -> strval);
             if (findSym -> scopeLevel = 0) {
@@ -216,22 +217,22 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
                 fprintf(out, "#PARAMETER VARDECL ival = %d\n", node -> ival);
                 fprintf(out, ".comm %s, 4, 4\n", node -> strval);
             }
-       }
-       /*else if (node -> valtype == T_INT && node -> ival > 0){
+       }*/
+       else if (node -> valtype == T_INT && node -> ival > 0){
             fprintf(out, "#PARAMETER VARDECL ival = %d\n", node -> ival);
             findSym = findSymbol(symTable, node -> strval);
             fprintf(out, ".comm %s, 4, 4\n", node -> strval);
-       }*/
-       /*else if (node -> valtype == T_INTARR && node -> ival > 0){
+       }
+       else if (node -> valtype == T_INTARR && node -> ival > 0){
             fprintf(out, "#GLOBAL ARRAY VARDECL ival = %d\n", node -> ival);
-            fprintf(out, ".comm %s, %d, 32\n", node -> strval, 4*node -> ival);
-       }*/
+            fprintf(out, ".comm %s, %d, 32\n", node -> strval, 4 * node -> ival);
+       }
        else if (node -> valtype == T_INT && node -> ival < 0){
             fprintf(out, "#LOCAL VARDECL ival = %d\n", node -> ival);
             fprintf(out, ".comm %s, 4, 4\n", node -> strval);
        }
        else if (node->valtype == T_STRING){
-           fprintf(out, "#VARDECL STRING\n");
+           fprintf(out, "#VARDECL STRING ival = %d\n", node -> ival);
            fprintf(out, "%s:\t.word 0\n", node -> strval);
        }
        else
@@ -245,9 +246,9 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
         fprintf(out, "#--LOCAL DECLARATIONS\n");
         genCodeFromASTree(node->child[2], 0, out); // child 2 is localdecls
         fprintf(out,"#--FUNCTION BODY\n");
-        fprintf(out,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n", node -> strval, node -> strval, node -> strval);
+        fprintf(out,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n\tsubq\t$64, %rsp\n", node -> strval, node -> strval, node -> strval);
         genCodeFromASTree(node->child[1], 0, out); // child 1 is body (stmt list)
-        fprintf(out,"\n\tpopq\t%%rbp\n\tmovl\t$0, %%eax\n\tret\n");
+        fprintf(out,"\n\tleave\n\tmovl\t$0, %%eax\n\tret\n");
         fprintf(out,"\t\t#*****-----ENDFUNCTION %s-----*****\n\n", node -> strval);
         break;
     
@@ -323,7 +324,7 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
         break;
    
     case AST_VARREF:
-        fprintf(out, "#VARREF\n");
+        fprintf(out, "#VARREF (%s) ival = %d\n",node -> strval, node -> ival);
        fprintf(out, "\tmovq\t%s, %%rdx\n", node->strval);
        break;
    
