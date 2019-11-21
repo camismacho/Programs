@@ -10,9 +10,29 @@
 	.section	.rodata
 .LC0:
 	.string	"localtest=%d\n"
+.LC1:
+	.string	"if works!\n"
+.LC2:
+	.string	"else works!\n"
+.LC3:
+	.string	"if works!\n"
+.LC4:
+	.string	"else works!\n"
+.LC5:
+	.string	"goodbye"
+.LC6:
+	.string	"third arg"
+.LC7:
+	.string	"goodbye %s %d\n"
+.LC8:
+	.string	"second"
+.LC9:
+	.string	"Hello World!\n"
+.LC10:
+	.string	"loopy loop\n"
 	.text
 
-		#*****-----FUNCTION main-----*****
+		#*****-----FUNCTION func-----*****
 #--FUNCTION ARG LIST
 #PARAMETER VARDECL ival = 3
 .comm a, 4, 4
@@ -26,9 +46,9 @@ s:	.word 0
 #LOCAL VARDECL ival = -4
 .comm localtwo, 4, 4
 #--FUNCTION BODY
-	.globl	main
-	.type	main, @function
-main:
+	.globl	func
+	.type	func, @function
+func:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	subq	$64, %rsp
@@ -62,6 +82,232 @@ main:
 	call	printf
 	#~~~~~ENDFUNCALL printf~~~~~
 
+#IFTHEN
+#RELEXPR
+#CONSTANT INT 20
+	movq	$20, %rdx
+#--RELEXPR LHS
+	pushq	%rdx
+#CONSTANT INT 10
+	movq	$10, %rdx
+#--RELEXPR RHS
+	popq	%rcx
+#COMPARE LHS AND RHS
+	cmp	%rdx, %rcx
+#--RELATIONAL JUMP INSTR
+	jg	LL101
+#--IFBODY
+
+	#~~~~~FUNCALL puts~~~~~
+#ARGUMENT
+#CONSTANT STRING $.LC2
+	movq	$.LC2, %rdx
+	movq	%rdx, %rdi
+	movl	$0, %eax
+	call	puts
+	#~~~~~ENDFUNCALL puts~~~~~
+
+	jmp	LL102
+#--ELSEBODY
+LL101:
+
+	#~~~~~FUNCALL puts~~~~~
+#ARGUMENT
+#CONSTANT STRING $.LC1
+	movq	$.LC1, %rdx
+	movq	%rdx, %rdi
+	movl	$0, %eax
+	call	puts
+	#~~~~~ENDFUNCALL puts~~~~~
+
+#--CONTINUE PROGRAM
+LL102:
+#IFTHEN
+#RELEXPR
+#CONSTANT INT 20
+	movq	$20, %rdx
+#--RELEXPR LHS
+	pushq	%rdx
+#CONSTANT INT 10
+	movq	$10, %rdx
+#--RELEXPR RHS
+	popq	%rcx
+#COMPARE LHS AND RHS
+	cmp	%rdx, %rcx
+#--RELATIONAL JUMP INSTR
+	jl	LL103
+#--IFBODY
+
+	#~~~~~FUNCALL puts~~~~~
+#ARGUMENT
+#CONSTANT STRING $.LC4
+	movq	$.LC4, %rdx
+	movq	%rdx, %rdi
+	movl	$0, %eax
+	call	puts
+	#~~~~~ENDFUNCALL puts~~~~~
+
+	jmp	LL104
+#--ELSEBODY
+LL103:
+
+	#~~~~~FUNCALL puts~~~~~
+#ARGUMENT
+#CONSTANT STRING $.LC3
+	movq	$.LC3, %rdx
+	movq	%rdx, %rdi
+	movl	$0, %eax
+	call	puts
+	#~~~~~ENDFUNCALL puts~~~~~
+
+#--CONTINUE PROGRAM
+LL104:
+
+	leave
+	movl	$0, %eax
+	ret
+		#*****-----ENDFUNCTION func-----*****
+
+
+		#*****-----FUNCTION main-----*****
+#--FUNCTION ARG LIST
+#PARAMETER VARDECL ival = 2
+.comm argc, 4, 4
+#VARDECL STRING ival = 1
+argv:	.word 0
+#--LOCAL DECLARATIONS
+#--FUNCTION BODY
+	.globl	main
+	.type	main, @function
+main:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	subq	$64, %rsp
+
+	#~~~~~FUNCALL func~~~~~
+#ARGUMENT
+#CONSTANT INT 42
+	movq	$42, %rdx
+	movq	%rdx, %rdi
+#ARGUMENT
+#CONSTANT STRING $.LC5
+	movq	$.LC5, %rdx
+	movq	%rdx, %rsi
+#ARGUMENT
+#CONSTANT STRING $.LC6
+	movq	$.LC6, %rdx
+	movq	%rdx, %rdx
+	movl	$0, %eax
+	call	func
+	#~~~~~ENDFUNCALL func~~~~~
+
+
+	#~~~~~FUNCALL printf~~~~~
+#ARGUMENT
+#CONSTANT STRING $.LC7
+	movq	$.LC7, %rdx
+	movq	%rdx, %rdi
+#ARGUMENT
+#CONSTANT STRING $.LC8
+	movq	$.LC8, %rdx
+	movq	%rdx, %rsi
+#ARGUMENT
+#EXPRESSION
+#--EXPRESSION LHS
+#CONSTANT INT 42
+	movq	$42, %rdx
+	pushq	%rdx
+#--EXPRESSION RHS
+#EXPRESSION
+#--EXPRESSION LHS
+#CONSTANT INT 4
+	movq	$4, %rdx
+	pushq	%rdx
+#--EXPRESSION RHS
+#EXPRESSION
+#--EXPRESSION LHS
+#VARREF (x) ival = -4
+	movq	-4(%rbp), %rdx
+	pushq	%rdx
+#--EXPRESSION RHS
+#CONSTANT INT 2
+	movq	$2, %rdx
+	popq	%rcx
+#EXPR ADD LHS + RHS
+	addq	%rcx, %rdx
+	popq	%rcx
+#EXPR ADD LHS + RHS
+	addq	%rcx, %rdx
+	popq	%rcx
+#EXPR ADD LHS + RHS
+	addq	%rcx, %rdx
+	movq	%rdx, %rdx
+	movl	$0, %eax
+	call	printf
+	#~~~~~ENDFUNCALL printf~~~~~
+
+
+	#~~~~~FUNCALL puts~~~~~
+#ARGUMENT
+#CONSTANT STRING $.LC9
+	movq	$.LC9, %rdx
+	movq	%rdx, %rdi
+	movl	$0, %eax
+	call	puts
+	#~~~~~ENDFUNCALL puts~~~~~
+
+#ASSIGNMENT
+#--ASSIGNMENT LHS 
+#CONSTANT INT 0
+	movq	$0, %rdx
+#--ASSIGNMENT TO x 
+	movq	%rdx, -4(%rbp)
+	movq	%rdx, %rdi
+#WHILE LOOP
+	jmp	LL105
+#--LOOPBODY
+LL106:
+
+	#~~~~~FUNCALL puts~~~~~
+#ARGUMENT
+#CONSTANT STRING $.LC10
+	movq	$.LC10, %rdx
+	movq	%rdx, %rdi
+	movl	$0, %eax
+	call	puts
+	#~~~~~ENDFUNCALL puts~~~~~
+
+#ASSIGNMENT
+#--ASSIGNMENT LHS 
+#EXPRESSION
+#--EXPRESSION LHS
+#VARREF (x) ival = -4
+	movq	-4(%rbp), %rdx
+	pushq	%rdx
+#--EXPRESSION RHS
+#CONSTANT INT 1
+	movq	$1, %rdx
+	popq	%rcx
+#EXPR ADD LHS + RHS
+	addq	%rcx, %rdx
+#--ASSIGNMENT TO x 
+	movq	%rdx, -4(%rbp)
+	movq	%rdx, %rdi
+#--LOOPCONDITION
+LL105:
+#RELEXPR
+#VARREF (x) ival = -4
+	movq	-4(%rbp), %rdx
+#--RELEXPR LHS
+	pushq	%rdx
+#CONSTANT INT 10
+	movq	$10, %rdx
+#--RELEXPR RHS
+	popq	%rcx
+#COMPARE LHS AND RHS
+	cmp	%rdx, %rcx
+#--RELATIONAL JUMP INSTR
+	jl	LL106
 
 	leave
 	movl	$0, %eax

@@ -277,7 +277,8 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
         fprintf(out,"#--ASSIGNMENT LHS \n");
         genCodeFromASTree(node->child[0], 0, out);  // child 1 is right hand side
         fprintf(out,"#--ASSIGNMENT TO %s \n", node -> strval);
-        fprintf(out, "\tmovq\t%%rdx, %s\n\tmovq\t%%rdx, %%rdi\n", node -> strval);
+//         fprintf(out, "\tmovq\t%%rdx, %s\n\tmovq\t%%rdx, %%rdi\n", node -> strval);
+        fprintf(out, "\tmovq\t%%rdx, %d(%%rbp)\n\tmovq\t%%rdx, %%rdi\n", node -> ival);
         break;
     
     case AST_WHILE:

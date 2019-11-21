@@ -165,6 +165,10 @@ assignment: ID EQUALS expression
         $$ = newASTNode(AST_ASSIGNMENT);
         $$ -> strval = $1;
         $$ -> child[0] = $3;
+        Symbol* sym = findSymbol(symTable, $1);                         //comp 6
+        if (!sym) fprintf(stderr, "Symbol (%s) not defined!\n", $1);    //comp 6
+        $$ -> ival = sym  -> offset;
+        //$$ -> ival = localOffset;
     }
     
 | ID LBRACKET expression RBRACKET EQUALS expression     //comp 6
