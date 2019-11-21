@@ -5,7 +5,7 @@
 #ifndef SYMTABLE_H
 #define SYMTABLE_H
 
-typedef enum { T_STRING, T_INT } DataType;
+typedef enum { T_STRING, T_INT, T_INTARR } DataType; //ask if this is okay
 
 typedef struct symbol_s {
    int scopeLevel; //0 for globals, 1 for params and locals

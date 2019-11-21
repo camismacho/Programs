@@ -18,6 +18,8 @@ func(int a, char* b, char* s)
 
 main(int argc, char* argv)
 {
+    int anothertest;
+    int yayanother;
    func(42, "goodbye","third arg");
    printf("goodbye %s %d\n","second",42+4+x+2);
    puts("Hello World!\n");
@@ -29,4 +31,15 @@ main(int argc, char* argv)
 
 }
 
-test (int one, int two, int three, int four){}
+test (int one, int two, int three, int four)
+{
+    int this;
+    int is;
+    int going;
+    int to;
+    int be;
+    int alot;
+    int of;
+    int local;
+    int variables;
+}

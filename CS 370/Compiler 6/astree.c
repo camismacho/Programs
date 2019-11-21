@@ -12,6 +12,7 @@ char *argRegStr[] = {"%rdi","%rsi","%rdx","%rcx","%r8","%r9"};
 extern stringArray stringStore;
 int ind = 0;
 int count = 100;
+Symbol* findSym;
 // Create a new AST node 
 // - allocates space and initializes node type, zeros other stuff out
 // - returns pointer to node
@@ -201,13 +202,30 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
     
     case AST_VARDECL:
        if (node->valtype == T_INT && node -> ival == 0){
-          fprintf(out, "#VARDECL INT\n");
+          fprintf(out, "#GLOBAL VARDECL INT\n");
           fprintf(out, ".comm %s, 4, 4\n", node -> strval);
        }
        else if (node -> valtype == T_INT && node -> ival > 0){
-            fprintf(out, "#PARAMETER VARDECL ival = %d\n", node -> ival);
-            fprintf(out, ".comm %s, 4, 4\n", node -> strval);
+            //fprintf(out, "#PARAMETER VARDECL ival = %d\n", node -> ival);
+            findSym = findSymbol(symTable, node -> strval);
+            if (findSym -> scopeLevel = 0) {
+                fprintf(out, "#GLOBAL ARRAY VARDECL ival = %d\n", node -> ival);
+                fprintf(out, ".comm %s, %d, 32\n", node -> strval, 4*node -> ival);
+            }
+            else{
+                fprintf(out, "#PARAMETER VARDECL ival = %d\n", node -> ival);
+                fprintf(out, ".comm %s, 4, 4\n", node -> strval);
+            }
        }
+       /*else if (node -> valtype == T_INT && node -> ival > 0){
+            fprintf(out, "#PARAMETER VARDECL ival = %d\n", node -> ival);
+            findSym = findSymbol(symTable, node -> strval);
+            fprintf(out, ".comm %s, 4, 4\n", node -> strval);
+       }*/
+       /*else if (node -> valtype == T_INTARR && node -> ival > 0){
+            fprintf(out, "#GLOBAL ARRAY VARDECL ival = %d\n", node -> ival);
+            fprintf(out, ".comm %s, %d, 32\n", node -> strval, 4*node -> ival);
+       }*/
        else if (node -> valtype == T_INT && node -> ival < 0){
             fprintf(out, "#LOCAL VARDECL ival = %d\n", node -> ival);
             fprintf(out, ".comm %s, 4, 4\n", node -> strval);
@@ -221,7 +239,7 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
        break;
     
     case AST_FUNCTION:
-        fprintf(out,"\t\t#*****-----FUNCTION %s-----*****\n", node -> strval);
+        fprintf(out,"\n\t\t#*****-----FUNCTION %s-----*****\n", node -> strval);
         fprintf(out, "#--FUNCTION ARG LIST\n");
         genCodeFromASTree(node->child[0], 0, out); // child 0 is arg list
         fprintf(out, "#--LOCAL DECLARATIONS\n");
@@ -230,7 +248,7 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
         fprintf(out,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n", node -> strval, node -> strval, node -> strval);
         genCodeFromASTree(node->child[1], 0, out); // child 1 is body (stmt list)
         fprintf(out,"\n\tpopq\t%%rbp\n\tmovl\t$0, %%eax\n\tret\n");
-        fprintf(out,"\t\t#*****-----ENDFUNCTION %s-----*****\n", node -> strval);
+        fprintf(out,"\t\t#*****-----ENDFUNCTION %s-----*****\n\n", node -> strval);
         break;
     
     case AST_SBLOCK:
@@ -240,10 +258,10 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
     
     case AST_FUNCALL:
         argNum = 0;
-        fprintf(out, "\t#~~~~~FUNCALL %s~~~~~\n", node -> strval);
+        fprintf(out, "\n\t#~~~~~FUNCALL %s~~~~~\n", node -> strval);
         genCodeFromASTree(node->child[0], 0, out);  // child 0 is argument list
         fprintf(out, "\tmovl\t$0, %%eax\n\tcall\t%s\n", node -> strval);
-        fprintf(out,"\t#~~~~~ENDFUNCALL %s~~~~~\n", node -> strval);
+        fprintf(out,"\t#~~~~~ENDFUNCALL %s~~~~~\n\n", node -> strval);
         break;
     
     case AST_ARGUMENT:
@@ -276,7 +294,7 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
         break;
    
     case AST_IFTHEN:
-        fprintf(out, "#IFTHEN JEC\n");
+        fprintf(out, "#IFTHEN\n");
         genCodeFromASTree(node->child[0], 0, out);  // child 0 is condition expr
         fprintf(out, "#--IFBODY\n");
         genCodeFromASTree(node->child[2], 0, out);  // child 1 is if body
