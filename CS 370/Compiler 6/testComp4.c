@@ -7,6 +7,9 @@ func(int a, char* b, char* s)
    int localtest;
    int localtwo;
 
+   a = 10;
+   printf("a = %d\n",a);
+   
    localtest = 42+12;
    printf("localtest=%d\n",localtest);
    

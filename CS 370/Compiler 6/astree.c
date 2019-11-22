@@ -248,7 +248,7 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
         fprintf(out,"#--FUNCTION BODY\n");
         fprintf(out,"\t.globl\t%s\n\t.type\t%s, @function\n%s:\n\tpushq\t%%rbp\n\tmovq\t%%rsp, %%rbp\n\tsubq\t$64, %rsp\n", node -> strval, node -> strval, node -> strval);
         genCodeFromASTree(node->child[1], 0, out); // child 1 is body (stmt list)
-        fprintf(out,"\n\tleave\n\tmovl\t$0, %%eax\n\tret\n");
+        fprintf(out,"\tmovl\t$0, %%eax\n\tleave\n\tret\n");
         fprintf(out,"\t\t#*****-----ENDFUNCTION %s-----*****\n\n", node -> strval);
         break;
     
@@ -276,9 +276,14 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
         fprintf(out,"#ASSIGNMENT\n");
         fprintf(out,"#--ASSIGNMENT LHS \n");
         genCodeFromASTree(node->child[0], 0, out);  // child 1 is right hand side
-        fprintf(out,"#--ASSIGNMENT TO %s \n", node -> strval);
+        fprintf(out,"#--ASSIGNMENT TO %s ival = %d\n", node -> strval, node -> ival);
 //         fprintf(out, "\tmovq\t%%rdx, %s\n\tmovq\t%%rdx, %%rdi\n", node -> strval);
-        fprintf(out, "\tmovq\t%%rdx, %d(%%rbp)\n\tmovq\t%%rdx, %%rdi\n", node -> ival);
+        if (node -> ival == 0)
+            fprintf(out, "\tmovq\t%%rdx, %s\n\tmovq\t%%rdx, %%rdi\n", node -> strval);
+        else if (node -> ival < 0)
+            fprintf(out, "\tmovq\t%%rdx, %d(%%rbp)\n\tmovq\t%%rdx, %%rdi\n", node -> ival);
+        else if (node -> ival > 0)
+            fprintf(out, "\tmovq\t%%rdx, %s\n\tmovq\t%%rdx, %%rdi\n", argRegStr[node -> ival]);
         break;
     
     case AST_WHILE:

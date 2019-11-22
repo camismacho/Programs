@@ -9,26 +9,28 @@
 #STRING DATA SECTION
 	.section	.rodata
 .LC0:
-	.string	"localtest=%d\n"
+	.string	"a = %d\n"
 .LC1:
-	.string	"if works!\n"
+	.string	"localtest=%d\n"
 .LC2:
-	.string	"else works!\n"
-.LC3:
 	.string	"if works!\n"
-.LC4:
+.LC3:
 	.string	"else works!\n"
+.LC4:
+	.string	"if works!\n"
 .LC5:
-	.string	"goodbye"
+	.string	"else works!\n"
 .LC6:
-	.string	"third arg"
+	.string	"goodbye"
 .LC7:
-	.string	"goodbye %s %d\n"
+	.string	"third arg"
 .LC8:
-	.string	"second"
+	.string	"goodbye %s %d\n"
 .LC9:
-	.string	"Hello World!\n"
+	.string	"second"
 .LC10:
+	.string	"Hello World!\n"
+.LC11:
 	.string	"loopy loop\n"
 	.text
 
@@ -54,6 +56,27 @@ func:
 	subq	$64, %rsp
 #ASSIGNMENT
 #--ASSIGNMENT LHS 
+#CONSTANT INT 10
+	movq	$10, %rdx
+#--ASSIGNMENT TO a ival = 3
+	movq	%rdx, %rcx
+	movq	%rdx, %rdi
+
+	#~~~~~FUNCALL printf~~~~~
+#ARGUMENT
+#CONSTANT STRING $.LC0
+	movq	$.LC0, %rdx
+	movq	%rdx, %rdi
+#ARGUMENT
+#VARREF (a) ival = 3
+	movq	%rcx, %rdx
+	movq	%rdx, %rsi
+	movl	$0, %eax
+	call	printf
+	#~~~~~ENDFUNCALL printf~~~~~
+
+#ASSIGNMENT
+#--ASSIGNMENT LHS 
 #EXPRESSION
 #--EXPRESSION LHS
 #CONSTANT INT 42
@@ -65,14 +88,14 @@ func:
 	popq	%rcx
 #EXPR ADD LHS + RHS
 	addq	%rcx, %rdx
-#--ASSIGNMENT TO localtest 
+#--ASSIGNMENT TO localtest ival = -8
 	movq	%rdx, -8(%rbp)
 	movq	%rdx, %rdi
 
 	#~~~~~FUNCALL printf~~~~~
 #ARGUMENT
-#CONSTANT STRING $.LC0
-	movq	$.LC0, %rdx
+#CONSTANT STRING $.LC1
+	movq	$.LC1, %rdx
 	movq	%rdx, %rdi
 #ARGUMENT
 #VARREF (localtest) ival = -8
@@ -100,8 +123,8 @@ func:
 
 	#~~~~~FUNCALL puts~~~~~
 #ARGUMENT
-#CONSTANT STRING $.LC2
-	movq	$.LC2, %rdx
+#CONSTANT STRING $.LC3
+	movq	$.LC3, %rdx
 	movq	%rdx, %rdi
 	movl	$0, %eax
 	call	puts
@@ -113,8 +136,8 @@ LL101:
 
 	#~~~~~FUNCALL puts~~~~~
 #ARGUMENT
-#CONSTANT STRING $.LC1
-	movq	$.LC1, %rdx
+#CONSTANT STRING $.LC2
+	movq	$.LC2, %rdx
 	movq	%rdx, %rdi
 	movl	$0, %eax
 	call	puts
@@ -140,8 +163,8 @@ LL102:
 
 	#~~~~~FUNCALL puts~~~~~
 #ARGUMENT
-#CONSTANT STRING $.LC4
-	movq	$.LC4, %rdx
+#CONSTANT STRING $.LC5
+	movq	$.LC5, %rdx
 	movq	%rdx, %rdi
 	movl	$0, %eax
 	call	puts
@@ -153,8 +176,8 @@ LL103:
 
 	#~~~~~FUNCALL puts~~~~~
 #ARGUMENT
-#CONSTANT STRING $.LC3
-	movq	$.LC3, %rdx
+#CONSTANT STRING $.LC4
+	movq	$.LC4, %rdx
 	movq	%rdx, %rdi
 	movl	$0, %eax
 	call	puts
@@ -162,9 +185,8 @@ LL103:
 
 #--CONTINUE PROGRAM
 LL104:
-
-	leave
 	movl	$0, %eax
+	leave
 	ret
 		#*****-----ENDFUNCTION func-----*****
 
@@ -190,12 +212,12 @@ main:
 	movq	$42, %rdx
 	movq	%rdx, %rdi
 #ARGUMENT
-#CONSTANT STRING $.LC5
-	movq	$.LC5, %rdx
-	movq	%rdx, %rsi
-#ARGUMENT
 #CONSTANT STRING $.LC6
 	movq	$.LC6, %rdx
+	movq	%rdx, %rsi
+#ARGUMENT
+#CONSTANT STRING $.LC7
+	movq	$.LC7, %rdx
 	movq	%rdx, %rdx
 	movl	$0, %eax
 	call	func
@@ -204,12 +226,12 @@ main:
 
 	#~~~~~FUNCALL printf~~~~~
 #ARGUMENT
-#CONSTANT STRING $.LC7
-	movq	$.LC7, %rdx
-	movq	%rdx, %rdi
-#ARGUMENT
 #CONSTANT STRING $.LC8
 	movq	$.LC8, %rdx
+	movq	%rdx, %rdi
+#ARGUMENT
+#CONSTANT STRING $.LC9
+	movq	$.LC9, %rdx
 	movq	%rdx, %rsi
 #ARGUMENT
 #EXPRESSION
@@ -249,8 +271,8 @@ main:
 
 	#~~~~~FUNCALL puts~~~~~
 #ARGUMENT
-#CONSTANT STRING $.LC9
-	movq	$.LC9, %rdx
+#CONSTANT STRING $.LC10
+	movq	$.LC10, %rdx
 	movq	%rdx, %rdi
 	movl	$0, %eax
 	call	puts
@@ -260,7 +282,7 @@ main:
 #--ASSIGNMENT LHS 
 #CONSTANT INT 0
 	movq	$0, %rdx
-#--ASSIGNMENT TO x 
+#--ASSIGNMENT TO x ival = -4
 	movq	%rdx, -4(%rbp)
 	movq	%rdx, %rdi
 #WHILE LOOP
@@ -270,8 +292,8 @@ LL106:
 
 	#~~~~~FUNCALL puts~~~~~
 #ARGUMENT
-#CONSTANT STRING $.LC10
-	movq	$.LC10, %rdx
+#CONSTANT STRING $.LC11
+	movq	$.LC11, %rdx
 	movq	%rdx, %rdi
 	movl	$0, %eax
 	call	puts
@@ -290,7 +312,7 @@ LL106:
 	popq	%rcx
 #EXPR ADD LHS + RHS
 	addq	%rcx, %rdx
-#--ASSIGNMENT TO x 
+#--ASSIGNMENT TO x ival = -4
 	movq	%rdx, -4(%rbp)
 	movq	%rdx, %rdi
 #--LOOPCONDITION
@@ -308,9 +330,8 @@ LL105:
 	cmp	%rdx, %rcx
 #--RELATIONAL JUMP INSTR
 	jl	LL106
-
-	leave
 	movl	$0, %eax
+	leave
 	ret
 		#*****-----ENDFUNCTION main-----*****
 
@@ -351,9 +372,8 @@ test:
 	pushq	%rbp
 	movq	%rsp, %rbp
 	subq	$64, %rsp
-
-	leave
 	movl	$0, %eax
+	leave
 	ret
 		#*****-----ENDFUNCTION test-----*****
 

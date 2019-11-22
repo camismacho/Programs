@@ -243,7 +243,7 @@ expression: expression ADDOP expression
         $$ = newASTNode(AST_VARREF);
         $$ -> child[0] = $3;
         $$ -> strval = $1;
-        $$ -> valtype = T_INT;
+        $$ -> valtype = T_INTARR;
     }
 |	NUMBER
 	{
