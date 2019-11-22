@@ -168,15 +168,20 @@ assignment: ID EQUALS expression
         Symbol* sym = findSymbol(symTable, $1);                         //comp 6
         if (!sym) fprintf(stderr, "Symbol (%s) not defined!\n", $1);    //comp 6
         $$ -> ival = sym  -> offset;
-        //$$ -> ival = localOffset;
+        $$ -> valtype = sym -> type;
+//         fprintf(stderr, "\n\nvaltype = %s\n\n", sym -> type);
     }
     
 | ID LBRACKET expression RBRACKET EQUALS expression     //comp 6
     {
         $$ = newASTNode(AST_ASSIGNMENT);
         $$ -> strval = $1;
-        $$ -> child[0] = $6;
-        $$ -> child[1] = $3; 
+        $$ -> child[1] = $3; //LHS
+        $$ -> child[0] = $6; //RHS
+        Symbol* sym = findSymbol(symTable, $1);                         //comp 6
+        if (!sym) fprintf(stderr, "Symbol (%s) not defined!\n", $1);    //comp 6
+        $$ -> ival = sym  -> offset;
+        $$ -> valtype = sym -> type;
     }
     
 funcall: ID LPAREN arguments RPAREN
@@ -243,7 +248,10 @@ expression: expression ADDOP expression
         $$ = newASTNode(AST_VARREF);
         $$ -> child[0] = $3;
         $$ -> strval = $1;
-        $$ -> valtype = T_INTARR;
+        Symbol* sym = findSymbol(symTable, $1);                         //comp 6
+        if (!sym) fprintf(stderr, "Symbol (%s) not defined!\n", $1);    //comp 6
+        $$ -> ival = sym  -> offset;
+        $$ -> valtype = sym -> type;
     }
 |	NUMBER
 	{
@@ -254,12 +262,13 @@ expression: expression ADDOP expression
 	}
 |   ID
     {
+        $$ = newASTNode(AST_VARREF);
         if (debug) fprintf(stderr, "\t---ID (%s)---\n", $1);
         Symbol* sym = findSymbol(symTable, $1);                         //comp 6
         if (!sym) fprintf(stderr, "Symbol (%s) not defined!\n", $1);    //comp 6
-        $$ = newASTNode(AST_VARREF);
         $$ -> strval = $1;
         $$ -> ival = sym  -> offset; //need to ask about this              -comp 6
+//         fprintf(stderr, "\n\nvaltype = %s\n\n", sym -> type);
         $$ -> valtype = T_STRING;
     }
 |   STRING

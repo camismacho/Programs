@@ -68,7 +68,7 @@ func:
 	movq	$.LC0, %rdx
 	movq	%rdx, %rdi
 #ARGUMENT
-#VARREF (a) ival = 3
+#VARREF (a) ival = 3 valtype = (null)
 	movq	%rcx, %rdx
 	movq	%rdx, %rsi
 	movl	$0, %eax
@@ -98,7 +98,7 @@ func:
 	movq	$.LC1, %rdx
 	movq	%rdx, %rdi
 #ARGUMENT
-#VARREF (localtest) ival = -8
+#VARREF (localtest) ival = -8 valtype = (null)
 	movq	-8(%rbp), %rdx
 	movq	%rdx, %rsi
 	movl	$0, %eax
@@ -248,7 +248,7 @@ main:
 #--EXPRESSION RHS
 #EXPRESSION
 #--EXPRESSION LHS
-#VARREF (x) ival = -4
+#VARREF (x) ival = -4 valtype = (null)
 	movq	-4(%rbp), %rdx
 	pushq	%rdx
 #--EXPRESSION RHS
@@ -303,7 +303,7 @@ LL106:
 #--ASSIGNMENT LHS 
 #EXPRESSION
 #--EXPRESSION LHS
-#VARREF (x) ival = -4
+#VARREF (x) ival = -4 valtype = (null)
 	movq	-4(%rbp), %rdx
 	pushq	%rdx
 #--EXPRESSION RHS
@@ -318,7 +318,7 @@ LL106:
 #--LOOPCONDITION
 LL105:
 #RELEXPR
-#VARREF (x) ival = -4
+#VARREF (x) ival = -4 valtype = (null)
 	movq	-4(%rbp), %rdx
 #--RELEXPR LHS
 	pushq	%rdx

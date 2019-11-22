@@ -206,18 +206,6 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
           fprintf(out, "#GLOBAL VARDECL INT\n");
           fprintf(out, ".comm %s, 4, 4\n", node -> strval);
        }
-       /*else if (node -> valtype == T_INT && node -> ival > 0){
-            //fprintf(out, "#PARAMETER VARDECL ival = %d\n", node -> ival);
-            findSym = findSymbol(symTable, node -> strval);
-            if (findSym -> scopeLevel = 0) {
-                fprintf(out, "#GLOBAL ARRAY VARDECL ival = %d\n", node -> ival);
-                fprintf(out, ".comm %s, %d, 32\n", node -> strval, 4*node -> ival);
-            }
-            else{
-                fprintf(out, "#PARAMETER VARDECL ival = %d\n", node -> ival);
-                fprintf(out, ".comm %s, 4, 4\n", node -> strval);
-            }
-       }*/
        else if (node -> valtype == T_INT && node -> ival > 0){
             fprintf(out, "#PARAMETER VARDECL ival = %d\n", node -> ival);
             findSym = findSymbol(symTable, node -> strval);
@@ -275,15 +263,25 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
     case AST_ASSIGNMENT:
         fprintf(out,"#ASSIGNMENT\n");
         fprintf(out,"#--ASSIGNMENT LHS \n");
-        genCodeFromASTree(node->child[0], 0, out);  // child 1 is right hand side
+        genCodeFromASTree(node->child[0], 0, out);  // child 0 is right hand side
         fprintf(out,"#--ASSIGNMENT TO %s ival = %d\n", node -> strval, node -> ival);
 //         fprintf(out, "\tmovq\t%%rdx, %s\n\tmovq\t%%rdx, %%rdi\n", node -> strval);
         if (node -> ival == 0)
             fprintf(out, "\tmovq\t%%rdx, %s\n\tmovq\t%%rdx, %%rdi\n", node -> strval);
         else if (node -> ival < 0)
             fprintf(out, "\tmovq\t%%rdx, %d(%%rbp)\n\tmovq\t%%rdx, %%rdi\n", node -> ival);
-        else if (node -> ival > 0)
+//         else if (node -> ival > 0)
+//             fprintf(out, "\tmovq\t%%rdx, %s\n\tmovq\t%%rdx, %%rdi\n", argRegStr[node -> ival]);
+         else if (node -> ival > 0 && node -> valtype == T_INT)
             fprintf(out, "\tmovq\t%%rdx, %s\n\tmovq\t%%rdx, %%rdi\n", argRegStr[node -> ival]);
+         else if (node -> ival > 0 && node -> valtype == T_INTARR)
+            fprintf(out, "\tpush\t%%rdx\n"); //push result of RHS expr into %rax
+         genCodeFromASTree(node->child[1], 0, out);  // child 1 is left hand side
+            if (node -> ival > 0 && node -> valtype == T_INTARR){
+                fprintf(out, "\tpop %%rcx\n");
+                fprintf(out, "\tmovl\t%%rcx, %s(,%%rdx,4)", node -> strval);
+            }
+         
         break;
     
     case AST_WHILE:
@@ -330,7 +328,7 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
         break;
    
     case AST_VARREF:
-        fprintf(out, "#VARREF (%s) ival = %d\n",node -> strval, node -> ival);
+        fprintf(out, "#VARREF (%s) ival = %d valtype = %s\n",node -> strval, node -> ival, node -> valtype);
         if (node -> ival == 0)
             fprintf(out, "\tmovq\t%s, %%rdx\n", node->strval);
         else if (node -> ival < 0)
