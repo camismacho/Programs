@@ -9,28 +9,34 @@
 #STRING DATA SECTION
 	.section	.rodata
 .LC0:
-	.string	"a = %d\n"
+	.string	"arr[1]=%d\n"
 .LC1:
-	.string	"localtest=%d\n"
+	.string	"arr[2]=%d\n"
 .LC2:
-	.string	"if works!\n"
+	.string	"arr[3]=%d\n"
 .LC3:
-	.string	"else works!\n"
+	.string	"a = %d\n"
 .LC4:
-	.string	"if works!\n"
+	.string	"localtest=%d\n"
 .LC5:
-	.string	"else works!\n"
+	.string	"if works!\n"
 .LC6:
-	.string	"goodbye"
+	.string	"else works!\n"
 .LC7:
-	.string	"third arg"
+	.string	"if works!\n"
 .LC8:
-	.string	"goodbye %s %d\n"
+	.string	"else works!\n"
 .LC9:
-	.string	"second"
+	.string	"goodbye"
 .LC10:
-	.string	"Hello World!\n"
+	.string	"third arg"
 .LC11:
+	.string	"goodbye %s %d\n"
+.LC12:
+	.string	"second"
+.LC13:
+	.string	"Hello World!\n"
+.LC14:
 	.string	"loopy loop\n"
 	.text
 
@@ -58,17 +64,98 @@ func:
 #--ASSIGNMENT LHS 
 #CONSTANT INT 10
 	movq	$10, %rdx
-#--ASSIGNMENT TO a ival = 3
-	movq	%rdx, %rcx
-	movq	%rdx, %rdi
-
+#--ASSIGNMENT TO arr ival = 0
+	push	%rdx
+#CONSTANT INT 1
+	movq	$1, %rdx
+	pop %rcx
+	movq	%rcx, arr(,%rdx,4)#ASSIGNMENT
+#--ASSIGNMENT LHS 
+#CONSTANT INT 11
+	movq	$11, %rdx
+#--ASSIGNMENT TO arr ival = 0
+	push	%rdx
+#CONSTANT INT 2
+	movq	$2, %rdx
+	pop %rcx
+	movq	%rcx, arr(,%rdx,4)#ASSIGNMENT
+#--ASSIGNMENT LHS 
+#CONSTANT INT 12
+	movq	$12, %rdx
+#--ASSIGNMENT TO arr ival = 0
+	push	%rdx
+#CONSTANT INT 3
+	movq	$3, %rdx
+	pop %rcx
+	movq	%rcx, arr(,%rdx,4)
 	#~~~~~FUNCALL printf~~~~~
 #ARGUMENT
 #CONSTANT STRING $.LC0
 	movq	$.LC0, %rdx
 	movq	%rdx, %rdi
 #ARGUMENT
-#VARREF (a) ival = 3 valtype = (null)
+#VARREF (arr) ival = 0 valtype = 2
+#CONSTANT INT 1
+	movq	$1, %rdx
+	push	%rdx
+	pop %rcx
+	movq	arr(,%rdx,4), %rdx
+	movq	%rdx, %rsi
+	movl	$0, %eax
+	call	printf
+	#~~~~~ENDFUNCALL printf~~~~~
+
+
+	#~~~~~FUNCALL printf~~~~~
+#ARGUMENT
+#CONSTANT STRING $.LC1
+	movq	$.LC1, %rdx
+	movq	%rdx, %rdi
+#ARGUMENT
+#VARREF (arr) ival = 0 valtype = 2
+#CONSTANT INT 2
+	movq	$2, %rdx
+	push	%rdx
+	pop %rcx
+	movq	arr(,%rdx,4), %rdx
+	movq	%rdx, %rsi
+	movl	$0, %eax
+	call	printf
+	#~~~~~ENDFUNCALL printf~~~~~
+
+
+	#~~~~~FUNCALL printf~~~~~
+#ARGUMENT
+#CONSTANT STRING $.LC2
+	movq	$.LC2, %rdx
+	movq	%rdx, %rdi
+#ARGUMENT
+#VARREF (arr) ival = 0 valtype = 2
+#CONSTANT INT 3
+	movq	$3, %rdx
+	push	%rdx
+	pop %rcx
+	movq	arr(,%rdx,4), %rdx
+	movq	%rdx, %rsi
+	movl	$0, %eax
+	call	printf
+	#~~~~~ENDFUNCALL printf~~~~~
+
+#ASSIGNMENT
+#--ASSIGNMENT LHS 
+#CONSTANT INT 10
+	movq	$10, %rdx
+#--ASSIGNMENT TO a ival = 3
+	movq	%rdx, %rcx
+	movq	%rdx, %rdi
+
+	#~~~~~FUNCALL printf~~~~~
+#ARGUMENT
+#CONSTANT STRING $.LC3
+	movq	$.LC3, %rdx
+	movq	%rdx, %rdi
+#ARGUMENT
+#VARREF (a) ival = 3 valtype = 0
 	movq	%rcx, %rdx
 	movq	%rdx, %rsi
 	movl	$0, %eax
@@ -94,11 +181,11 @@ func:
 
 	#~~~~~FUNCALL printf~~~~~
 #ARGUMENT
-#CONSTANT STRING $.LC1
-	movq	$.LC1, %rdx
+#CONSTANT STRING $.LC4
+	movq	$.LC4, %rdx
 	movq	%rdx, %rdi
 #ARGUMENT
-#VARREF (localtest) ival = -8 valtype = (null)
+#VARREF (localtest) ival = -8 valtype = 0
 	movq	-8(%rbp), %rdx
 	movq	%rdx, %rsi
 	movl	$0, %eax
@@ -123,8 +210,8 @@ func:
 
 	#~~~~~FUNCALL puts~~~~~
 #ARGUMENT
-#CONSTANT STRING $.LC3
-	movq	$.LC3, %rdx
+#CONSTANT STRING $.LC6
+	movq	$.LC6, %rdx
 	movq	%rdx, %rdi
 	movl	$0, %eax
 	call	puts
@@ -136,8 +223,8 @@ LL101:
 
 	#~~~~~FUNCALL puts~~~~~
 #ARGUMENT
-#CONSTANT STRING $.LC2
-	movq	$.LC2, %rdx
+#CONSTANT STRING $.LC5
+	movq	$.LC5, %rdx
 	movq	%rdx, %rdi
 	movl	$0, %eax
 	call	puts
@@ -163,8 +250,8 @@ LL102:
 
 	#~~~~~FUNCALL puts~~~~~
 #ARGUMENT
-#CONSTANT STRING $.LC5
-	movq	$.LC5, %rdx
+#CONSTANT STRING $.LC8
+	movq	$.LC8, %rdx
 	movq	%rdx, %rdi
 	movl	$0, %eax
 	call	puts
@@ -176,8 +263,8 @@ LL103:
 
 	#~~~~~FUNCALL puts~~~~~
 #ARGUMENT
-#CONSTANT STRING $.LC4
-	movq	$.LC4, %rdx
+#CONSTANT STRING $.LC7
+	movq	$.LC7, %rdx
 	movq	%rdx, %rdi
 	movl	$0, %eax
 	call	puts
@@ -212,12 +299,12 @@ main:
 	movq	$42, %rdx
 	movq	%rdx, %rdi
 #ARGUMENT
-#CONSTANT STRING $.LC6
-	movq	$.LC6, %rdx
+#CONSTANT STRING $.LC9
+	movq	$.LC9, %rdx
 	movq	%rdx, %rsi
 #ARGUMENT
-#CONSTANT STRING $.LC7
-	movq	$.LC7, %rdx
+#CONSTANT STRING $.LC10
+	movq	$.LC10, %rdx
 	movq	%rdx, %rdx
 	movl	$0, %eax
 	call	func
@@ -226,12 +313,12 @@ main:
 
 	#~~~~~FUNCALL printf~~~~~
 #ARGUMENT
-#CONSTANT STRING $.LC8
-	movq	$.LC8, %rdx
+#CONSTANT STRING $.LC11
+	movq	$.LC11, %rdx
 	movq	%rdx, %rdi
 #ARGUMENT
-#CONSTANT STRING $.LC9
-	movq	$.LC9, %rdx
+#CONSTANT STRING $.LC12
+	movq	$.LC12, %rdx
 	movq	%rdx, %rsi
 #ARGUMENT
 #EXPRESSION
@@ -248,7 +335,7 @@ main:
 #--EXPRESSION RHS
 #EXPRESSION
 #--EXPRESSION LHS
-#VARREF (x) ival = -4 valtype = (null)
+#VARREF (x) ival = -4 valtype = 0
 	movq	-4(%rbp), %rdx
 	pushq	%rdx
 #--EXPRESSION RHS
@@ -271,8 +358,8 @@ main:
 
 	#~~~~~FUNCALL puts~~~~~
 #ARGUMENT
-#CONSTANT STRING $.LC10
-	movq	$.LC10, %rdx
+#CONSTANT STRING $.LC13
+	movq	$.LC13, %rdx
 	movq	%rdx, %rdi
 	movl	$0, %eax
 	call	puts
@@ -292,8 +379,8 @@ LL106:
 
 	#~~~~~FUNCALL puts~~~~~
 #ARGUMENT
-#CONSTANT STRING $.LC11
-	movq	$.LC11, %rdx
+#CONSTANT STRING $.LC14
+	movq	$.LC14, %rdx
 	movq	%rdx, %rdi
 	movl	$0, %eax
 	call	puts
@@ -303,7 +390,7 @@ LL106:
 #--ASSIGNMENT LHS 
 #EXPRESSION
 #--EXPRESSION LHS
-#VARREF (x) ival = -4 valtype = (null)
+#VARREF (x) ival = -4 valtype = 0
 	movq	-4(%rbp), %rdx
 	pushq	%rdx
 #--EXPRESSION RHS
@@ -318,7 +405,7 @@ LL106:
 #--LOOPCONDITION
 LL105:
 #RELEXPR
-#VARREF (x) ival = -4 valtype = (null)
+#VARREF (x) ival = -4 valtype = 0
 	movq	-4(%rbp), %rdx
 #--RELEXPR LHS
 	pushq	%rdx
