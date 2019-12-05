@@ -146,6 +146,11 @@ statement: funcall SEMICOLON
         $$ = $1;
     }
     
+|   dowhileloop SEMICOLON
+    {
+        $$ = $1;
+    }
+    
 |   ifthen
     {
         $$ = $1;
@@ -193,11 +198,11 @@ whileloop: KWWHILE LPAREN relexpr RPAREN LBRACE statements RBRACE
         $$ -> child[1] = $6;
     }
     
-dowhileloop: KWDO LBRACE statements RBRACE KWWHILE LPAREN relexpr RPAREN SEMICOLON
+dowhileloop: KWDO LBRACE statements RBRACE KWWHILE LPAREN relexpr RPAREN
     {
         $$ = newASTNode(AST_DOWHILE);
-        $$ -> child[0] = $3;
-        $$ -> child[1] = $7;
+        $$ -> child[0] = $7;
+        $$ -> child[1] = $3;
     }
     
 ifthen: KWIF LPAREN relexpr RPAREN LBRACE statements RBRACE

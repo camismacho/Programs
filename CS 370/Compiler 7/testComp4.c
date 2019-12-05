@@ -7,7 +7,7 @@ func(int a, char* b, char* s)
    int localtest;
    int localtwo;
 
-   arr[1] = 10;
+   arr[1] = 5+5;
    arr[2] = 11;
    arr[3] = 12;
    
@@ -39,10 +39,11 @@ main(int argc, char* argv)
        x = x + 1;
     }
    
-   int t;
-   t = 0;
-   do {puts("do while"\n);
-       t = t + 1;} while(t < 10);
+   y = 0;
+   do {
+       puts("do while loop m8\n");
+       y = y + 1;
+   } while (y < 10);
 
 }
 
