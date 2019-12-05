@@ -361,10 +361,8 @@ void genCodeFromASTree(ASTNode* node, int level, FILE *out)
        //array reference
         else if (node -> ival == 0 && node -> valtype == T_INTARR){
             genCodeFromASTree(node->child[0], 0, out);  // child 0 is the result of the expression
-            //fprintf(out, "\tpush\t%%rdx\n"); //push %rdx (result of expr) onto stack
-            //if (node -> valtype == T_INTARR){
-            //    fprintf(out, "\tpop %%rcx\n");
-                fprintf(out, "\tmovq\t%s(,%%rdx,4), %%rdx\n", node -> strval);
+            //just put the result of the expression directly into the index
+            fprintf(out, "\tmovq\t%s(,%%rdx,4), %%rdx\n", node -> strval);
            // }
         }
        break;
