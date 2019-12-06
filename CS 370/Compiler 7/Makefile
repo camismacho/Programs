@@ -28,13 +28,22 @@ compiler: lex.yy.o y.tab.o symtable.o astree.o
 	gcc -o compiler y.tab.o lex.yy.o symtable.o astree.o
 
 # create a test.s file from executable
-testComp4.s: compiler testComp4.c
+testComp4.s: compiler testComp4.c testComp7.c
 	./compiler testComp4.c
+	./compiler testComp7.c
 
 # compile assembly file into final executable finalOut
-finalOut: testComp4.s
+finalOut: testComp4.s testComp7.c
 	gcc testComp4.s -o finalOut
+	gcc testComp7.s -o extracredit
+	@echo "";
+	@echo "Testing compiler 6"
+	@echo "";
 	./finalOut
+	@echo "";
+	@echo "Testing extra credit features"
+	@echo "";
+	./extracredit
 
 # run final executable
 rundebug: finalOut
@@ -78,7 +87,7 @@ ltest: scanner.l
 
 # clean the directory for a pure rebuild (do "make clean")
 clean: 
-	rm -f lex.yy.c a.out y.tab.c y.tab.h *.o compiler finalOut ltest y.output *.s
+	rm -f lex.yy.c a.out y.tab.c y.tab.h *.o compiler finalOut extracredit ltest y.output *.s
 	clear
 	
 cleanandtest:
