@@ -1,0 +1,16 @@
+For our original platformer game, I shared a 25% workload with my groupmates for just about everything.
+We didn't do too much with the game, because as time went on we realized the difficulty, and we didn't
+get much done physically or documentation-wise for the game.
+
+However, I came up with the idea for the new game. We used our Lightning Game from CS 477 and
+built off of it. I made the entire Lighting Game myself, and then my group and I continued to build
+on it for 371. As far development beyond the Lightning Game, I've written about 70% of the scripts 
+for the game, and created some prefabs in Unity to make level creation easier. The menus ,in-game 
+buttons, and Industrial levels are entirely my design.
+
+As far as documentation for the new game, I wrote 80% of the Functionality Schedule. I helped write 
+about 30% of the Requirements Specification, and wrote 50% of the User Stories. I was also responsible
+for the GitHub repo and it's creation/organization.
+
+
+
