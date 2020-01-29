@@ -93,5 +93,5 @@ cleanassembly:
 pushgit:
 	git status
 	git add -A
-	git commit -m "comp 7 progress"
+	git commit -m "repo refresh"
 	git push
