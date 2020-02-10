@@ -1,0 +1,25 @@
+/*H1 Styles*/
+h1 {
+    /*Background Style*/
+    background-color: azure;
+    
+    /*Border Styles*/
+    border:medium inset gray;
+    border-radius: 15px;
+    padding:auto;
+
+    /*Text Style*/
+    text-align:center;
+    color:green;
+    
+}
+
+/*Body Styles*/
+body {
+    background-color:powderblue;
+}
+
+/*Button Styles*/
+button {
+    align-self: center;
+}
