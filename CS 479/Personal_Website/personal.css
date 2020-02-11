@@ -17,6 +17,8 @@ h1 {
 /*Body Styles*/
 body {
     background-color:powderblue;
+    text-transform: capitalize;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /*Button Styles*/
