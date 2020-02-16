@@ -23,23 +23,76 @@
             <li class="right"><a href="contact.html">Contact</a></li>
         </ul>
               
-        <h1 class="titlebar"title="You're going to the Shadow Realm Jimbo">
+        <h1 class="p2titlebar"title="You're going to the Shadow Realm Jimbo">
             C Compiler
         </h1>
 
-        <div class="info" style="padding:0 16px;">
-            <h2>Home Page</h2>
-            <p>Description</p>
-            <p>Description.</p>
-            <p>Description</p>
+        <div class="p2info">
+            <p>This page describes my Compiler project for CS 370.</p>
+            <p>
+                This compiler is written using Lex and Yacc. This is the largest solo project I have worked on to date. 
+                It can take some simple C concepts such as variable declarations, assignments, print statements, loops,
+                if-then-else, and turn it into executable Intel x86 Assembly. This in turn can be run to produce a working
+                C program. It can also recognize syntax, and take in C code written through the terminal or a file, and will
+                output appropriate errors. It also has small debugging features.
+            </p>
+            <p>
+                Below you can find a link to the Github project.
+            </p>
         </div>
 
-        <div class="footer" title="Copyright 2020 J Camacho">
-            Copyright© 2019 Joseph Camacho-Terrazas
+        <br>
+
+        <div class="linkbox">
+            <a class="github" title="Github Link"
+                href = "https://github.com/camismacho/Programs/tree/master/CS%20370/Compiler%207" target="_blank"> Compiler Github
+            </a>
         </div>
 
-        <a class="github" title="Github Link"
-            href = "https://github.com/camismacho" target="_blank"> How about a link test
-        </a>
+        <br>
+        <br>
+
+        <div class="resizeable">
+            <div class="pictures">
+                <a href="parser.png" target="_blank" >
+                    <img src="parser.png" alt="parser.y" width="600" height="400">
+                </a>
+                <div class="picinfo">Code snippet from Yacc Parser</div>
+            </div>
+        </div>
+
+
+        <div class="resizeable">
+            <div class="pictures">
+                <a href="scanner.png" target="_blank" >
+                    <img src="scanner.png" alt="scanner.y" width="600" height="400">
+                </a>
+                <div class="picinfo">Code snippet from Lex Scanner</div>
+            </div>
+        </div>
+
+        <div class="resizeable">
+            <div class="pictures">
+                <a href="astree.png" target="_blank" >
+                    <img src="astree.png" alt="astree" width="600" height="400">
+                </a>
+                <div class="picinfo">Code snippet from AST Tree</div>
+            </div>
+        </div>
+
+        <div class="resizeable">
+            <div class="pictures">
+                <a href="symtable.png" target="_blank" >
+                    <img src="symtable.png" alt="symtable" width="600" height="400">
+                </a>
+                <div class="picinfo">Code snippet from Symbol Table</div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <footer>
+            <p class="copyright"> Copyright© 2020 Joseph Camacho-Terrazas</p>
+        </footer>
     </body>
 </html>

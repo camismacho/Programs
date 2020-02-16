@@ -1,19 +1,4 @@
-/*Titlebar Styles*/
-h1.titlebar {
-    /*Background Style*/
-    background-color: #333;
-    
-    /*Border Styles*/
-    border:medium inset gray;
-    border-radius: 0px;
-    padding:auto;
-
-    /*Text Style*/
-    text-align:center;
-    color:white;
-    text-shadow: 5px 5px 5px black;
-    
-}
+/************* SITE-WIDE STYLE ************/
 
 /*Navigation Bar Style*/
 ul.navbar {
@@ -51,35 +36,71 @@ ul.navbar li.rightactive {float: right; background-color: #4CAF50;}
     ul.navbar li {float: none;}
 }
 
+/*Profile Pic Style*/
+div.profilepic {
+    text-align: center;
+}
+
 /*Body Styles*/
 body {
     background-color:#666;
     /*Text Style*/
-    text-transform: capitalize;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 /*Footer Style*/
-div.footer {
-    color: white;
-    text-align: center;
-    text-shadow: 2px 2px 3px black;
-    max-width: auto;
-    max-height: auto;
-    position: fixed;
-    bottom: 0;
+footer {
+    position: relative;
+    height: 300px;
+    width: 100%;
 }
 
-/*Paragraph Text Styles*/
-div.info {
-    color: white;
+p.copyright {
+    position: absolute;
+    width: 100%;
+    color: #fff;
     text-shadow: 2px 2px 3px black;
+    line-height: 40px;
+    font-size: 12px;
+    text-align: center;
+    bottom:0;
+}
+
+/*H1 Style*/
+h1{
+    font-size: 36px;
+}
+
+/*H2 Style*/
+h2{
+    text-align: center;
+}
+
+/*Paragraph Style*/
+p {
+    font-size: 20px;
+    text-align: center;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+/*Text Link Style*/
+a.textlink {
+    font-size: 20px;
+    text-align: center;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+div.linkbox {
+    text-align: center;
 }
 
 /*Link Button Styles*/
 a.github:link, a.github:visited {
     background-color:#333;
     color: white;
+    font-size: 20px;
     padding: 14px 25px;
     text-align: center;
     text-decoration: none;
@@ -91,3 +112,187 @@ a.github:link, a.github:visited {
 a.github:hover, a.github:active {
     background-color: rgb(0, 97, 177);
 }
+
+/*Image Gallery Style*/
+div.pictures {
+    border: 3px inset grey;
+    box-shadow: 2px 2px 3px black;
+}
+  
+div.pictures:hover {
+    border: 6px solid rgb(0, 97, 177);
+}
+  
+div.pictures img {
+    width: 100%;
+    height: auto;
+}
+  
+div.picinfo {
+    padding: 15px;
+    text-align: center;
+    background-color: #333;
+    color: white;
+    text-shadow: 2px 2px 3px black;
+}
+  
+* {
+    box-sizing: border-box;
+}
+  
+.resizeable {
+    padding: 0 6px;
+    float: left;
+    width: 24.99999%;
+}
+  
+@media only screen and (max-width: 700px) {
+    .resizeable {
+        width: 49.99999%;
+        margin: 6px 0;
+    }
+}
+  
+@media only screen and (max-width: 500px) {
+    .resizeable {
+        width: 100%;
+    }
+}
+  
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/************* HOME PAGE STYLE ************/
+
+/*Titlebar Styles*/
+h1.hometitlebar {
+    /*Background Style*/
+    background-color: #333;
+    
+    /*Border Styles*/
+    border:medium inset gray;
+    border-radius: 0px;
+    padding:auto;
+    margin-left: 80px;
+    margin-right: 80px;
+
+    /*Text Style*/
+    text-align:center;
+    color:white;
+    text-shadow: 5px 5px 5px black;
+}
+
+/*Paragraph Text Styles*/
+div.homeinfo {
+    color: white;
+    text-shadow: 2px 2px 3px black;
+}
+
+/************* PROJECT 1 PAGE STYLE ************/
+
+/*Titlebar Styles*/
+h1.p1titlebar {
+    /*Background Style*/
+    background-color: #333;
+    
+    /*Border Styles*/
+    border:medium inset gray;
+    border-radius: 0px;
+    padding:auto;
+    margin-left: 80px;
+    margin-right: 80px;
+
+    /*Text Style*/
+    text-align:center;
+    color:white;
+    text-shadow: 5px 5px 5px black;
+}
+
+/*Paragraph Text Styles*/
+div.p1info {
+    color: white;
+    text-shadow: 2px 2px 3px black;
+}
+
+/************* PROJECT 2 PAGE STYLE ************/
+
+/*Titlebar Styles*/
+h1.p2titlebar {
+    /*Background Style*/
+    background-color: #333;
+    
+    /*Border Styles*/
+    border:medium inset gray;
+    border-radius: 0px;
+    padding:auto;
+    margin-left: 80px;
+    margin-right: 80px;
+
+    /*Text Style*/
+    text-align:center;
+    color:white;
+    text-shadow: 5px 5px 5px black;
+}
+
+/*Paragraph Text Styles*/
+div.p2info {
+    color: white;
+    text-shadow: 2px 2px 3px black;
+    
+}
+
+/************* PROJECT 3 PAGE STYLE ************/
+
+/*Titlebar Styles*/
+h1.p3titlebar {
+    /*Background Style*/
+    background-color: #333;
+    
+    /*Border Styles*/
+    border:medium inset gray;
+    border-radius: 0px;
+    padding:auto;
+    margin-left: 80px;
+    margin-right: 80px;
+
+    /*Text Style*/
+    text-align:center;
+    color:white;
+    text-shadow: 5px 5px 5px black;
+}
+
+/*Paragraph Text Styles*/
+div.p3info {
+    color: white;
+    text-shadow: 2px 2px 3px black;
+}
+
+/************* CONTACT PAGE STYLE ************/
+
+/*Titlebar Styles*/
+h1.contacttitlebar {
+    /*Background Style*/
+    background-color: #333;
+    
+    /*Border Styles*/
+    border:medium inset gray;
+    border-radius: 0px;
+    padding:auto;
+    margin-left: 80px;
+    margin-right: 80px;
+
+    /*Text Style*/
+    text-align:center;
+    color:white;
+    text-shadow: 5px 5px 5px black;
+}
+
+/*Paragraph Text Styles*/
+div.contactinfo {
+    color: white;
+    text-shadow: 2px 2px 3px black;
+}
+
