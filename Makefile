@@ -95,3 +95,6 @@ pushgit:
 	git add -A
 	git commit -m "repo refresh"
 	git push
+
+fixchrome:
+	rm -rf ~/.config/google-chrome/
