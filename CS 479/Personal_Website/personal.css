@@ -40,7 +40,7 @@ ul.navbar li.rightactive {
     float: right; background-color: #4CAF50;
 }
   
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 900px) {
     ul.navbar li.right, 
     ul.navbar li {float: none;}
 }
@@ -205,7 +205,7 @@ div.picinfo {
     width: 24.99999%;
 }
   
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 900px) {
     .resizeable {
         width: 49.99999%;
         margin: 6px 0;
