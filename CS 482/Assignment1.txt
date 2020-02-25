@@ -1,0 +1,55 @@
+1:
+select P.Name, P.ID
+from Player P
+where PlayPos = 'center';
+
+2:
+select S.Year, S.TotalPoints
+from Player P, Stats S
+where P.Name = 'Pistol Pete' and P.ID = S.PlayerID
+group by S.Year;
+
+3:
+select M.Name, M.Email
+from Manager M, ManagerCertificate MC
+where M.ID = MC.ManagerID
+group by M.Email
+having count(distinct(MC.Certificate)) = 3;
+
+4:
+select P.Name
+from Player P, Game G, Play PL
+where P.ID = PL.PlayerID and G.GameID = PL.GameID and G.PlayingVenue = 'The Pit' and G.Result = 'win'
+order by P.Birthday desc;
+
+5:
+select D.Name, D.Email
+from Doctor D, TakeExam T
+where D.Email = T.DocEmail and T.TestDate is not null;
+
+6:
+(select G.Date, G.PlayingVenue, G.Result
+from Player P, Game G, Play PL
+where P.ID = PL.PlayerID and G.GameID = PL.GameID and P.Name = 'Pistol Pete')
+intersect
+(select G.Date, G.PlayingVenue, G.Result
+from Player P, Game G, Play PL
+where P.ID = PL.PlayerID and G.GameID = PL.GameID and P.Name = 'Lobo Louie');
+
+7:
+
+
+8:
+select P.Name, P.ID
+from Player P, Stats S
+where P.ID = S.PlayerID and S.TotalPoints > some (select avg(S.TotalPoints)
+                                                  from Stats S)
+order by P.Name;
+
+9:
+
+
+10:
+select sum(S.TotalPoints)
+from Stats S
+where S.Year = '2019';

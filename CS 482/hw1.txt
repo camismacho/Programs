@@ -1,0 +1,16 @@
+select P.Name, P.ID, avg(S.TotalPoints)
+from Player P, Stats S
+where P.ID = S.PlayerID and S.TotalPoints > avg(S.TotalPoints)
+
+
+
+select P.Name, P.Birthday
+from Player P
+where P.Birthday > 0
+group by P.Birthday
+having count(P.Birthday) >= 2
+
+
+
+select sum(S.TotalPoints)
+fromt Stats S
