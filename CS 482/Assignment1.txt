@@ -1,3 +1,7 @@
+Author: Joseph Camacho-Terrazas
+CS 482
+Assignment 1
+
 1:
 select P.Name, P.ID
 from Player P
@@ -37,7 +41,13 @@ from Player P, Game G, Play PL
 where P.ID = PL.PlayerID and G.GameID = PL.GameID and P.Name = 'Lobo Louie');
 
 7:
-
+select G.GameID, G.Date, G.PlayingVenue, G.Result
+from Player P, Game G, Play PL
+where P.ID = PL.PlayerID and G.GameID = PL.GameID and P.Name = 'Pistol Pete' and (G.GameID, G.Date, G.PlayingVenue, G.Result) 
+	in 
+	(select G.GameID, G.Date, G.PlayingVenue, G.Result
+	 from Player P, Game G, Play PL
+	 where P.ID = PL.PlayerID and G.GameID = PL.GameID and P.Name = 'Lobo Louie');
 
 8:
 select P.Name, P.ID
@@ -47,6 +57,9 @@ where P.ID = S.PlayerID and S.TotalPoints > some (select avg(S.TotalPoints)
 order by P.Name;
 
 9:
+select P.Name, PL.Name, P.Birthday
+from Player P, Player PL
+where P.ID != PL.ID and P.Birthday = PL.Birthday
 
 
 10:
