@@ -1,15 +1,32 @@
-create table Player (ID integer,
-					Name varchar(64), 
-                    Birthday date, 
-                    Address varchar(128), 
-                    Email varchar(32), 
-                    PhoneNumber char(10), 
-                    PlayPos varchar(16)
-
+create table Players (
+    Name varchar(64) UNIQUE,
+    PlayerID integer,
+    TeamName varchar(128), 
+    Position varchar(8), 
+    Touchdowns integer,
+    TotalYards integer,
+    Salary integer,
+    PRIMARY KEY(PlayerID),
+    CHECK (Position = 'QB' OR Position = 'RB' OR Position = 'WR')
 );
-alter table Player
-add primary key(ID); 
 
+create table Games (
+    GameID integer UNIQUE,
+    Date date,
+    Stadium varchar(128),
+    Result varchar(16),
+    Attendance integer,
+    TicketRevenue integer,
+    PRIMARY KEY(GameID),
+    CHECK (Result = 'W' OR Result = 'L' OR Result = 'T')
+);
+
+create table Play (
+    PlayerID integer,
+    GameID integer,
+    FOREIGN KEY (PlayerID) REFERENCES Players(PlayerID),
+    FOREIGN KEY (GameID) REFERENCES Games(GameID)
+);
 
 insert into Player values(101,"pistol pete",'1980/02/01','1990 S Espina', 'pistolpete@gmail.com', 1587548415,'center');
 insert into Player values(102,"Lobo Louie",'1989/08/18','100 Vista del monte', 'LoboLouie@gmail.com', 5128479856,'center');
