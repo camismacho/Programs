@@ -4,7 +4,7 @@ var Game = {};
 // Global game config
 Game.config = {
   startingPlayer: "black", // Choose 'black' or 'red'.
-  takenMsg: "You cannot place a piece here. Please choose another location.",
+  takenMsg: "Column is full! Please choose another location.",
   drawMsg: "Game Draw! Try Again?",
   winMsg: "Winner Winner Chicken Dinner! Congrats ",
   countToWin: 4,
