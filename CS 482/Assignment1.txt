@@ -27,7 +27,7 @@ where P.ID = PL.PlayerID and G.GameID = PL.GameID and G.PlayingVenue = 'The Pit'
 order by P.Birthday desc;
 
 5:
-select D.Name, D.Email
+select *
 from Doctor D, TakeExam T
 where D.Email = T.DocEmail and T.TestDate is not null;
 
@@ -52,7 +52,7 @@ where P.ID = PL.PlayerID and G.GameID = PL.GameID and P.Name = 'Pistol Pete' and
 8:
 select P.Name, P.ID
 from Player P, Stats S
-where P.ID = S.PlayerID and S.TotalPoints > some (select avg(S.TotalPoints)
+where P.ID = S.PlayerID and S.TotalPoints > all (select avg(S.TotalPoints)
                                                   from Stats S)
 order by P.Name;
 
