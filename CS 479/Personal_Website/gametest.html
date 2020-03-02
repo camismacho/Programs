@@ -1,9 +1,10 @@
-<!-- Please see the beat_demo.html for more details on how this code works.  All comments will be related to
-new features/functions that were used for this specific example. -->
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Connect Four</title>
+		<title>Connect Four Javascript</title>
+		<link rel="stylesheet" type="text/css" href="game.css">
+		<link rel="stylesheet" type="text/css" href="personal.css">
+
 		<script type="text/javascript">
 			/* set the global variables so we can use them wihin functions */
 			var game_active = false; // this is a boolean (true/false values only).  This will be used to prevent being able to drop pieces once the game is over
@@ -174,66 +175,28 @@ new features/functions that were used for this specific example. -->
 			}
 			
 		</script>
+		</head>
 
-
-
-
-
-		
-		<style>
-			.click_button {
-				height: 42px;
-				width: 42px;
-				border-radius: 24px;
-				background-color: rgba(255,0,0,1);
-				cursor: pointer;
-			}
-			
-			/* Make each piece square - 32x32, set the border-radius to 16px (so that it appears round) and center it using margin-left
-			and margin-right: auto */
-			.piece {
-				height: 50px;
-				width: 50px;
-				display:block;
-				border-radius: 50%;
-				margin-left: auto;
-				margin-right: auto;
-			}
-			
-			/* Player 0 (no player) will have a light-grey background */
-			.player0 {
-				background-color: #DDDDDD; /* hex colors were used, but rgb/rgba could be used as well */
-			}
-			
-			/* player 1 will have a red background */
-			.player1 {
-				background-color: #FF0000;
-			}
-			
-			/* player 2 will have a blue background */
-			.player2 {
-				background-color: #0000FF;	
-			}
-			
-			/* set the board square to having a dark-grey border, and to be 36x36 square */
-			.board_square {
-				/*border: 1px solid #555555;*/
-				height: 50px;
-				width: 50px;
-			}
-			
-		</style>
-	
-	
-
-
-
-
-
-	</head>
 	<body onload="beginGame();">
-		<!-- This is the heading HTML.  It is instructions on how to play -->
-		<h1>Connect Four</h1>
+
+		<ul class="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="project1.html">Knock Blocks</a></li>
+            <li><a href="project2.html">C Compiler</a></li>
+			<li><a href="project3.html">Video Game Mods</a></li>
+			<li><a class="active" href="gametest.html">Connect Four</a></li>
+            <li class="right"><a href="contact.html">Contact</a></li>
+        </ul>
+
+        <!End Navigation Bar>
+        
+        <!Titlebar>
+
+        <h1 class="titlebar"title="You're going to the Shadow Realm Jimbo">
+            Connect Four JS
+        </h1>
+
+		<!End Titlebar>
 		
 		<!-- The begin_game button will run "beginGame()" function when clicked.  The () is required at the end to show it is a 
 		function, but no parameters are displaying -->
@@ -241,6 +204,7 @@ new features/functions that were used for this specific example. -->
 
 		<!-- All the action takes place in the gameboard, so I'm containing the gameboard in a div with the ID "gameboard" so that
 		you can always target any items within easily. -->
+		
 		<div id="gameboard">
 			<!-- The game_info div allows game-specific information to easily be displayed -->
 			<div id="game_info">
@@ -291,5 +255,11 @@ new features/functions that were used for this specific example. -->
 			<div id="game_status">
 			</div>
 		</div>
+
+		<!Copyright Footer>
+
+        <footer>
+            <p class="copyright"> Copyright© 2020 Joseph Camacho-Terrazas</p>
+        </footer>
 	</body>
 </html>

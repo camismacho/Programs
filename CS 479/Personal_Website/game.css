@@ -1,0 +1,63 @@
+/********** GAME STYLING **********/
+button {
+    background-color: #333;
+    border:medium outset gray;
+    display: block;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 2px 2px 3px black;
+    transition-duration: 0.4s;
+}
+
+button:hover {
+    background-color: rgb(0, 97, 177);
+}
+
+button:active {
+    border: medium inset gray;
+}
+        
+/* Make each piece square - 32x32, set the border-radius to 16px (so that it appears round) and center it using margin-left
+and margin-right: auto */
+.piece {
+    height: 50px;
+    width: 50px;
+    display:block;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+        
+/* Player 0 (no player) will have a light-grey background */
+.player0 {
+    background-color: #DDDDDD; /* hex colors were used, but rgb/rgba could be used as well */
+    border: medium inset gray;
+}
+        
+/* player 1 will have a red background */
+.player1 {
+    background-color: #FF0000;
+    border: medium outset silver;
+    background-image: linear-gradient(-45deg, orange, red, orange);
+}
+        
+/* player 2 will have a blue background */
+.player2 {
+    background-color: #0000FF;
+    border: medium outset silver;
+    background-image: linear-gradient(45deg, green, blue,green);	
+}
+        
+/* set the board square to having a dark-grey border, and to be 36x36 square */
+.board_square {
+    /*border: 1px solid #555555;*/
+    height: 50px;
+    width: 50px;
+}
+
+div.connectfour {
+    text-align: center;
+
+}

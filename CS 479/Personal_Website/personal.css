@@ -21,6 +21,7 @@ ul.navbar li a {
     text-shadow: 2px 2px 3px black;
     border-right:1px solid white;
     border-left:1px solid white;
+    transition-duration: 0.4s;
 }
   
 ul.navbar li a:hover:not(.active) {
@@ -163,6 +164,7 @@ a.github:link, a.github:visited {
     text-shadow: 2px 2px 3px black;
     border:medium outset gray;
     display: inline-block;
+    transition-duration: 0.4s;
 }
 
 a.github:hover, a.github:active {
