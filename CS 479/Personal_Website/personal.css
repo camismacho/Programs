@@ -154,7 +154,7 @@ div.linkbox {
 
 
 /*Link Button Styles*/
-a.github:link, a.github:visited {
+a.github, a.github:link, a.github:visited {
     background-color:#333;
     color: white;
     font-size: 20px;
@@ -178,6 +178,7 @@ a.github:hover, a.github:active {
 div.pictures {
     border: 3px inset grey;
     box-shadow: 2px 2px 3px black;
+    transition-duration: 0.4s;
 }
   
 div.pictures:hover {

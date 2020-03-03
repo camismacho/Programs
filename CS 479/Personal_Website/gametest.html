@@ -10,11 +10,19 @@
 			var active_player = 0; 
 			var gameboard = []; 
 			var player_color = [];
-			player_color[1] = "red";
-			player_color[2] = "blue";
+			player_color[1] = "RED";
+			player_color[2] = "BLUE";
+			var p1name = "";
+			var p2name = "";
+			var winner = "";
 			
+			function getNames() {
+				p1name = prompt("Enter Player 1's Name: ","Player 1");
+				p2name = prompt("Enter Player 2's Name: ","Player 2");
+				beginGame();
+			}
+
 			function beginGame() {
-				if (game_active == true) return false; 
 
 				game_active = true;
 				
@@ -97,12 +105,23 @@
 			
 			function endGame(winningPlayer) {
 				game_active = false;
-				document.getElementById('game_info').innerHTML = "Winner Winner Chicken Dinner! Congrats Player " + winningPlayer; 
+				if (winningPlayer == 1) {
+					winner = p1name;
+				}
+				else if (winningPlayer == 2) {
+					winner = p2name;
+				}
+				document.getElementById('game_info').innerHTML = "<p class = 'winner'>Winner Winner Chicken Dinner! Congrats " + winner + "</p>"; 
 			}
 			
 			function setUpTurn() {
-				if (game_active) { 
-					document.getElementById('game_info').innerHTML = "Current Player: Player " + active_player + " <span class='player"+active_player+"'>(" + player_color[active_player] + ")</span>";
+				if (game_active) {
+					if (active_player == 1) {
+						document.getElementById('game_info').innerHTML = "<p> Current Turn: " + p1name + "</p>" + " <span class='player"+active_player+"'>(" + player_color[active_player] + ")</span>";
+					} 
+					else{
+						document.getElementById('game_info').innerHTML = "<p> Current Turn:  " + p2name + "</p>" + " <span class='player"+active_player+"'>(" + player_color[active_player] + ")</span>";
+					}
 				}
 			}			
 			
@@ -128,7 +147,7 @@
 		</script>
 		</head>
 
-	<body onload="beginGame();">
+	<body onload="getNames();">
 
 		<ul class="navbar">
             <li><a href="index.html">Home</a></li>
@@ -148,12 +167,21 @@
         </h1>
 
 		<!End Titlebar>
-		
-		<button id="begin_game" onclick="beginGame();">Reset</button>
 
+		<!Connect 4 Game>
+
+		<div class="resetbutton">
+			<button id="begin_game" onclick="beginGame();">Reset</button>
+		</div>
 		
-		<div id="gameboard">
-			<div id="game_info">
+		<br>
+
+		<div class="resetbutton">
+			<button id="change_name" onclick="getNames();">Change Names</button>
+		</div>
+
+		<div id="gameboard" class="board">
+			<div class="info" id="game_info">
 			</div>
 			<table id="game_table">
 				<thead>
@@ -170,7 +198,6 @@
 				
 				<script>
 				for (var row=0; row<=5; row++) {
-					*/
 					document.writeln("<tr>");	
 					for (var col=0; col<=6; col++) {
 						document.writeln("<td id='square_" + row + "_"+ col +"' class='board_square'></td>");							
@@ -183,6 +210,8 @@
 			<div id="game_status">
 			</div>
 		</div>
+
+		<!End Connect 4>
 
 		<!Copyright Footer>
 
