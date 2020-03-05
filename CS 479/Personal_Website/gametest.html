@@ -1,151 +1,13 @@
+<!Author: Joseph Camacho-Terrazas>
+<!CS 479 Personal Website Multiplayer Game>
+
 <!DOCTYPE HTML>
 <html>
 	<head>
 		<title>Connect Four Javascript</title>
 		<link rel="stylesheet" type="text/css" href="game.css">
 		<link rel="stylesheet" type="text/css" href="personal.css">
-
-		<script type="text/javascript">
-			var game_active = false; 
-			var active_player = 0; 
-			var gameboard = []; 
-			var player_color = [];
-			player_color[1] = "RED";
-			player_color[2] = "BLUE";
-			var p1name = "";
-			var p2name = "";
-			var winner = "";
-			
-			function getNames() {
-				p1name = prompt("Enter Player 1's Name: ","Player 1");
-				p2name = prompt("Enter Player 2's Name: ","Player 2");
-				beginGame();
-			}
-
-			function beginGame() {
-
-				game_active = true;
-				
-				for (row=0; row<=5; row++) {
-					gameboard[row] = [];
-					for (col=0; col<=6; col++) {
-						gameboard[row][col] = 0;
-					}	
-				}		
-				
-				drawBoard();
-				active_player = 1;
-				setUpTurn();
-			}
-
-			function drawBoard() {
-				checkForWin();
-				for (col = 0; col<=6; col++) {
-					for (row=0; row<=5; row++) {
-						document.getElementById('square_'+row+'_'+col).innerHTML ="<span class='piece player"+gameboard[row][col]+"'> </span>";
-					}	
-				}
-			}
-			
-			function checkForWin() {
-				
-				for (i=1; i<=2; i++) {
-					for (col = 0; col <=3; col++) {
-						for (row = 0; row <=5; row++) {
-							if (gameboard[row][col] == i) {
-								if ((gameboard[row][col+1] == i) && (gameboard[row][col+2] == i) && (gameboard[row][col+3] == i)) {
-									endGame(i);
-									return true;
-								}
-							}
-						}
-					}
-				}
-				
-				
-				for (i=1; i<=2; i++) {
-					for (col = 0; col <=6; col++) {
-						for (row = 0; row <=2; row++) {
-							if (gameboard[row][col] == i) {
-								if ((gameboard[row+1][col] == i) && (gameboard[row+2][col] == i) && (gameboard[row+3][col] == i)) {
-									endGame(i);
-									return true;
-								}
-							}
-						}
-					}
-				}
-				
-				for (i=1; i<=2; i++) {
-					for (col = 0; col <=3; col++) {
-						for (row = 0; row <=2; row++) {
-							if (gameboard[row][col] == i) {
-								if ((gameboard[row+1][col+1] == i) && (gameboard[row+2][col+2] == i) && (gameboard[row+3][col+3] == i)) {
-									endGame(i);
-									return true;
-								}
-							}
-						}
-					}
-				}
-								
-				for (i=1; i<=2; i++) {
-					for (col = 0; col <=3; col++) {
-						for (row = 3; row <=5; row++) {
-							if (gameboard[row][col] == i) {
-								if ((gameboard[row-1][col+1] == i) && (gameboard[row-2][col+2] == i) && (gameboard[row-3][col+3] == i)) {
-									endGame(i);
-									return true;
-								}
-							}
-						}
-					}
-				}
-			}
-			
-			function endGame(winningPlayer) {
-				game_active = false;
-				if (winningPlayer == 1) {
-					winner = p1name;
-				}
-				else if (winningPlayer == 2) {
-					winner = p2name;
-				}
-				document.getElementById('game_info').innerHTML = "<p class = 'winner'>Winner Winner Chicken Dinner! Congrats " + winner + "</p>"; 
-			}
-			
-			function setUpTurn() {
-				if (game_active) {
-					if (active_player == 1) {
-						document.getElementById('game_info').innerHTML = "<p> Current Turn: " + p1name + "</p>" + " <span class='player"+active_player+"'>(" + player_color[active_player] + ")</span>";
-					} 
-					else{
-						document.getElementById('game_info').innerHTML = "<p> Current Turn:  " + p2name + "</p>" + " <span class='player"+active_player+"'>(" + player_color[active_player] + ")</span>";
-					}
-				}
-			}			
-			
-			function drop(col) {
-				if (game_active) {
-					for (row=5; row>=0; row--) { 
-						if (gameboard[row][col] == 0) {
-							gameboard[row][col] = active_player;
-							drawBoard();if (active_player == 1) {
-								active_player = 2;
-							} else {
-								active_player = 1;
-							}
-							
-							setUpTurn();
-							
-							return true;
-						}
-					}
-				}
-			}
-			
-		</script>
-		</head>
+	</head>
 
 	<body onload="getNames();">
 
@@ -170,15 +32,11 @@
 
 		<!Connect 4 Game>
 
-		<div class="resetbutton">
-			<button id="begin_game" onclick="beginGame();">Reset</button>
+		<div class="gamebutton">
+			<button id="begin_game" onclick="startGame();">Reset</button>
 		</div>
 		
-		<br>
-
-		<div class="resetbutton">
-			<button id="change_name" onclick="getNames();">Change Names</button>
-		</div>
+		
 
 		<div id="gameboard" class="board">
 			<div class="info" id="game_info">
@@ -186,16 +44,16 @@
 			<table id="game_table">
 				<thead>
 					<tr>
-						<td><button onclick="drop(0);">Place Chip</button></td>
-						<td><button onclick="drop(1);">Place Chip</button></td>
-						<td><button onclick="drop(2);">Place Chip</button></td>
-						<td><button onclick="drop(3);">Place Chip</button></td>
-						<td><button onclick="drop(4);">Place Chip</button></td>
-						<td><button onclick="drop(5);">Place Chip</button></td>
-						<td><button onclick="drop(6);">Place Chip</button></td>
+						<td><button onclick="dropPiece(0);">Place Chip</button></td>
+						<td><button onclick="dropPiece(1);">Place Chip</button></td>
+						<td><button onclick="dropPiece(2);">Place Chip</button></td>
+						<td><button onclick="dropPiece(3);">Place Chip</button></td>
+						<td><button onclick="dropPiece(4);">Place Chip</button></td>
+						<td><button onclick="dropPiece(5);">Place Chip</button></td>
+						<td><button onclick="dropPiece(6);">Place Chip</button></td>
 					</tr>
 				</thead>
-				
+
 				<script>
 				for (var row=0; row<=5; row++) {
 					document.writeln("<tr>");	
@@ -204,10 +62,15 @@
 					}
 					document.writeln("</tr>");	
 				}						
-										
 				</script>
 			</table>
-			<div id="game_status">
+			<div class="info" id="scoreboard">
+			</div>
+
+			<br>
+
+			<div class="gamebutton">
+				<button id="change_name" onclick="getNames();">Change Names</button>
 			</div>
 		</div>
 
@@ -217,6 +80,8 @@
 
         <footer>
             <p class="copyright"> Copyright© 2020 Joseph Camacho-Terrazas</p>
-        </footer>
+		</footer>
+		
+		<script src="game.js"></script> 
 	</body>
 </html>
