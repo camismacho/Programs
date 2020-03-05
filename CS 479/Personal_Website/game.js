@@ -33,6 +33,7 @@ function startGame() {
 			gameboard[row][col] = 0;
 		}	
 	}		
+	document.getElementById('begin_game').innerHTML = "Reset";
 	//create scoreboard
 	updateScoreboard();
 	//draw the board, set player turn			
@@ -154,9 +155,11 @@ function results(winningPlayer) {
 		winner = p2name;
 		p2wins++;
 	}
-
+	//display a win message with winner's name
 	document.getElementById('game_info').innerHTML = "<p class = 'winner'>Winner Winner Chicken Dinner! Congrats " + winner + "</p>";
 	updateScoreboard(); 
+	//changes reset button text to new game
+	document.getElementById('begin_game').innerHTML = "New Game";
 }
 
 //updates the scoreboard
