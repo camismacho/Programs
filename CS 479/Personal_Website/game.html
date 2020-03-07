@@ -16,7 +16,7 @@
             <li><a href="project1.html">Knock Blocks</a></li>
             <li><a href="project2.html">C Compiler</a></li>
 			<li><a href="project3.html">Video Game Mods</a></li>
-			<li><a class="active" href="gametest.html">Connect Four</a></li>
+			<li><a class="active" href="game.html">Connect Four</a></li>
             <li class="right"><a href="contact.html">Contact</a></li>
         </ul>
 
@@ -35,25 +35,25 @@
 		<div class="gamebutton">
 			<button id="begin_game" onclick="startGame();">Reset</button>
 		</div>
-		
-		
 
 		<div id="gameboard" class="board">
 			<div class="info" id="game_info">
 			</div>
 			<table id="game_table">
 				<thead>
-					<tr id="test">
-						<td id="chip_buttons"><button onclick="dropPiece(0);">Place Chip</button></td>
-						<td id="chip_buttons"><button onclick="dropPiece(1);">Place Chip</button></td>
-						<td id="chip_buttons"><button onclick="dropPiece(2);">Place Chip</button></td>
-						<td id="chip_buttons"><button onclick="dropPiece(3);">Place Chip</button></td>
-						<td id="chip_buttons"><button onclick="dropPiece(4);">Place Chip</button></td>
-						<td id="chip_buttons"><button onclick="dropPiece(5);">Place Chip</button></td>
-						<td id="chip_buttons"><button onclick="dropPiece(6);">Place Chip</button></td>
+					<tr>
+						<td><button onclick="dropPiece(0);">Place Chip</button></td>
+						<td><button onclick="dropPiece(1);">Place Chip</button></td>
+						<td><button onclick="dropPiece(2);">Place Chip</button></td>
+						<td><button onclick="dropPiece(3);">Place Chip</button></td>
+						<td><button onclick="dropPiece(4);">Place Chip</button></td>
+						<td><button onclick="dropPiece(5);">Place Chip</button></td>
+						<td><button onclick="dropPiece(6);">Place Chip</button></td>
 					</tr>
 				</thead>
 
+				<!--Small script to draw out the board pieces with id labels
+					Only runs on page load, just edits html to make code shorter-->
 				<script>
 				for (var row=0; row<=5; row++) {
 					document.writeln("<tr>");	
@@ -64,6 +64,8 @@
 				}						
 				</script>
 			</table>
+			
+
 			<div class="info" id="scoreboard">
 			</div>
 

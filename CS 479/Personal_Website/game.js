@@ -5,18 +5,20 @@
 var game_active = false; 
 var current_player = 0; 
 var gameboard = []; 
-var player_color = [];
-player_color[1] = "RED";
-player_color[2] = "BLUE";
 var p1name = "";
 var p2name = "";
 var winner = "";
 var p1wins = 0;
 var p2wins = 0;
+var player_color = [];
+player_color[1] = "RED";
+player_color[2] = "BLUE";
+
 			
 /*Functions*/
 
 //prompts for the player's names at each page load
+//also can update names mid game while keeping scores
 function getNames() {
 	p1name = prompt("Enter Player 1's Name: ","Player 1");
 	p2name = prompt("Enter Player 2's Name: ","Player 2");
@@ -33,6 +35,7 @@ function startGame() {
 			gameboard[row][col] = 0;
 		}	
 	}		
+	//sets button text to reset
 	document.getElementById('begin_game').innerHTML = "Reset";
 	//create scoreboard
 	updateScoreboard();
@@ -43,6 +46,8 @@ function startGame() {
 }
 
 //draws the board and checks for a win states
+//the game works by assigning each cell a row and col label
+//when the player places a piece, that cell is attributed to the player
 function drawBoard() {
 	winManager();
 	for (col = 0; col<=6; col++) {
@@ -53,6 +58,7 @@ function drawBoard() {
 }
 
 //changes game info to reflect who's turn it is
+//uses a span to also display the current chip color
 function turnManager() {
 	if (game_active) {
 		if (current_player == 1) {
@@ -64,7 +70,7 @@ function turnManager() {
 	}
 }			
 			
-//drops a piece and attributes it to a player, and switches the turn
+//drops a piece and attributes the cell to a player, and switches the turn
 function dropPiece(col) {
 	if (game_active) {
 		for (row=5; row>=0; row--) { 
@@ -75,7 +81,7 @@ function dropPiece(col) {
 				} else {
 					current_player = 1;
 				}
-
+				//call turnManager to reflect player switch
 				turnManager();
 				return true;
 			}
@@ -85,8 +91,11 @@ function dropPiece(col) {
 
 //various loops to check for a win
 //checks for wins horizontally, vertically, and diagonally
+//loops through checking gameboard[row][col] to see if player 1 or 2 occupies the cell
+//returns the winning player if any
 function winManager() {
-				
+
+	//horizontal check
 	for (i=1; i<=2; i++) {
 		for (col = 0; col <=3; col++) {
 		    for (row = 0; row <=5; row++) {
@@ -100,7 +109,7 @@ function winManager() {
 		}
 	}
 				
-				
+	//vertical check			
 	for (i=1; i<=2; i++) {
 		for (col = 0; col <=6; col++) {
 			for (row = 0; row <=2; row++) {
@@ -114,6 +123,7 @@ function winManager() {
 		}
 	}
 				
+	//diagonal checks
 	for (i=1; i<=2; i++) {
 		for (col = 0; col <=3; col++) {
 			for (row = 0; row <=2; row++) {
@@ -156,13 +166,14 @@ function results(winningPlayer) {
 		p2wins++;
 	}
 	//display a win message with winner's name
-	document.getElementById('game_info').innerHTML = "<p class = 'winner'>Winner Winner Chicken Dinner! Congrats " + winner + "</p>";
+	document.getElementById('game_info').innerHTML = "<p class = 'winner'>Winner Winner Chicken Dinner! Congrats " + winner + "!</p>";
 	updateScoreboard(); 
-	//changes reset button text to new game
+	//changes reset button text to new game for ease of use
 	document.getElementById('begin_game').innerHTML = "New Game";
 }
 
 //updates the scoreboard
+//scores stay across name changes
 function updateScoreboard() {
 	document.getElementById('scoreboard').innerHTML = "<p>---Scoreboard---" + "<br>" + p1name + " Wins: " + p1wins + "<br>" + p2name + " Wins: " + p2wins + "</p>";
 }
