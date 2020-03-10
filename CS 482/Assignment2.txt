@@ -1,0 +1,33 @@
+1: PI P.ID, P.Name (O- P.Playpos = "center (P P(Player))
+
+2: S.Year, S.TotalPoints G (O- P.ID = S.PlayerID ^ P.Name = "Pistol Pete" (P P(Player) X P S(Stats))
+
+3: PI P.Name (O- Pl.PlayerID = P.ID ^ Pl.GameID = G.GameID ^ G.PlayingVenue = "The Pit" ^ G.Result = "Win" (P P(Player) X P G(Game) X P Pl(Play))
+
+4: PI P.Name, G.GameID, G.Date, G.PlayingVenue, G.Result (O- Pl.PlayerID = P.ID ^ Pl.GameID = G.GameID ^ P.Name = "Pistol Pete" (P P(Player) X P G(Game) X P Pl(Play))
+Union
+PI P.Name, G.GameID, G.Date, G.PlayingVenue, G.Result (O- Pl.PlayerID = P.ID ^ Pl.GameID = G.GameID ^ P.Name = "Lobo Louie" (P P(Player) X P G(Game) X P Pl(Play))
+
+5:
+
+1: select M.Name
+   from members M, books B, borrowed BR
+   where M.memb_no = BR.memb_no and BR.isbn = B.isbn and B.title = "Math"
+
+2: select M.name, M.memb_no
+   from members M
+   where M.name not like "J%"
+
+3: select M memb_no, count(B.isbn)
+   from members M, books B, borrowed BR
+   where M.memb_no = BR.memb_no and B.isbn = BR.isbn
+   group by M.memb_no
+   order by M.memb_no desc
+
+4: select M.memb_no, M.name
+   from members M
+   where M.name like "%A%"
+
+5: select distinct B.publisher
+    from members M, books B, borrowed BR
+    where BR.memb_no = M.memb_no and BR.isbn = B.isbn and M.Name = "Sam"
