@@ -1,0 +1,78 @@
+/********** GAME STYLING **********/
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.board {
+    text-align: center;
+}
+
+div.gamebutton{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+}
+
+button {
+    background-color: #333;
+    border:medium outset gray;
+    display: inline;
+    color: white;
+    padding: 10px 10px;
+    text-align: center;
+    font-size: 16px;
+    text-decoration: none;
+    text-shadow: 2px 2px 3px black;
+    transition-duration: 0.4s;
+}
+
+button:hover {
+    background-color: rgb(0, 97, 177);
+}
+
+button:active {
+    border: medium inset gray;
+}
+
+p.winner {
+    font-size: 35px;
+    color: white;
+    text-shadow: 2px 2px 3px black;
+}
+        
+.piece {
+    height: 60px;
+    width: 60px;
+    display:block;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+        
+.player0 {
+    background-color: #DDDDDD;
+    border: medium inset gray;
+}
+        
+.player1 {
+    background-color: #FF0000;
+    border: medium outset silver;
+    background-image: linear-gradient(-45deg, orange, red, orange);
+}
+        
+.player2 {
+    background-color: #0000FF;
+    border: medium outset silver;
+    background-image: linear-gradient(45deg, green, blue,green);	
+}
+        
+.board_square {
+    height: 60px;
+    width: 60px;
+}
+
+div.connectfour {
+    text-align: center;
+}
