@@ -9,7 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="personal.css">
 	</head>
 
-	<body onload="getNames();">
+	<body>
 
 		<ul class="navbar">
             <li><a href="index.html">Home</a></li>
@@ -23,6 +23,8 @@
         <!End Navigation Bar>
         
         <!Titlebar>
+
+		<div class = "status">Connection Status</div>
 
         <h1 class="titlebar"title="You're going to the Shadow Realm Jimbo">
             Connect Four JS
@@ -42,13 +44,13 @@
 			<table id="game_table">
 				<thead>
 					<tr>
-						<td><button onclick="dropPiece(0);">Place Chip</button></td>
-						<td><button onclick="dropPiece(1);">Place Chip</button></td>
-						<td><button onclick="dropPiece(2);">Place Chip</button></td>
-						<td><button onclick="dropPiece(3);">Place Chip</button></td>
-						<td><button onclick="dropPiece(4);">Place Chip</button></td>
-						<td><button onclick="dropPiece(5);">Place Chip</button></td>
-						<td><button onclick="dropPiece(6);">Place Chip</button></td>
+						<td><button onclick="dropManager(0);">Place Chip</button></td>
+						<td><button onclick="dropManager(1);">Place Chip</button></td>
+						<td><button onclick="dropManager(2);">Place Chip</button></td>
+						<td><button onclick="dropManager(3);">Place Chip</button></td>
+						<td><button onclick="dropManager(4);">Place Chip</button></td>
+						<td><button onclick="dropManager(5);">Place Chip</button></td>
+						<td><button onclick="dropManager(6);">Place Chip</button></td>
 					</tr>
 				</thead>
 
@@ -84,6 +86,12 @@
             <p class="copyright"> Copyright© 2020 Joseph Camacho-Terrazas</p>
 		</footer>
 		
-		<script src="game.js"></script> 
+		<script src="https://code.jquery.com/jquery-3.4.1.js"
+				integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+				crossorigin="anonymous"></script> 
+		<script src="game.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"
+				integrity="sha256-bQmrZe4yPnQrLTY+1gYylfNMBuGfnT/HKsCGX+9Xuqo="
+				crossorigin="anonymous"></script>  
 	</body>
 </html>
