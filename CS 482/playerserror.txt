@@ -1,0 +1,3 @@
+AnthonyTaylor,00000001,Falcons,GB,77,240,577202.88
+JoshuaHerring,00000002,Browns,LB,220,438,386962.08
+DanielRodriguez,00000003,Rams,XB,287,263,418394.81

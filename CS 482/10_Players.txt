@@ -1,0 +1,10 @@
+CharlesGarza,00000001,Cardinals,RB,91,220,926233.0
+DennisFlores,00000002,Falcons,WR,132,295,854201.53
+RobertTran,00000003,Ravens,WR,76,211,640509.26
+StephenHowell,00000004,Bills,QB,78,489,210545.46
+BrianJohnson,00000005,Panthers,QB,78,287,113579.22
+PaulWilson,00000006,Bears,WR,185,65,729637.6
+EricBarnes,00000007,Bengals,QB,107,75,716535.74
+AnthonyRobles,00000008,Browns,QB,0,406,819469.35
+ChristopherMontoya,00000009,Cowboys,QB,279,-46,713456.29
+RonnieMitchell,00000010,Broncos,QB,128,439,152303.31
