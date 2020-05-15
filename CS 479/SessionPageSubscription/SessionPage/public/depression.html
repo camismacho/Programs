@@ -1,0 +1,80 @@
+<!Author: Joseph Camacho-Terrazas>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Depression Help Session</title>
+</head>
+<body onload="sessionChecker(1);">
+
+    <!Navigation Bar>
+
+        <ul class="navbar">
+            <li><a class="active" href="selection.html">Home</a></li>
+            <li class="right"><a href="about.html">About</a></li>
+        </ul>
+
+    <div id = "Container">
+
+        <h1 id ="Title">Depression Help Session</h1>
+
+        <!--Source: https://developers.google.com/youtube/iframe_api_reference -->
+        <!--create a new div in the page for the player-->
+        <div id="player"></div>
+
+        <script>
+        //load in the api resource
+        var newTag = document.createElement('script');
+        newTag.src = "https://www.youtube.com/iframe_api";
+        var newScriptTag = document.getElementsByTagName('script')[0];
+        newScriptTag.parentNode.insertBefore(newTag, newScriptTag);
+
+        //this will draw a 720p player, and also set the video to be played and defines events
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+            height: '720',
+            width: '1280',
+            videoId: 'JFzbAHgdPNw',
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
+            });
+        }
+
+        //this will call the play function when the page and player have loaded
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        //this function is used to manipulate video functions based on a state change (play, stop, etc.)
+        var done = false;
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING && !done) {
+            //this is where a function would be executed upon a state change
+            done = true;
+            }
+        }
+
+        </script>
+        
+        <div id="My-Chat">
+            <div id="chat-window">
+                <div id="output"></div>
+                <div id="feedback"></div>
+            </div>
+            <input id="handle" type="text" placeholder="Handle">
+            <input id="message" type="text" placeholder="Message">
+            <button id="send">Send Message</button>
+        </div>
+    
+    </div>
+
+    <script src = "subscription.js"></script>
+    <script src="chat.js"></script>
+</body>
+</html>

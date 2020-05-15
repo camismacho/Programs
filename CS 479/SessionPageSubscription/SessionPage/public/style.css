@@ -1,0 +1,276 @@
+@font-face {
+    font-family: 'H';
+  src: url('fonts/Heavitas.ttf') format('opentype'),
+       url('fonts/Heavitas.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  
+  }
+  
+  @font-face {
+    font-family: 'R';
+  src: url('fonts/RenogareSoft-Regular.ttf') format('opentype'),
+       url('fonts/RenogareSoft-Regular.ttf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  
+  }
+
+  @font-face {
+    font-family: 'BR';
+  src: url('fonts/BigJohnPRO-Bold.otf') format('opentype'),
+       url('fonts/BigJohnPRO-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  
+  }
+
+  @font-face {
+    font-family: 'BR';
+  src: url('fonts/BigJohnPRO-Regular.otf') format('opentype'),
+       url('fonts/BigJohnPRO-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  
+  }
+  
+  .section-1-header {
+      font-family: anuratiregular;
+  }
+
+body{
+    background-image: url('https://preview.redd.it/xbf2k4bvb4y41.jpg?width=2494&format=pjpg&auto=webp&s=2e7f311b4262a16b5ca7a1cba65670abb21dc0da');
+    font-family: 'H';
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#Title{
+    text-align: center;
+
+    font-family: 'H';
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 50px;
+    margin-top: 60px;
+
+
+}
+
+h2{
+    font-size: 18px;
+    padding: 10px 20px;
+    color: rgb(58, 57, 80);
+}
+
+#My-Chat{
+    max-width: 600px;
+    margin: 30px auto;
+    box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
+    border-radius: 2px;
+    margin-right: 200px auto;
+
+}
+
+#chat-window{
+    height: 400px;
+    overflow: auto;
+    background: #f9f9f9;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
+}
+
+#output p{
+    padding: 14px 0px;
+    margin: 0 20px;
+    border-bottom: 1px solid #e9e9e9;
+    color: #555;
+
+
+
+}
+
+#feedback p{
+    color: #aaa;
+    padding: 14px 0px;
+
+
+
+}
+
+#output strong{
+    color: #2d2e50;
+}
+
+label{
+    box-sizing: border-box;
+    display: block;
+    padding: 10px 20px;
+}
+
+input{
+    padding: 10px 20px;
+    box-sizing: border-box;
+    background: #eee;
+    border: 0;
+    display: block;
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    font-family: 'BR';
+    font-size: 16px;
+}
+
+button{
+    background: #b5b7e4;
+    color: #fff;
+    font-size: 18px;
+    border: 0;
+    padding: 12px 0;
+    width: 100%;
+    border-radius: 0 0 2px 2px;
+    font-family: H;
+
+
+}
+
+#SubButton{
+    background: white;
+    color: #fff;
+    font-size: 18px;
+    border: 0;
+    padding: 12px 0;
+    width: 100%;
+    border-radius: 0 0 2px 2px;
+
+
+}
+
+#handle{
+
+
+
+}
+#message{
+
+
+
+}
+
+#send{
+    background: #5a6fca;
+    color: #fff;
+    font-size: 18px;
+    border: 0;
+    padding: 12px 0;
+    width: 100%;
+    border-radius: 0 0 2px 2px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+
+
+
+}
+
+#Container{
+    text-align: center;
+
+}
+
+#Box{
+    text-align: center;
+    background-color: white;
+    margin-left: 320px ;
+    margin-right: 330px;
+    padding-top: 5px;
+    padding-bottom: 30px;
+    border-radius: 20px;
+
+
+}
+
+#name{
+    font-weight: bolder;
+}
+
+#SubSelect{
+    background: #2d2e50;
+
+}
+
+#sessionBox{
+    background: #2d2e50;
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    border: 0;
+    padding: 12px 0;
+    width: 60%;
+    font-family: 'BR';
+    display: inline-block;
+    border-radius: 20px;
+}
+
+/*Navigation Bar Style*/
+ul.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #2d2e50;
+    border:medium inset gray;
+    border-radius: 20px;
+    margin: 20px;
+}
+  
+ul.navbar li {float: left;}
+  
+ul.navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    text-shadow: 2px 2px 3px black;
+    border-right:1px solid white;
+    border-left:1px solid white;
+    transition-duration: 0.4s;
+    border-radius: 20px;
+
+}
+  
+ul.navbar li a:hover:not(.active) {
+    background-color: rgb(0, 97, 177);
+}
+  
+ul.navbar li a.active {
+    background-color: #4CAF50;
+    border: medium inset silver;
+    border-radius: 20px;
+
+}
+  
+ul.navbar li.right {
+    float: right;
+    border: medium inset silver;
+    border-radius: 20px;
+
+}
+
+ul.navbar li.rightactive {
+    float: right; background-color: #4CAF50;
+    border: medium inset silver;
+    border-radius: 20px;
+
+
+}
+
+  
+@media screen and (max-width: 900px) {
+    ul.navbar li.right, 
+    ul.navbar li {float: none;}
+}
