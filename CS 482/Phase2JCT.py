@@ -246,12 +246,10 @@ class Application(object):
                     title = cur.description
 
                     # draw 7 columns for player table attribute names
-                    output = ("{0:>20} {1:>12} {2:>12} {3:>12} {4:>12} {5:>12} {6:>12}".format(title[0][0], title[1][0], title[2][0],
-                    title[3][0], title[4][0], title[5][0], title[6][0])) + "\n"
+                    output = ("{0:>20} {1:>12} {2:>12} {3:>12} {4:>12} {5:>12} {6:>12}".format(title[0][0], title[1][0], title[2][0], title[3][0], title[4][0], title[5][0], title[6][0])) + "\n"
                     # prints out the data in the row
                     for row in rows:
-                        output += ("{0:>20} {1:>12} {2:>14} {3:>12} {4:>12} {5:>12} {6:>12}".format(row[0], row[1], row[2], row [3],
-                        row[4], row[5], row[6])) + "\n"
+                        output += ("{0:>20} {1:>12} {2:>14} {3:>12} {4:>12} {5:>12} {6:>12}".format(row[0], row[1], row[2], row [3], row[4], row[5], row[6])) + "\n"
 
                     #display query results
                     output += "\n"
