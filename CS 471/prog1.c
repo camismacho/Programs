@@ -3,11 +3,14 @@
 * 8/28/2020
 * Input: An array of 4-byte integers
 * Output: Name printed in text
-* Preconditions:
-* Postconditions:
+* Preconditions: None
+* Postconditions: The ASCII integers will print my name as text.
 */
 
+//Include
 #include <stdio.h>
+//Function prototype
+void endianTest(int num);
 
 int main() {
 
@@ -28,7 +31,7 @@ int main() {
     A[4] = 101 + (114 * 256) + (114 * 256 * 256) + (97 * 256 * 256 * 256);
     //ASCII values for z a s
     A[5] = 122 + (97 * 256) + (115 * 256 * 256);
-    //ASCII values for newline
+    //Terminator
     A[6] = 0;
 
     //Cast the integer array into char*
@@ -43,18 +46,32 @@ int main() {
     //Declaring a static array will move it to another memory segment
     static int B[100];
 
-    printf("(3a) Array A is located at: %10u \n", A);
-    printf("(3b) The pointer to Array A is located at: %10u \n", &A);
-    printf("(3c) Making the array static will move it to another segment; now located at: %10u \n", B);
+    //ASCII byte test for question 4
+    //Declare array C to store integer values
+    int C[100];
+    //Declare pointer char S2 for casting later
+    char *S2;
+
+    //ASCII values for J o s e
+    C[0] = 74 + (111 * 256) + (115 * 256 * 256) + (101 * 256 * 256 * 256);
+    //ASCII values for p h and make the last byte a terminator
+    C[1] = 112 + (104 * 256) + (0 * 256 * 256);
+
+    //Cast the integer array into char*
+    S2 = (char*) C;
+
+    printf("(3a) Array A is located at: %15u \n", A);
+    printf("(3b) The pointer to Array A is located at: %15u \n", S);
+    printf("(3c) Making the array static will move it to another segment; now located at: %15u \n", B);
     printf("(3d) The computer I ran this problem on is: ");
     endianTest(1);
-    printf("(3e) The difference between little and big endian is.....\n");
-    
-
+    printf("(4) You can just fill the last byte with 0\n The last byte of this string is 0: %s\n", S2);
 
     return (0);
 }
 
+//Simple endianess test. Casting the integer 1 to char* will only contain the first byte.
+//So if my computer is little endian c* will contain only 1, otherwise it's big endian and c* contains a 0.
 void endianTest(int num) {
     if ((char*)&num == 1) {printf("Little endian.\n");}
     else {printf("Big endian.\n");}
