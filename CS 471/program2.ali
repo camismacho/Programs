@@ -1,0 +1,58 @@
+V "GNAT Lib v7"
+M P W=b
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_IO
+RV SPARK_05
+
+U program2%b		program2.adb		54a28d00 NE OO SU IL
+W ada%s			ada.ads			ada.ali
+W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+
+D ada.ads		20170109082349 76789da1 ada%s
+D a-except.ads		20161214142939 291912d5 ada.exceptions%s
+D a-inteio.ads		20161214142948 f64b89a4 ada.integer_text_io%s
+D a-ioexce.ads		20161214142948 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20161214142926 119b8fb3 ada.streams%s
+D a-tags.ads		20161214142926 01f5e3ef ada.tags%s
+D a-textio.ads		20161214142926 386df5d4 ada.text_io%s
+D a-tiinio.ads		20161214142926 aa04e5d6 ada.text_io.integer_io%s
+D a-unccon.ads		20170109082349 31484697 ada.unchecked_conversion%s
+D interfac.ads		20161214142939 5ab55268 interfaces%s
+D i-cstrea.ads		20161214142926 e53d8b8e interfaces.c_streams%s
+D program2.adb		20200907192758 9a84f170 program2%b
+D system.ads		20170512081901 4635ec04 system%s
+D s-crtl.ads		20161214142926 0ebbdb71 system.crtl%s
+D s-exctab.ads		20161214142948 54135002 system.exception_table%s
+D s-ficobl.ads		20161214142948 078245e4 system.file_control_block%s
+D s-parame.ads		20161214142939 7e2a0d7f system.parameters%s
+D s-soflin.ads		20161214142939 14e1eb6c system.soft_links%s
+D s-stache.ads		20161214142939 a37c21ec system.stack_checking%s
+D s-stalib.ads		20161214142948 09bd3940 system.standard_library%s
+D s-stoele.ads		20161214142939 2dc34a04 system.storage_elements%s
+D s-traent.ads		20161214142939 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20161214142939 34867c83 system.unsigned_types%s
+D s-wchcon.ads		20161214142939 1b7d22d2 system.wch_con%s
+X 1 ada.ads
+16K9*Ada 20e8 12|8r6 8r23 9r6 9r31
+X 3 a-inteio.ads
+18K13*Integer_Text_IO[8|46] 12|9w10 9r35
+X 7 a-textio.ads
+49K13*Text_IO 471e16 12|8w10 8r27
+166U14*New_Line 12|34s9 37s9 43s9 46s9 52s9 55s9 61s9 64s9 73s9 76s9 82s9
+. 85s9 91s9 94s9 100s9 103s9 112s9 115s9 121s9 124s9 130s9 133s9 139s9 142s9
+263U14*Put_Line 12|18s9 29s5 33s9 36s9 42s9 45s9 51s9 54s9 60s9 63s9 68s5
+. 72s9 75s9 81s9 84s9 90s9 93s9 99s9 102s9 107s5 111s9 114s9 120s9 123s9
+. 129s9 132s9 138s9 141s9
+X 12 program2.adb
+11U11*program2 11b11 145l5 145t13
+12i5 A{integer} 25m5 32r8 41r8 50r8 59r8 71r8 80r8 89r8 98r8 110r8 119r8
+. 128r8 137r8
+16V14 Evaluate{integer} 16b14 20l9 20t17 32s18 41s18 50s18 59s18 71s23 80s23
+. 89s23 98s23 110s22 119s22 128s22 137s22
+
