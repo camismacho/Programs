@@ -73,6 +73,6 @@ int main() {
 //Simple endianess test. Casting the integer 1 to char* will only contain the first byte.
 //So if my computer is little endian c* will contain only 1, otherwise it's big endian and c* contains a 0.
 void endianTest(int num) {
-    if ((char*)&num == 1) {printf("Little endian.\n");}
-    else {printf("Big endian.\n");}
+    if ((char*)&num == 1) {printf("Big endian.\n");}
+    else {printf("Little endian.\n");}
 }
