@@ -1,20 +1,20 @@
 <?php  
 //Joseph Camacho-Terrazas
 //9/6/2020
-//Input:
-//Output:
+//Input: None
+//Output: Results of each test
 //Preconditions: None
-//Postconditions: 
+//Postconditions: Print the results from tests and a confirmation message if 2nd condition is reached in comparison statements.
 
-//Create Evaluate function to test when the second part of the statements are executed.
+//Create Evaluate function to print a confirmation message if it's evaluated.
+//Returns true for easy comparisons
 function Evaluate(){
 	echo "Condition has been evaluated" .PHP_EOL;
 	return True;
-	
 }
 
 //Testing "AND" operators
-echo "===Testing AND===" .PHP_EOL;
+echo "===Testing AND with function as second condition===" .PHP_EOL;
 //Test F and T
 if (False && Evaluate()) {
 	echo "True" .PHP_EOL;
@@ -51,19 +51,20 @@ if (False && Evaluate() == False) {
 
 echo "" .PHP_EOL;
 
-//Testing "OR" operators
-echo "===Testing OR===" .PHP_EOL;
+//Testing with function as the first condition just to verify that the function does work properly
+
+echo "===Testing AND with function as first condition===" .PHP_EOL;
 //Test F and T
-if (False || Evaluate()) {
+if (Evaluate() == False && True) {
 	echo "True" .PHP_EOL;
 } else {
 	echo "False" .PHP_EOL;
 }
 
 echo "" .PHP_EOL;
-	
+
 //Test T and F
-if (True || Evaluate() == False) {
+if (Evaluate() && False) {
 	echo "True" .PHP_EOL;
 } else {
 	echo "False" .PHP_EOL;
@@ -72,19 +73,18 @@ if (True || Evaluate() == False) {
 echo "" .PHP_EOL;
 
 //Test T and T
-if (True || Evaluate()) {
+if (Evaluate() && True) {
 	echo "True" .PHP_EOL;
 } else {
 	echo "False" .PHP_EOL;
 }
 
 echo "" .PHP_EOL;
-
+	
 //Test F and F
-if (False || Evaluate() == False) {
+if (Evaluate() && False) {
 	echo "True" .PHP_EOL;
 } else {
 	echo "False" .PHP_EOL;
 }
-
 ?> 

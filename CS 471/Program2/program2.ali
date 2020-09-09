@@ -9,7 +9,7 @@ RV NO_DIRECT_BOOLEAN_OPERATORS
 RV NO_IO
 RV SPARK_05
 
-U program2%b		program2.adb		54a28d00 NE OO SU IL
+U program2%b		program2.adb		f105b90b NE OO SU IL
 W ada%s			ada.ads			ada.ali
 W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
 W ada.text_io%s		a-textio.adb		a-textio.ali
@@ -25,7 +25,7 @@ D a-tiinio.ads		20161214142926 aa04e5d6 ada.text_io.integer_io%s
 D a-unccon.ads		20170109082349 31484697 ada.unchecked_conversion%s
 D interfac.ads		20161214142939 5ab55268 interfaces%s
 D i-cstrea.ads		20161214142926 e53d8b8e interfaces.c_streams%s
-D program2.adb		20200907192758 9a84f170 program2%b
+D program2.adb		20200909201725 3f23c57b program2%b
 D system.ads		20170512081901 4635ec04 system%s
 D s-crtl.ads		20161214142926 0ebbdb71 system.crtl%s
 D s-exctab.ads		20161214142948 54135002 system.exception_table%s
@@ -44,15 +44,17 @@ X 3 a-inteio.ads
 18K13*Integer_Text_IO[8|46] 12|9w10 9r35
 X 7 a-textio.ads
 49K13*Text_IO 471e16 12|8w10 8r27
-166U14*New_Line 12|34s9 37s9 43s9 46s9 52s9 55s9 61s9 64s9 73s9 76s9 82s9
-. 85s9 91s9 94s9 100s9 103s9 112s9 115s9 121s9 124s9 130s9 133s9 139s9 142s9
-263U14*Put_Line 12|18s9 29s5 33s9 36s9 42s9 45s9 51s9 54s9 60s9 63s9 68s5
-. 72s9 75s9 81s9 84s9 90s9 93s9 99s9 102s9 107s5 111s9 114s9 120s9 123s9
-. 129s9 132s9 138s9 141s9
+166U14*New_Line 12|34s9 37s9 43s9 46s9 52s9 55s9 61s9 64s9 72s9 75s9 81s9
+. 84s9 90s9 93s9 99s9 102s9 111s9 114s9 120s9 123s9 129s9 132s9 138s9 141s9
+. 149s9 152s9 158s9 161s9 167s9 170s9 176s9 179s9
+263U14*Put_Line 12|18s9 29s5 33s9 36s9 42s9 45s9 51s9 54s9 60s9 63s9 67s5
+. 71s9 74s9 80s9 83s9 89s9 92s9 98s9 101s9 106s5 110s9 113s9 119s9 122s9
+. 128s9 131s9 137s9 140s9 144s5 148s9 151s9 157s9 160s9 166s9 169s9 175s9
+. 178s9
 X 12 program2.adb
-11U11*program2 11b11 145l5 145t13
-12i5 A{integer} 25m5 32r8 41r8 50r8 59r8 71r8 80r8 89r8 98r8 110r8 119r8
-. 128r8 137r8
-16V14 Evaluate{integer} 16b14 20l9 20t17 32s18 41s18 50s18 59s18 71s23 80s23
-. 89s23 98s23 110s22 119s22 128s22 137s22
+11U11*program2 11b11 182l5 182t13
+12i5 A{integer} 25m5 32r8 41r8 50r8 59r8 70r25 79r25 88r25 97r25 109r8 118r8
+. 127r8 136r8 147r30 156r30 165r30 174r30
+16V14 Evaluate{integer} 16b14 20l9 20t17 32s18 41s18 50s18 59s18 70s8 79s8
+. 88s8 97s8 109s23 118s23 127s23 136s23 147s8 156s8 165s8 174s8
 
