@@ -1,0 +1,3 @@
+git status
+git pull
+pause>nul|set/p =Pulling finished! Press any key to exit...
