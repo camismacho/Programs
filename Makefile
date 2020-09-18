@@ -93,7 +93,7 @@ cleanassembly:
 pushgit:
 	git status
 	git add -A
-	git commit -m "repo refresh"
+	git commit -m "hw progress"
 	git push
 
 fixchrome:
