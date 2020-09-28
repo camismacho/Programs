@@ -69,6 +69,6 @@ PROGRAM program4
 
     !End the timer and print result
     CALL cpu_time(finish)
-    print '("Time = ",f20.10," seconds.")',finish-start
+    print '("Time = ",f20.10," seconds")',finish-start
 
 END PROGRAM

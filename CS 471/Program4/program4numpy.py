@@ -11,8 +11,7 @@ import sys
 import time
 import numpy as np
 
-# Read command line arguments to pass to array size
-print("Input Matrix Size:", str(sys.argv[1]))
+# Read command line arguments as an int to pass to array size
 n = int(sys.argv[1])
 
 #----------Python Gaussian Elimination with Numpy Source----------
@@ -51,6 +50,6 @@ for i in range(n-2,-1,-1):
     
     x[i] = x[i]/a[i][i]
 
-#End Timer
+#End Timer and print results
 finish = time.time()
-print('\nTime = %.5f seconds'%(finish-start))
+print('Time = %.5f seconds'%(finish-start))

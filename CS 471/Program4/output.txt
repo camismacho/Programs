@@ -1,0 +1,36 @@
+===Running Fortran Tests===
+250x250 Matrix
+Time =         0.0180960000 seconds
+Time =         0.0156580005 seconds
+Time =         0.0155510008 seconds
+Time =         0.0155420005 seconds
+Time =         0.0155060003 seconds
+
+500x500 Matrix
+Time =         0.1538799852 seconds
+Time =         0.1534840018 seconds
+Time =         0.1535440087 seconds
+Time =         0.1535570025 seconds
+Time =         0.1535899937 seconds
+
+1000x1000 Matrix
+Time =         1.2932420969 seconds
+Time =         1.3175150156 seconds
+Time =         1.2824258804 seconds
+Time =         3.1488640308 seconds
+Time =         1.2904789448 seconds
+
+1500x1500 Matrix
+Time =         7.0732650757 seconds
+Time =         7.0969190598 seconds
+Time =         7.0605239868 seconds
+Time =         7.0485544205 seconds
+Time =         7.0823717117 seconds
+
+2000x2000 Matrix
+Time =        11.9366102219 seconds
+Time =        11.9008016586 seconds
+Time =        11.8797121048 seconds
+Time =        11.8096189499 seconds
+Time =        16.8503227234 seconds
+

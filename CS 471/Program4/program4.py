@@ -9,21 +9,32 @@
 # Imports
 import sys
 import time
-import numpy as np
+import random
 
-# Read command line arguments to pass to array size
-print("Input Matrix Size:", str(sys.argv[1]))
+#Read command line arguments as an int to create the array dimensions
 n = int(sys.argv[1])
+
+#Set the size of the matrix
+cols = n+1
+rows = n
+
+#Create 2 dimensional array of zeroes
+x = [[0 for _ in range(cols)]for _ in range(rows)]
+
+#Create 2 dimensional array of random floats
+a = [[random.uniform(1.50,10.50) for _ in range(cols)]for _ in range(rows)]
 
 #----------Python Gaussian Elimination with Numpy Source----------
 # Credit: https://www.codesansar.com/numerical-methods/gauss-elimination-method-python-program.htm
 
+# ----Numpy code is not used in this implementation, I just left it in to show the full source-----
+
 # Making numpy array of n size and initializing 
 # to zero for storing solution vector
-x = np.zeros(n)
+#x = np.zeros(n)
 
 # Fill array with random numbers
-a = np.random.rand(n, n+1)
+#a = np.random.rand(n, n+1)
 
 # Applying Gauss Elimination
 
@@ -51,6 +62,6 @@ for i in range(n-2,-1,-1):
     
     x[i] = x[i]/a[i][i]
 
-#End Timer
+#End Timer and print results
 finish = time.time()
-print('\nTime = %.5f seconds'%(finish-start))
+print('Time = %.5f seconds'%(finish-start))

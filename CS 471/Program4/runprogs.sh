@@ -1,6 +1,7 @@
+#!/bin/bash
 #Simple script to automate all tests for Program4
+echo ""
 echo "===Running Fortran Tests==="
-gfortran -ffree-form program4.f90
 echo "250x250 Matrix"
 ./a.out 250
 ./a.out 250
