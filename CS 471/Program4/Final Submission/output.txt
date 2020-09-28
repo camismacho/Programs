@@ -1,0 +1,108 @@
+===Running Fortran Tests===
+250x250 Matrix
+Time =         0.0164360013 seconds
+Time =         0.0155339995 seconds
+Time =         0.0154530006 seconds
+Time =         0.0154980002 seconds
+Time =         0.0155930007 seconds
+
+500x500 Matrix
+Time =         0.1539649963 seconds
+Time =         0.1535709947 seconds
+Time =         0.1537909955 seconds
+Time =         0.1533460021 seconds
+Time =         0.1536740065 seconds
+
+1000x1000 Matrix
+Time =         1.2761349678 seconds
+Time =         1.2773749828 seconds
+Time =         1.2837729454 seconds
+Time =         1.2881649733 seconds
+Time =         3.1319057941 seconds
+
+1500x1500 Matrix
+Time =         7.1683769226 seconds
+Time =         4.7121329308 seconds
+Time =         7.1334838867 seconds
+Time =         4.6960039139 seconds
+Time =         7.1069178581 seconds
+
+2000x2000 Matrix
+Time =        11.8217601776 seconds
+Time =        16.6834888458 seconds
+Time =        16.6385231018 seconds
+Time =        11.7498779297 seconds
+Time =        16.5833625793 seconds
+
+===Running Python with Numpy Tests===
+250x250 Matrix
+Time = 6.75859 seconds
+Time = 6.61317 seconds
+Time = 6.68965 seconds
+Time = 6.55762 seconds
+Time = 6.57818 seconds
+
+500x500 Matrix
+Time = 52.83777 seconds
+Time = 52.39568 seconds
+Time = 53.09123 seconds
+Time = 52.57846 seconds
+Time = 52.45928 seconds
+
+1000x1000 Matrix
+Time = 426.37494 seconds
+Time = 420.63157 seconds
+Time = 422.81922 seconds
+Time = 419.63487 seconds
+Time = 419.76758 seconds
+
+1500x1500 Matrix
+Time = 1428.37137 seconds
+Time = 1440.19472 seconds
+Time = 1427.67631 seconds
+Time = 1445.79118 seconds
+Time = 1412.55985 seconds
+
+2000x2000 Matrix
+Time = 3406.68932 seconds
+Time = 3356.21022 seconds
+Time = 3364.32780 seconds
+Time = 3365.34332 seconds
+Time = 4306.35226 seconds
+
+===Running Python without Numpy Tests===
+250x250 Matrix
+Time = 2.22668 seconds
+Time = 2.18790 seconds
+Time = 2.24902 seconds
+Time = 2.19076 seconds
+Time = 2.24316 seconds
+
+500x500 Matrix
+Time = 17.81674 seconds
+Time = 17.86984 seconds
+Time = 17.93991 seconds
+Time = 17.75913 seconds
+Time = 17.71799 seconds
+
+1000x1000 Matrix
+Time = 142.27477 seconds
+Time = 142.14290 seconds
+Time = 142.57945 seconds
+Time = 146.60248 seconds
+Time = 142.66910 seconds
+
+1500x1500 Matrix
+Time = 482.27168 seconds
+Time = 492.74093 seconds
+Time = 491.42062 seconds
+Time = 495.00916 seconds
+Time = 479.27985 seconds
+
+2000x2000 Matrix
+Time = 1136.19115 seconds
+Time = 1160.47635 seconds
+Time = 1135.26734 seconds
+Time = 1133.24824 seconds
+Time = 1131.10693 seconds
+

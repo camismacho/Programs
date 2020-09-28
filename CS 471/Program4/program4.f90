@@ -15,18 +15,18 @@ PROGRAM program4
     REAL,DIMENSION(:,:),allocatable::a
     REAL,DIMENSION(:),allocatable::x
     !Char and int for casting arg to integer
-    CHARACTER(100)::num1char
-    INTEGER::num1
+    CHARACTER(100)::numinputchar
+    INTEGER::numinput
     !Trackers for CPU time
     REAL::start, finish
 
     !Get arg1 and cast to int
-    CALL getarg(1,num1char)
-    READ(num1char,'(I10)')num1
+    CALL getarg(1,numinputchar)
+    READ(numinputchar,'(I10)')numinput
 
     !Construct the arrays using arg1 input
-    ALLOCATE(a(num1,num1))
-    ALLOCATE(x(num1))
+    ALLOCATE(a(numinput,numinput))
+    ALLOCATE(x(numinput))
 
     !Fills the array with random numbers
     CALL random_number(a)
@@ -44,25 +44,25 @@ PROGRAM program4
 
     !READ(1,*)((a(i,j),j=1,n+1),i=1,n)
     
-    !WRITE(2,8)"Augmented Matrix",((a(i,j),j=1,num1+1),i=1,num1)
+    !WRITE(2,8)"Augmented Matrix",((a(i,j),j=1,numinput+1),i=1,numinput)
 
-    DO j=1,num1
-        DO i=j+1,num1
+    DO j=1,numinput
+        DO i=j+1,numinput
             a(i,:)=a(i,:)-a(j,:)*a(i,j)/a(j,j)
         END DO
     END DO
 
-    !WRITE(2,8)"After Gaussian Elimination",((a(i,j),j=1,num1+1),i=1,num1)
+    !WRITE(2,8)"After Gaussian Elimination",((a(i,j),j=1,numinput+1),i=1,numinput)
 
-    DO i=num1,1,-1
-        s=a(i,num1+1)
-        DO j=i+1,num1
+    DO i=numinput,1,-1
+        s=a(i,numinput+1)
+        DO j=i+1,numinput
             s=s-a(i,j)*x(j)
         END DO
         x(i)=s/a(i,i)
     END DO
 
-    !WRITE(2,9)"X=",(x(i),i=1,num1)
+    !WRITE(2,9)"X=",(x(i),i=1,numinput)
 
     !8 FORMAT(a,/,3(4(f7.2,3x),/))
     !9 FORMAT(a,/,3(f7.2,/))
