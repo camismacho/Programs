@@ -1,0 +1,5 @@
+gcc -c myfile.adb
+
+gnatmake --GNATBIND=gnatbind --GNATLINK=gnatlink myfile
+
+./myfile
