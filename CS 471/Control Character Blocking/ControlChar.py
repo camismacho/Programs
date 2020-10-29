@@ -15,6 +15,7 @@ originalString = f1.read()
 f2 = open("pythonoutput.txt", "w")
 
 #This labmda function will create a new string out of only printable characters (code point range 32 through 126)
+#Function source: https://rosettacode.org/wiki/Strip_control_codes_and_extended_characters_from_a_string#Python
 modifiedString = lambda x: "".join(i for i in x if 31 < ord(i) < 127)
 
 #Write the result to the file

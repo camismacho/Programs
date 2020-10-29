@@ -19,6 +19,7 @@ public class ControlChar {
             String originalString = Files.readString(file);
 
             //Create a new string, perform control character removal using regex and print the results
+            //Regular expression source: https://howtodoinjava.com/java/regex/java-clean-ascii-text-non-printable-chars/
             String modifiedString = originalString.replaceAll("\\p{C}", "");
 
             //Create a new file to store the output and check if it already exists

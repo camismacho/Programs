@@ -23,6 +23,7 @@ while (<FILE>) {
 }
 
 #Perform a regex match on the string to eliminate non-printable characters
+#Regular expression source: https://stackoverflow.com/questions/7406037/how-to-get-rid-of-control-characters-in-perl-specifically-gs
 $myString =~ s/[^[:print:]]+//g;
 
 #Create a new file for output, and print the results to the file
