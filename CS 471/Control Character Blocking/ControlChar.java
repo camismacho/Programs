@@ -9,27 +9,36 @@
 
 import java.util.*;
 import java.nio.file.*;
-import java.io.IOException;
+import java.io.*;
 
-public class ControlChar
-{
-    public static void main(String[] args) 
-    {   
-        try
-        {
-            //Crete a path to the text file and read it into a string
+public class ControlChar {
+    public static void main(String[] args) {   
+        try {
+            //Create a path to the text file and read it into a string
             Path file = Paths.get("control-char.txt");
             String originalString = Files.readString(file);
 
             //Create a new string, perform control character removal using regex and print the results
             String modifiedString = originalString.replaceAll("\\p{C}", "");
-            System.out.println(modifiedString);
+
+            //Create a new file to store the output and check if it already exists
+            File output = new File("javaoutput.txt");
+            if(output.createNewFile()) {
+                System.out.println("File created successfully " + output.getName());
+            }
+            else {
+                System.out.println("File exists");
+            }
+
+            //Create a filewriter and write the new string to the file and close it
+            FileWriter newWriter = new FileWriter("javaoutput.txt");
+            newWriter.write(modifiedString);
+            newWriter.close();
         }
     
-        catch (IOException e)
-        {
+        catch (IOException e) {
             //Catch any IO Exceptions
-            System.out.println("Error reading file");
+            System.out.println("There was an error" + e);
         }
     }
 }

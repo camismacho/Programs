@@ -9,14 +9,15 @@
 use strict;
 use warnings;
 
-#Create variable with the file name
-my $file_name = "control-char.txt";
+#Create variables for the input and output files
+my $inputFile = "control-char.txt";
+my $outputFile = "perloutput.txt";
 
 #Create an empty string to read the file into
 my $myString = "";
 
-#Open the file read-only, loop through until EOF, and place each line into the string
-open FILE, "<", $file_name or die "Can't open the file! $!";
+#Open the input file read-only, loop through until EOF, and place each line into the string
+open FILE, "<", $inputFile or die "Can't open the file! $!";
 while (<FILE>) {
     $myString .= $_;
 }
@@ -24,5 +25,7 @@ while (<FILE>) {
 #Perform a regex match on the string to eliminate non-printable characters
 $myString =~ s/[^[:print:]]+//g;
 
-#Print the final result
-print $myString;
+#Create a new file for output, and print the results to the file
+open FILE, ">", $outputFile or die "Can't open the file! $!";
+print FILE $myString;
+print "File created successfully $outputFile\n"
