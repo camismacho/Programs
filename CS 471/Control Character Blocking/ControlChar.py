@@ -7,21 +7,34 @@
 
 import string
 
-#Open the intput file and place in a string
+#create a flag that will allows us to print
+printFlag = 1
+#Open the input and output files
 f1 = open("control-char.txt")
-originalString = f1.read()
-
-#Open the outputfile for writing
 f2 = open("pythonoutput.txt", "w")
 
-#This labmda function will create a new string out of only printable characters (code point range 32 through 126)
-#Function source: https://rosettacode.org/wiki/Strip_control_codes_and_extended_characters_from_a_string#Python
-modifiedString = lambda x: "".join(i for i in x if 31 < ord(i) < 127)
+while True:
+    #Read one character of the file into c
+    c = f1.read(1)
+    
+    #Break out of the loop at the end of the file
+    if not c:
+        break
+    #Convert the chars to ascii values, and compare to control char value
+    #If current char is ctrl-c, print flag is 0
+    if ord(c) == 3:
+        printFlag = 0
+    #If current char is ctrl-b, print flag is 1 and skip to next iteration
+    if ord(c) == 2:
+        printFlag = 1
+        continue
+    #If print flag is 1, then write it to the output file
+    if printFlag == 1:
+        f2.write(c)
 
-#Write the result to the file
-f2.write(modifiedString(originalString))
+#User confirmation about the output file creation
 print ("File created successfully ")
-print (f1.name)
+print (f2.name)
 
 #Close all open files
 f1.close()

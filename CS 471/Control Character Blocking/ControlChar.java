@@ -1,5 +1,4 @@
-/*
-*Joseph Camacho-Terrazas
+/*Joseph Camacho-Terrazas
 *10/26/2020
 *Input: The backup text file
 *Output: Resulting string after eliminating control characters
@@ -8,33 +7,40 @@
 */
 
 import java.util.*;
-import java.nio.file.*;
 import java.io.*;
 
 public class ControlChar {
     public static void main(String[] args) {   
         try {
-            //Create a path to the text file and read it into a string
-            Path file = Paths.get("control-char.txt");
-            String originalString = Files.readString(file);
-
-            //Create a new string, perform control character removal using regex and print the results
-            //Regular expression source: https://howtodoinjava.com/java/regex/java-clean-ascii-text-non-printable-chars/
-            String modifiedString = originalString.replaceAll("\\p{C}", "");
-
-            //Create a new file to store the output and check if it already exists
+            //Declare the input and output files
+            File input = new File("control-char.txt");
             File output = new File("javaoutput.txt");
-            if(output.createNewFile()) {
-                System.out.println("File created successfully " + output.getName());
-            }
-            else {
-                System.out.println("File exists");
+            //Create a file reader, file writer, and buffered reader
+            FileReader fr = new FileReader(input);
+            FileWriter fw = new FileWriter(output);
+            BufferedReader br = new BufferedReader(fr);
+            //c stores value from buffered reader
+            int c = 0;
+            //Print flag allows us to print when it's 1
+            int printFlag = 1;
+
+            //Loop through the file using buffered reader
+            while ((c = br.read()) != -1) {
+                //Buffered reader gives us ints, so compare ascii values
+                //If c is ctrl-c, printFlag is 0
+                if(c == 3) {printFlag = 0;}
+                //If c is ctrl-b, printFlag is 1 and skip to next iteration
+                if(c == 2) {printFlag = 1; continue;}
+                //If printFlag is 1, write c to the file
+                if(printFlag == 1) {
+                    fw.write(c);
+                }
             }
 
-            //Create a filewriter and write the new string to the file and close it
-            FileWriter newWriter = new FileWriter("javaoutput.txt");
-            newWriter.write(modifiedString);
-            newWriter.close();
+            //close all open readers and writers
+            fr.close();
+            fw.close();
+            br.close();
         }
     
         catch (IOException e) {

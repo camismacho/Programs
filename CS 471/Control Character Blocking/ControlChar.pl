@@ -6,27 +6,42 @@
 #Postconditions: Print the resulting string after eliminating all control characters
 
 #!/usr/bin/perl
-use strict;
 use warnings;
+use strict ;
 
-#Create variables for the input and output files
+#Declare input and output files
 my $inputFile = "control-char.txt";
 my $outputFile = "perloutput.txt";
+#finalString stores the cleaned string
+my $finalString = "";
+#Read and char delcared for the reader
+my $read;
+my $char;
+#printFlag will let us print if it's 1 
+my $printFlag = 1;
 
-#Create an empty string to read the file into
-my $myString = "";
+#Open the input file using file handler
+open FILE, '<', $inputFile or die "Can't open file! $!";
 
-#Open the input file read-only, loop through until EOF, and place each line into the string
-open FILE, "<", $inputFile or die "Can't open the file! $!";
-while (<FILE>) {
-    $myString .= $_;
+#Read through the file one char at a time
+while ($read = read FILE, $char, 1) {
+    #Convert char to ascii value and compare to ctrl values
+    #If char is ctrl-c printFlag is 0
+    if(ord($char) == 3) {
+        $printFlag = 0;
+    }
+    #If char is ctrl-b printFlag is 1
+    if(ord($char) == 2) {
+        $printFlag = 1;
+    }
+    #Skip to next iteration on a ctrl-b
+    next if(ord($char) == 2);
+    #If printFlag is one we add the char to the final string
+    if($printFlag == 1) {
+        $finalString .= $char;
+    }
 }
-
-#Perform a regex match on the string to eliminate non-printable characters
-#Regular expression source: https://stackoverflow.com/questions/7406037/how-to-get-rid-of-control-characters-in-perl-specifically-gs
-$myString =~ s/[^[:print:]]+//g;
-
-#Create a new file for output, and print the results to the file
+#Open the output file and print the final output string to it
 open FILE, ">", $outputFile or die "Can't open the file! $!";
-print FILE $myString;
-print "File created successfully $outputFile\n"
+print FILE $finalString;
+print "File created successfully $outputFile\n";
