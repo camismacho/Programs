@@ -21,7 +21,7 @@ public class conc{
 	public static int N = 0;
 	public static int[][] A;
 
-	// Create 1D arrays to store each max, min, and avg.
+	//Array to store minimum, maximum, and average
 	public static int[] Max;
 	public static int[] Min;
 	public static float[] Avg;

@@ -1,0 +1,180 @@
+Thread is started 4 Array is 25879
+Thread is started 13 Array is 5757
+Thread is started 12 Array is 9278
+Thread is started 7 Array is 27828
+Thread is started 8 Array is 645
+Thread is started 3 Array is 30727
+Thread is started 14 Array is 1072
+Thread is started 1 Array is 12233
+Thread is started 2 Array is 2860
+Thread is started 11 Array is 32502
+Thread is started 10 Array is 414
+Thread is started 15 Array is 25024
+Thread is started 6 Array is 12608
+Thread is started 0 Array is 3931
+Thread is started 5 Array is 28875
+Thread is started 9 Array is 17575
+Thread is exiting 15
+Thread is exiting 10
+Thread is exiting 9
+Thread is exiting 5
+Thread is exiting 13
+Thread is exiting 14
+Thread is exiting 11
+Thread is exiting 12
+Thread is exiting 2
+Thread is exiting 6
+Thread is exiting 8
+Thread is exiting 0
+Thread is exiting 7
+Thread is exiting 1
+Thread is exiting 4
+Thread is exiting 3
+Main Thread has N as value 16
+Time: 60707656 nanoseconds
+Maximum: 32735 Minimum: 181 Average: 16835.0
+Main thread exiting.
+Thread is started 11 Array is 14723
+Thread is started 4 Array is 30624
+Thread is started 10 Array is 14957
+Thread is started 3 Array is 9667
+Thread is started 8 Array is 950
+Thread is started 0 Array is 25577
+Thread is started 15 Array is 7155
+Thread is started 2 Array is 19536
+Thread is started 5 Array is 6727
+Thread is started 7 Array is 25560
+Thread is started 13 Array is 22488
+Thread is started 1 Array is 25738
+Thread is started 9 Array is 10410
+Thread is started 6 Array is 6575
+Thread is started 12 Array is 11309
+Thread is started 14 Array is 1810
+Thread is exiting 13
+Thread is exiting 11
+Thread is exiting 3
+Thread is exiting 6
+Thread is exiting 9
+Thread is exiting 7
+Thread is exiting 14
+Thread is exiting 12
+Thread is exiting 5
+Thread is exiting 8
+Thread is exiting 15
+Thread is exiting 1
+Thread is exiting 10
+Thread is exiting 4
+Thread is exiting 0
+Thread is exiting 2
+Main Thread has N as value 16
+Time: 63300549 nanoseconds
+Maximum: 32679 Minimum: 29 Average: 16001.0
+Main thread exiting.
+Thread is started 10 Array is 24854
+Thread is started 12 Array is 12280
+Thread is started 13 Array is 17657
+Thread is started 6 Array is 3763
+Thread is started 0 Array is 6008
+Thread is started 3 Array is 26614
+Thread is started 1 Array is 18559
+Thread is started 9 Array is 19084
+Thread is started 8 Array is 6563
+Thread is started 14 Array is 31296
+Thread is started 15 Array is 23594
+Thread is started 7 Array is 31259
+Thread is started 2 Array is 12551
+Thread is started 11 Array is 25575
+Thread is started 5 Array is 24126
+Thread is started 4 Array is 10558
+Thread is exiting 2
+Thread is exiting 15
+Thread is exiting 4
+Thread is exiting 12
+Thread is exiting 14
+Thread is exiting 5
+Thread is exiting 13
+Thread is exiting 10
+Thread is exiting 11
+Thread is exiting 7
+Thread is exiting 1
+Thread is exiting 6
+Thread is exiting 0
+Thread is exiting 3
+Thread is exiting 9
+Thread is exiting 8
+Main Thread has N as value 16
+Time: 56744088 nanoseconds
+Maximum: 32559 Minimum: 307 Average: 16716.0
+Main thread exiting.
+Thread is started 14 Array is 8490
+Thread is started 0 Array is 6584
+Thread is started 5 Array is 17016
+Thread is started 8 Array is 8222
+Thread is started 7 Array is 16400
+Thread is started 9 Array is 18536
+Thread is started 13 Array is 2605
+Thread is started 4 Array is 12248
+Thread is started 1 Array is 16546
+Thread is started 6 Array is 27067
+Thread is started 12 Array is 10183
+Thread is started 11 Array is 13380
+Thread is started 3 Array is 22661
+Thread is started 2 Array is 2465
+Thread is exiting 2
+Thread is exiting 12
+Thread is exiting 0
+Thread is exiting 7
+Thread is started 15 Array is 27285
+Thread is exiting 3
+Thread is exiting 11
+Thread is started 10 Array is 25452
+Thread is exiting 6
+Thread is exiting 10
+Thread is exiting 15
+Thread is exiting 8
+Thread is exiting 4
+Thread is exiting 14
+Thread is exiting 13
+Thread is exiting 5
+Thread is exiting 9
+Thread is exiting 1
+Main Thread has N as value 16
+Time: 60420706 nanoseconds
+Maximum: 32732 Minimum: 56 Average: 16413.0
+Main thread exiting.
+Thread is started 6 Array is 21057
+Thread is started 0 Array is 30346
+Thread is started 3 Array is 13977
+Thread is started 7 Array is 13863
+Thread is started 15 Array is 5425
+Thread is started 13 Array is 16557
+Thread is started 12 Array is 1608
+Thread is started 11 Array is 21598
+Thread is started 2 Array is 14000
+Thread is started 14 Array is 19993
+Thread is started 9 Array is 13000
+Thread is started 1 Array is 24483
+Thread is started 4 Array is 21830
+Thread is started 10 Array is 8404
+Thread is started 8 Array is 24547
+Thread is exiting 10
+Thread is exiting 13
+Thread is exiting 4
+Thread is exiting 11
+Thread is exiting 0
+Thread is exiting 1
+Thread is exiting 14
+Thread is exiting 6
+Thread is exiting 12
+Thread is exiting 8
+Thread is exiting 9
+Thread is exiting 7
+Thread is exiting 15
+Thread is exiting 3
+Thread is exiting 2
+Thread is started 5 Array is 8787
+Thread is exiting 5
+Main Thread has N as value 16
+Time: 60265107 nanoseconds
+Maximum: 32744 Minimum: 35 Average: 16693.0
+Main thread exiting.

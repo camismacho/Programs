@@ -1,0 +1,40 @@
+Thread is started 0 Array is 374465767
+Thread is started 1 Array is 514954733
+Thread is exiting 0
+Thread is exiting 1
+Main Thread has N as value 2
+Time: 45280163 nanoseconds
+Maximum: 514954733 Minimum: 374465767 Average: 4.43718272E8
+Main thread exiting.
+Thread is started 0 Array is 232406998
+Thread is started 1 Array is 515170132
+Thread is exiting 0
+Thread is exiting 1
+Main Thread has N as value 2
+Time: 42907156 nanoseconds
+Maximum: 534063331 Minimum: 232406998 Average: 3.9867328E8
+Main thread exiting.
+Thread is started 0 Array is 447829818
+Thread is started 1 Array is 351389865
+Thread is exiting 1
+Thread is exiting 0
+Main Thread has N as value 2
+Time: 44380051 nanoseconds
+Maximum: 507973437 Minimum: 351389865 Average: 4.21062368E8
+Main thread exiting.
+Thread is started 0 Array is 93413332
+Thread is started 1 Array is 10210373
+Thread is exiting 0
+Thread is exiting 1
+Main Thread has N as value 2
+Time: 44252345 nanoseconds
+Maximum: 295111811 Minimum: 10210373 Average: 1.30561488E8
+Main thread exiting.
+Thread is started 1 Array is 249688061
+Thread is started 0 Array is 374273081
+Thread is exiting 1
+Thread is exiting 0
+Main Thread has N as value 2
+Time: 43973432 nanoseconds
+Maximum: 374273081 Minimum: 172507622 Average: 2.83753984E8
+Main thread exiting.
