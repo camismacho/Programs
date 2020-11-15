@@ -31,31 +31,31 @@ public class concurrency {
 	public static int[][] A;
 
 	//Arrays to store minimum, maximum, and average
-	public static int[] Maximum;
-	public static int[] Minimum;
 	public static float[] Average;
+	public static int[] Minimum;
+	public static int[] Maximum;
 
 	//Main entry point for the process
 	public static void main (String[] args) {
 		try {
 			
 			//Local tracking variables
+			float mainAvg = 0;
 			int mainMin = 0;			
 			int mainMax = 0;
-			float mainAvg = 0;
 			//Size comes from user argument
             int size = Integer.parseInt(args[0]);
 			N = size;
 			
 			//Create the array from input as well as storage arrays
 			A = new int[size][size];
+			Average = new float[size];
 			Minimum = new int[size];
 			Maximum = new int[size];
-			Average = new float[size];
 
 			//Calculate the maximum exponentional range to help when filling the array	
-			int maxRange = (int) (Math.pow(2, (32-N)));
 			int minRange = (int) (Math.pow(2, (31-N)));
+			int maxRange = (int) (Math.pow(2, (32-N)));
 			int range = maxRange - minRange;
 
 			//Fill the array with random values
@@ -114,9 +114,9 @@ class ThreadTest implements Runnable {
 	private int i;
 
 	//Local minimum, maximum, and average values for ThreadTest
+	private float TTavg = 0;
 	private int TTmin = 0;
 	private int TTmax = 0;
-	private float TTavg = 0;
 
 	ThreadTest(int ind) {
 		i = ind;
@@ -139,9 +139,9 @@ class ThreadTest implements Runnable {
 			}
 
 			//Store value in global Minimum, Maximum, and Average	
+			concurrency.Average[i] = TTavg;
 			concurrency.Minimum[i] = TTmin;
 			concurrency.Maximum[i] = TTmax;
-			concurrency.Average[i] = TTavg;
             System.out.println("Thread is exiting " + i);
             
 		} catch(Exception e){
