@@ -8,21 +8,36 @@
 ;;Evaluates a circuit design
 
 ;;Counts the number of specified operators in the argument
-;;Format is 'operator '(operator list)
-(define (count_operator x operatorlist)
-    (cond ((null? operatorlist) 0)
-        ((not (list? operatorlist))
-        (if (eq? x operatorlist) 1 0))
-        (else (+ (count_operator x (car operatorlist)) (count_operator x (cdr operatorlist)))));;End cond
+;;Format is 'operator '(CD)
+(define (count_operator x CD)
+    (cond ((null? CD) 0);;Empty case
+        ((not (list? CD));;Non-list case
+        (if (eq? x CD) 1 0));;Perform count on the list
+        (else (+ (count_operator x (car CD)) (count_operator x (cdr CD)))));;End cond
 );;End define
 
-;;Lists all the unique variables in the argument
-;;Format is '(operator list)
-(define (unique operatorlist)
-    (cond ((null? operatorlist) '() )
-        ((not (list? operatorlist)) '() )
-        ((member (car operatorlist) (cdr operatorlist)) (unique (cdr operatorlist)))
-        (else (cons (car operatorlist) (unique (cdr operatorlist)))));;End cond          
+;;Finds all input variables in the argument
+;;Format is '(CD)
+(define (findVariables CD)
+    (cond
+        ((null? CD) '());;Empty case
+        ((not (list? CD)) '());;Non-list case
+        ((or (eq? (car CD) 1);;Find the variables in the list using recursion
+                (eq? (car CD) 0)
+                (eq? (car CD) 'AND)
+                (eq? (car CD) 'OR)
+                (eq? (car CD) 'NOT))
+            (findVariables (cdr CD)))
+        (else (cons (car CD) (findVariables (cdr CD)))));;End cond
+);;End define
+
+;;Finds all the unique variables in the argument
+;;Format is '(CD)
+(define (unique CD)
+    (cond ((null? CD) '());;Empty Case
+        ((not (list? CD)) '());;Non-list Case
+        ((member (car CD) (cdr CD)) (unique (cdr CD)));;Split list to find unique variables
+        (else (cons (car CD) (unique (cdr CD)))));;End cond          
 );;End define
 
 ;; NOT CD1
