@@ -9,6 +9,7 @@
 
 ;;Counts the number of specified operators in the argument
 ;;Format is 'operator '(CD)
+;;Code adapted from Shaun Cooper
 (define (count_operator x CD)
     (cond ((null? CD) 0);;Empty case
         ((not (list? CD));;Non-list case
@@ -18,6 +19,7 @@
 
 ;;Finds all input variables in the argument
 ;;Format is '(CD)
+;;Code adapted from Shaun Cooper
 (define (findVariables CD)
     (cond
         ((null? CD) '());;Empty case
@@ -33,6 +35,7 @@
 
 ;;Finds all the unique variables in the argument
 ;;Format is '(CD)
+;;Code adapted from Shaun Cooper
 (define (unique CD)
     (cond ((null? CD) '());;Empty Case
         ((not (list? CD)) '());;Non-list Case
@@ -41,6 +44,7 @@
 );;End define
 
 ;; NOT CD1
+;;Code adapted from Shaun Cooper
 (define(evalcd CD)
     ;; Base Case
     (cond ((null? CD) '()) 
@@ -53,6 +57,7 @@
 
 ;;PRE:MUST be a (NOT CD) form (CAR CD) => NOT
 ;;Reduce the Argument and see if we can reduce it
+;;Code adapted from Shaun Cooper
 (define (evalcd_not CD)
     (cond ((eq? (evalcd (cadr CD)) 0) 1)
         ((eq? (evalcd (cadr CD)) 1) 0)
@@ -62,6 +67,7 @@
 ;;PRE: MUST be (AND CD1 CD2) format
 ;;POST: Apply simple tautologies to the CD1 and CD2 and maybe reduce
 ;;AND
+;;Code adapted from Shaun Cooper
 (define (evalcd_and CD)
     (cond ((eq? (evalcd (cadr CD)) 0) 0)
         ((eq? (evalcd (caddr CD)) 0) 0)
