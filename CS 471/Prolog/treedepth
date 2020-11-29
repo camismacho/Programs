@@ -1,0 +1,17 @@
+% Joseph Camacho-Terrazas
+% 11/25/2020
+% Input: A binary tree typed as a nested list
+% Output: The longest path from root to leaf
+% Precondition: The user provides a valid binary tree as a nested list
+% Postcondition: The program will output the longest path from root to leaf
+
+% The depth of nil is 0
+mydepth(nil, 0).
+
+% The depth of an atom is 0
+mydepth(X, 0) :- atomic(X).
+
+% mydepth of a nested list is max(depth(L),depth(R)) + 1
+% L represents the left node, R represents the right node
+% D returns the max depth of the left and right nodes + 1
+mydepth([L | R], D) :- mydepth(L, D1), mydepth(R, D2), D is max(D1, D2) + 1. 

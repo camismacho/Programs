@@ -1,0 +1,31 @@
+% Joseph Camacho-Terrazas
+% 11/25/2020
+% Input: A binary tree written as a nested list
+% Output: A list of unique leaves
+% Precondition: The user gives a valid list as input
+% Postcondition: The program will give a list of unique leaves in the tree
+
+% mytreeunique combines flatten and myunique
+% Flattens the list then returns the unique elements of that list
+
+mytreeunique([], []).
+mytreeunique([H | T], Z) :- flatten([H | T], Y), myunique(Y, Z).
+
+% Flattens a nested list
+% Credit Shaun Cooper
+
+flatten([], []).
+flatten(X, [X]) :- atom(X),!.
+flatten([H | T], Z) :- flatten(H, T1), flatten(T, T2), append(T1, T2, Z).
+
+% We assume we always get two lists to append
+
+append([], L, L).
+append([H | T], L, [H | Z]) :- append(T, L, Z).
+
+% Finds the unique elements of a list
+% Credit Shaun Cooper
+
+myunique([],[]).
+myunique([H | T], L) :- member(H, T),!, myunique(T, L).
+myunique([H | T], [H | L]) :- myunique(T, L).
